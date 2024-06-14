@@ -1,0 +1,12 @@
+# Dependency directories
+node_modules/
+
+# Test results and reports
+/test-results/
+/playwright-report/
+
+# playwright cache
+/playwright/.cache/
+
+# dotenv environment variables file
+.env

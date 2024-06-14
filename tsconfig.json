@@ -1,0 +1,21 @@
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+    "target": "es2018",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "skipLibCheck": true,
+    "noEmit": false,
+    "allowJs": true,
+    "checkJs": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "noImplicitAny": true,
+    "experimentalDecorators": true,
+    "typeRoots": ["./server/@types", "./node_modules/@types"]
+  },
+  "exclude": ["node_modules", "assets/**/*.js", "coverage", "test_results", "playwright.config.ts"],
+  "include": ["**/*.js", "**/*.ts"]
+}

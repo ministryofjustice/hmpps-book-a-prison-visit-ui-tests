@@ -1,0 +1,22 @@
+{
+  "name": "hmpps-book-a-prison-visit-playwright-ui-tests",
+  "version": "1.0.0",
+  "description": "Automation suite to test prison visit UI using Playwright",
+  "repository": "https://github.com/ministryofjustice/hmpps-book-a-prison-visit-ui-tests.git",
+  "license": "ISC",
+  "scripts": {
+    "test:chrome": "playwright test --project=chromium",
+    "test:chrome:headed": "playwright test --project=chromium --headed",
+    "test:iPhone13": "playwright test --project=iphone13",
+    "test:iPhone13:headed": "playwright test --project=iphone13 --headed",
+    "test:nexus7": "playwright test --project=nexus7",
+    "test:nexus5:headed": "playwright test --project=nexus7 --headed"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.44.1",
+    "@types/node": "^20.14.2",
+    "dotenv": "^16.4.5",
+    "eslint": "^9.4.0",
+    "prettier": "^3.3.2"
+  }
+}
