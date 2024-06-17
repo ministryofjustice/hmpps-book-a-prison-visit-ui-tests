@@ -1,9 +1,11 @@
 # Dependency directories
 node_modules/
+allure-results/
+allure-report/
 
 # Test results and reports
-/test-results/
-/playwright-report/
+test-results/
+playwright-report/
 
 # playwright cache
 /playwright/.cache/
