@@ -16,6 +16,6 @@
     "experimentalDecorators": true,
     "typeRoots": ["./server/@types", "./node_modules/@types"]
   },
-  "exclude": ["node_modules", "assets/**/*.js", "coverage", "test_results", "playwright.config.ts"],
+  "exclude": ["node_modules", "assets/**/*.js", "coverage", "test_results", "playwright.config.ts", "allure-report/**/*.js"],
   "include": ["**/*.js", "**/*.ts"]
 }

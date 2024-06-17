@@ -13,15 +13,19 @@ export default defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 2 : 1,
 
-  reporter: [['html', { open: 'never' }]],
+  reporter: [
+    ['html', { open: 'never' }],
+    ['allure-playwright', { detail: true, outputFolder: 'allure-results' }],
+  ],
   use: {
-    baseURL: 'https://visit-dev.prison.service.justice.gov.uk/',
+    baseURL: 'https://visit-staging.prison.service.justice.gov.uk/',
     navigationTimeout: 60000,
     actionTimeout: 60000,
     testIdAttribute: 'data-test',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
+    screenshot: 'only-on-failure',
     launchOptions: {
       args: ['--ignore-certificate-errors'],
     },
@@ -29,6 +33,7 @@ export default defineConfig({
       username: process.env.INTEG_USER_NAME ?? '',
       password: process.env.INTEG_PASSWORD ?? '',
     },
+    
   },
 
   projects: [
