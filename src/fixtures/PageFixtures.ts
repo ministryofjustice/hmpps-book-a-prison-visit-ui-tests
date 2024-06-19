@@ -5,6 +5,7 @@ import HomePage from '../pages/HomePage'
 import MainContactPage from '../pages/MainContactPage'
 import VisitorPage from '../pages/VisitorPage'
 import VisitsCalendarPage from '../pages/VisitsCalendarPage'
+import VisitDetailsPage from '../pages/VisitDetailsPage'
 
 type PageFixtures = {
   loginPage: LoginPage
@@ -13,6 +14,7 @@ type PageFixtures = {
   visitCalendarPage: VisitsCalendarPage
   additionalSupportPage: AdditionalSupportPage
   mainContactPage: MainContactPage
+  visitDetailsPage: VisitDetailsPage
 }
 
 const test = baseTest.extend<PageFixtures>({
@@ -38,6 +40,10 @@ const test = baseTest.extend<PageFixtures>({
 
   mainContactPage: async ({ page }, use) => {
     await use(new MainContactPage(page))
+  },
+  
+  visitDetailsPage: async ({ page }, use) => {
+    await use(new VisitDetailsPage(page))
   },
 })
 

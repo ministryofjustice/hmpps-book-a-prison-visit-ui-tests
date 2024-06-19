@@ -17,6 +17,17 @@ export default class VisitsCalendarPage extends BasePage {
 
   async selectFirstAvailableTime() {
     await this.calendarTime.first().click()
-    await this.continueButton.click()
+  }
+
+  async getSelectedDate(): Promise<string> {
+    const dateSelected = await this.page.$('input[type=radio]:checked')
+    const date = await dateSelected.getAttribute('value')
+    return date.split('_')[0].trim()
+  }
+
+  async getSelectedTime(): Promise<string> {
+    const time = await this.page.$('input[type=radio]:checked + label')
+    const timeSlot = await time.innerText()
+    return timeSlot.split('(')[0].trim()
   }
 }

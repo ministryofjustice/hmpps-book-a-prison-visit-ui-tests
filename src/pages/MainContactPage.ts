@@ -20,7 +20,7 @@ export default class MainContactPage extends BasePage {
   }
 
   async selectMainContact() {
-    await this.mainContactRadio.click()
+    await this.mainContactRadio.first().click()
   }
 
   async selectSomeoneElse(name: string) {
@@ -37,7 +37,13 @@ export default class MainContactPage extends BasePage {
     await this.noPhoneNumberProvidedRadio.click()
   }
 
-  async continue() {
-    await this.continueButton.click()
+  async getMainContactName(): Promise<string> {
+    const selectedContact = await this.page.$('input[name="contact"]:not([value=\'someoneElse\']):checked + label')
+    return await selectedContact.innerText()
+  }
+
+  async getPhoneNumber(): Promise<string> {
+    const phoneNumber = await this.page.$('input[name="hasPhoneNumber"]:checked + label')
+    return await phoneNumber.innerText()
   }
 }
