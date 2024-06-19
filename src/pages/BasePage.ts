@@ -15,7 +15,7 @@ export abstract class BasePage {
 
   async checkOnPage(title: string): Promise<void> {
     await this.pageHeader.waitFor()
-    const text = await this.pageHeader.textContent()
+    const text = (await this.pageHeader.textContent()).trim().replace(/\s/g, ' ')
     expect(text).toBe(title)
   }
 
@@ -32,7 +32,15 @@ export abstract class BasePage {
     await this.page.waitForLoadState('networkidle')
   }
 
-  protected async waitForTimeout(timeout: number) {
+  async waitForTimeout(timeout: number) {
     await this.page.waitForTimeout(timeout)
+  }
+
+  async continueToNextPage() {
+    await this.continueButton.click()
+  }
+
+  async pause() {
+    await this.page.pause()
   }
 }

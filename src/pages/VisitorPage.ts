@@ -13,7 +13,6 @@ export default class VisitorPage extends BasePage {
     const firstCheckbox = this.visitorCheckboxes.first()
     await firstCheckbox.check()
     expect(await firstCheckbox.isChecked()).toBeTruthy()
-    await this.continueButton.click()
   }
 
   async selectVisitors(numberOfVisitors: number) {
@@ -26,6 +25,11 @@ export default class VisitorPage extends BasePage {
     } catch (error) {
       console.error('Error while selecting the visitor: ', error)
     }
-    await this.continueButton.click()
+  }
+
+  async getAllTheVisitorsNames(): Promise<string[]> {
+    const checkedCheckboxes = await this.page.$$('input[type="checkbox"]:checked + label')
+    const labels = await Promise.all(checkedCheckboxes.map(checkbox => checkbox.innerText()))
+    return labels
   }
 }

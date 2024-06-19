@@ -18,7 +18,7 @@ export default defineConfig({
     ['allure-playwright', { detail: true, outputFolder: 'allure-results' }],
   ],
   use: {
-    baseURL: 'https://visit-staging.prison.service.justice.gov.uk/',
+    baseURL: 'https://visit-dev.prison.service.justice.gov.uk/',
     navigationTimeout: 60000,
     actionTimeout: 60000,
     testIdAttribute: 'data-test',
@@ -33,7 +33,6 @@ export default defineConfig({
       username: process.env.INTEG_USER_NAME ?? '',
       password: process.env.INTEG_PASSWORD ?? '',
     },
-    
   },
 
   projects: [
