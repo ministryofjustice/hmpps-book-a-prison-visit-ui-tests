@@ -14,7 +14,7 @@ export default class VisitDetailsPage extends BasePage {
     this.prisonerNameLabel = this.page.locator('dl dt:has-text("Prisoner") + dd')
     this.visitorsNames = this.page.locator('dl dt:has-text("Visitors") + dd')
     this.visitDateAndTime = this.page.locator('dl dt:has-text("Date and time") + dd')
-    this.additionalSupportDetails = this.page.locator('dl dt:has-text("Additional support requests") + dd')
+    this.additionalSupportDetails = this.page.locator('dl dt:has-text("Additional support requests") + dd p')
     this.mainsContactName = this.page.locator('dl dt:has-text("Main contact") + dd')
     this.submitBookingButton = this.page.locator('button:has-text("Submit booking")')
   }
@@ -27,8 +27,8 @@ export default class VisitDetailsPage extends BasePage {
     return await this.visitorsNames.locator('p').allInnerTexts()
   }
 
-  async getSelectedDateAndTime(): Promise<string> {
-    return await this.visitDateAndTime.innerText()
+  async getSelectedDateAndTime(): Promise<string[]> {
+    return await this.visitDateAndTime.locator('p').allInnerTexts()
   }
 
   async getAdditionalSupportDetails(): Promise<string> {
@@ -40,6 +40,10 @@ export default class VisitDetailsPage extends BasePage {
   }
 
   async submitBooking() {
+    const reponsePromise = this.page.waitForResponse('**/visit-booked')
     await this.submitBookingButton.click()
+    const response = await reponsePromise
+    const string = (await response.text()).split('visitReference&quot;: &quot;')[1].trim()
+    return string.split('&quot;')[0]
   }
 }

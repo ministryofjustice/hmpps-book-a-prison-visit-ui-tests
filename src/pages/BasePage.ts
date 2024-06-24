@@ -5,12 +5,16 @@ export abstract class BasePage {
   private readonly pageHeader: Locator
   protected readonly continueButton: Locator
   private readonly signOutLink: Locator
+  private readonly alertErrorMessage: Locator
+  private readonly homePageLink: Locator
 
   constructor(page: Page) {
     this.page = page
     this.pageHeader = page.locator('#main-content h1')
     this.continueButton = page.getByRole('button', { name: 'Continue' })
     this.signOutLink = page.locator('a[name="Sign out"]')
+    this.alertErrorMessage = page.locator('div[role="alert"]')
+    this.homePageLink = page.getByRole('link', { name: 'Home' })
   }
 
   async checkOnPage(title: string): Promise<void> {
@@ -23,12 +27,16 @@ export abstract class BasePage {
     await this.signOutLink.click()
   }
 
-  async navigateTo(url: string) {
-    await this.page.goto(url)
-    await this.waitForOneLoginPageToLoad()
+  async navigateToHomePage() {
+    await this.homePageLink.click()
   }
 
-  private async waitForOneLoginPageToLoad() {
+  async navigateTo(url: string) {
+    await this.page.goto(url)
+    await this.waitForPageToLoad()
+  }
+
+  private async waitForPageToLoad() {
     await this.page.waitForLoadState('networkidle')
   }
 
@@ -42,5 +50,14 @@ export abstract class BasePage {
 
   async pause() {
     await this.page.pause()
+  }
+
+  async isErrorMessageDisplayed(): Promise<boolean> {
+    await this.page.waitForLoadState()
+    return await this.alertErrorMessage.isVisible()
+  }
+
+  async getAlertErrorMessage(): Promise<string> {
+    return (await this.alertErrorMessage.locator('a').allInnerTexts()).join(' ')
   }
 }
