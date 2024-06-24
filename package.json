@@ -9,6 +9,7 @@
     "pretest": "npm run clean:reports",
     "test:chrome": "playwright test --project=chromium",
     "test:chrome:headed": "playwright test --project=chromium --headed",
+    "test:safari:headed": "playwright test --project=webkit --headed",
     "test:iPhone13": "playwright test --project=iphone13",
     "test:iPhone13:headed": "playwright test --project=iphone13 --headed",
     "test:nexus7": "playwright test --project=nexus7",

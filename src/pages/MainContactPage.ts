@@ -8,6 +8,10 @@ export default class MainContactPage extends BasePage {
   private readonly noPhoneNumberProvidedRadio: Locator
   private readonly someoneElseName: Locator
   private readonly ukPhoneNumber: Locator
+  private readonly formNoContactErrorMessage: Locator
+  private readonly formSomeoneElseErrorMessage: Locator
+  private readonly formNoNumberErrorMessage: Locator
+
 
   constructor(page: Page) {
     super(page)
@@ -17,6 +21,9 @@ export default class MainContactPage extends BasePage {
     this.noPhoneNumberProvidedRadio = page.getByRole('radio', { name: 'No phone number provided' })
     this.someoneElseName = page.getByRole('textbox', { name: 'Name' })
     this.ukPhoneNumber = page.getByRole('textbox', { name: 'Number' })
+    this.formNoContactErrorMessage = page.locator('[id$=contact-error]')
+    this.formSomeoneElseErrorMessage = page.locator('[id$=someoneElseName-error]')
+    this.formNoNumberErrorMessage = page.locator('[id$=Number-error]')
   }
 
   async selectMainContact() {
@@ -45,5 +52,17 @@ export default class MainContactPage extends BasePage {
   async getPhoneNumber(): Promise<string> {
     const phoneNumber = await this.page.$('input[name="hasPhoneNumber"]:checked + label')
     return await phoneNumber.innerText()
+  }
+
+  async getFormNoContactErrorMessage(): Promise<string> {
+    return await this.formNoContactErrorMessage.textContent()
+  }
+
+  async getFormSomeoneElseErrorMessage(): Promise<string> {
+    return await this.formSomeoneElseErrorMessage.textContent()
+  }
+
+  async getFormNoNumberErrorMessage(): Promise<string> {
+    return await this.formNoNumberErrorMessage.textContent()
   }
 }

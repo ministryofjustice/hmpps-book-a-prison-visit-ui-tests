@@ -75,3 +75,37 @@ export const updateModifyTimestamp = async (
   })
   return response.status()
 }
+
+export const updateOpenSessionCapacity = async (
+  { request }: { request: APIRequestContext },
+  applicationReference: string,
+  capacity: number,
+) => {
+  const accessToken = globalData.get('authToken')
+  const response = await request.put(
+    `${testHelperUri}/test/application/${applicationReference}/session/capacity/open/${capacity}`,
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    },
+  )
+  return response.status()
+}
+
+export const updateClosedSessionCapacity = async (
+  { request }: { request: APIRequestContext },
+  applicationReference: string,
+  capacity: number,
+) => {
+  const accessToken = globalData.get('authToken')
+  const response = await request.put(
+    `${testHelperUri}/test/application/${applicationReference}/session/capacity/closed/${capacity}`,
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    },
+  )
+  return response.status()
+}

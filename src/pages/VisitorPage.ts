@@ -3,16 +3,24 @@ import { BasePage } from './BasePage'
 
 export default class VisitorPage extends BasePage {
   private readonly visitorCheckboxes: Locator
+  private readonly formErrorMessage: Locator
 
   constructor(page: Page) {
     super(page)
     this.visitorCheckboxes = page.locator('input[type="checkbox"]')
+    this.formErrorMessage = page.locator('[class$=error-message]')
   }
 
   async selectFirstVisitor() {
     const firstCheckbox = this.visitorCheckboxes.first()
     await firstCheckbox.check()
     expect(await firstCheckbox.isChecked()).toBeTruthy()
+  }
+
+  async slectLastVisitor() {
+    const lastCheckbox = this.visitorCheckboxes.last()
+    await lastCheckbox.check()
+    expect(await lastCheckbox.isChecked()).toBeTruthy()
   }
 
   async selectVisitors(numberOfVisitors: number) {
@@ -31,5 +39,9 @@ export default class VisitorPage extends BasePage {
     const checkedCheckboxes = await this.page.$$('input[type="checkbox"]:checked + label')
     const labels = await Promise.all(checkedCheckboxes.map(checkbox => checkbox.innerText()))
     return labels
+  }
+
+  async getFormErrorMessage(): Promise<string> {
+    return await this.formErrorMessage.textContent()
   }
 }

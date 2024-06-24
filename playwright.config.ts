@@ -3,22 +3,23 @@ require('dotenv').config()
 
 export default defineConfig({
   globalTimeout: 60000,
+  timeout: 60000,
   testDir: './src/tests',
   /* Run tests in files in parallel */
   fullyParallel: false,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
-  forbidOnly: !!process.env.CI,
+  forbidOnly: process.env.CI !== undefined,
   /* Retry on CI only */
-  retries: process.env.CI ? 2 : 1,
+  retries: process.env.CI ? 1 : 0,
   /* Opt out of parallel tests on CI. */
-  workers: process.env.CI ? 2 : 1,
+  workers: 1,
 
   reporter: [
     ['html', { open: 'never' }],
     ['allure-playwright', { detail: true, outputFolder: 'allure-results' }],
   ],
   use: {
-    baseURL: 'https://visit-dev.prison.service.justice.gov.uk/',
+    baseURL: 'https://visit-staging.prison.service.justice.gov.uk/',
     navigationTimeout: 60000,
     actionTimeout: 60000,
     testIdAttribute: 'data-test',
@@ -45,12 +46,17 @@ export default defineConfig({
     },
     {
       name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
+      use: {
+        ...devices['Desktop Firefox'],
+        viewport: { width: 1920, height: 1080 },
+      },
     },
-
     {
       name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
+      use: {
+        ...devices['Desktop Safari'],
+        viewport: { width: 1920, height: 1080 },
+      },
     },
     /* Test against mobile viewports. */
     {
