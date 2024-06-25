@@ -7,7 +7,6 @@ import VisitorPage from '../pages/VisitorPage'
 import VisitsCalendarPage from '../pages/VisitsCalendarPage'
 import GlobalData from '../setup/GlobalData'
 import {
-  cancelVisit,
   deleteApplication,
   deleteVisit,
   getAccessToken,
@@ -19,7 +18,7 @@ test.beforeAll('Get access token and store as global variable', async ({ request
   GlobalData.set('authToken', await getAccessToken({ request }))
 })
 
-test.describe('Create a booking with capacity checks', () => {
+test.describe.serial('Create a booking with capacity checks', () => {
   const prisonerName: string = 'Yhsreepal Edica'
   const someOneElseAsMainContact: string = 'Mr Nobody'
 
@@ -221,26 +220,14 @@ test.afterAll('Teardown test data', async ({ request }) => {
   let visitRef = GlobalData.getAll('visitReference')
 
   for (const applicationId of appRef) {
-    const status = await updateOpenSessionCapacity({ request }, applicationId, 24)
-    expect(status).toBe(200)
-    await new Promise(resolve => setTimeout(resolve, 200))
+    await updateOpenSessionCapacity({ request }, applicationId, 24)
   }
 
   for (const visitId of visitRef) {
-    const status = await cancelVisit({ request }, visitId)
-    expect(status).toBe(200)
-    await new Promise(resolve => setTimeout(resolve, 200))
-  }
-
-  for (const visitId of visitRef) {
-    const status = await deleteVisit({ request }, visitId)
-    expect(status).toBe(200)
-    await new Promise(resolve => setTimeout(resolve, 200))
+    await deleteVisit({ request }, visitId)
   }
 
   for (const applicationId of appRef) {
-    const status = await deleteApplication({ request }, applicationId)
-    expect(status).toBe(200)
-    await new Promise(resolve => setTimeout(resolve, 200))
+    await deleteApplication({ request }, applicationId)
   }
 })

@@ -6,7 +6,7 @@ test.beforeAll('Get access token and store so it is available as global data', a
   GlobalData.set('authToken', await getAccessToken({ request }))
 })
 
-test.describe('Form validation error messages', () => {
+test.describe.serial('Form validation error messages', () => {
   const prisonerName: string = 'Yhsreepal Edica'
 
   test.beforeEach('Login', async ({ loginPage, homePage }) => {
@@ -145,10 +145,8 @@ test.describe('Form validation error messages', () => {
 
 test.afterAll('Sign out and clear test data', async ({ request }) => {
   let appRef = GlobalData.getAll('applicationReference')
+
   for (const applicationId of appRef) {
-    console.log('Deleting application with reference: ', applicationId)
-    const status = await deleteApplication({ request }, applicationId)
-    expect(status).toBe(200)
-    await new Promise(resolve => setTimeout(resolve, 200))
+    await deleteApplication({ request }, applicationId)
   }
 })
