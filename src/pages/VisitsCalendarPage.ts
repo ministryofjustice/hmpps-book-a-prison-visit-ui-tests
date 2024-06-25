@@ -5,12 +5,14 @@ export default class VisitsCalendarPage extends BasePage {
   private readonly calendarDate: Locator
   private readonly calendarTime: Locator
   private readonly formErrorMessage: Locator
+  private readonly visitTimeNolongerAvailable: Locator
 
   constructor(page: Page) {
     super(page)
     this.calendarDate = page.locator('a[id^=day-link]')
     this.calendarTime = page.locator('input[type=radio]')
     this.formErrorMessage = page.locator('[class$= active] [class$=error-message]')
+    this.visitTimeNolongerAvailable = page.getByTestId('message')
   }
 
   async selectFirstAvailableDate() {
@@ -34,5 +36,13 @@ export default class VisitsCalendarPage extends BasePage {
 
   async getFormErrorMessage(): Promise<string> {
     return await this.formErrorMessage.textContent()
+  }
+
+  async isVisitTimeNolongerAvailableMessageVisible(): Promise<boolean> {
+    return await this.visitTimeNolongerAvailable.isVisible()
+  }
+
+  async getVisitTimeNolongerAvailableMessage(): Promise<string> {
+    return await this.visitTimeNolongerAvailable.locator('h2').textContent()
   }
 }

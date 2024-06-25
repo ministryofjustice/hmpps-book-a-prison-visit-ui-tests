@@ -54,6 +54,16 @@ export const updateVisitStatus = async (
   return response.status()
 }
 
+export const cancelVisit = async ({ request }: { request: APIRequestContext }, visitReference: string) => {
+  const accessToken = globalData.get('authToken')
+  const response = await request.post(`${testHelperUri}/test/visit/${visitReference}/cancel`, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  })
+  return response.status()
+}
+
 export const updateModifyTimestamp = async (
   { request }: { request: APIRequestContext },
   applicationReference: string,
