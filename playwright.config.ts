@@ -14,10 +14,12 @@ export default defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: 3,
 
-  reporter: [
-    ['html', { open: 'never' }],
-    ['allure-playwright', { detail: true, outputFolder: 'allure-results' }],
-  ],
+  reporter: process.env.CI
+    ? [['junit', { outputFile: 'results.xml' }]]
+    : [
+        ['html', { open: 'never' }],
+        ['allure-playwright', { detail: true, outputFolder: 'allure-results' }],
+      ],
   use: {
     baseURL: 'https://visit-staging.prison.service.justice.gov.uk/',
     navigationTimeout: 60000,
