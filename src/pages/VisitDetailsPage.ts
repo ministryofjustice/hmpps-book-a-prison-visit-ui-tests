@@ -39,11 +39,7 @@ export default class VisitDetailsPage extends BasePage {
     return await this.mainsContactName.innerText()
   }
 
-  async submitBooking() {
-    const reponsePromise = this.page.waitForResponse('**/visit-booked')
+  async submitBooking(): Promise<void> {
     await this.submitBookingButton.click()
-    const response = await reponsePromise
-    const string = (await response.text()).split('visitReference&quot;: &quot;')[1].trim()
-    return string.split('&quot;')[0]
   }
 }
