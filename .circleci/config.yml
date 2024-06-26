@@ -1,5 +1,10 @@
 version: 2.1
 
+executors:
+  pw-jammy-development:
+    docker:
+      - image: mcr.microsoft.com/playwright:v1.44.1-jammy
+
 jobs:
   build-and-test:
     docker:
@@ -20,9 +25,13 @@ jobs:
       - run:
           name: Run Playwright Tests
           command: npm run test:CI
+      - store_test_results:
+          path: results.xml
+      - store_artifacts:
+          path: /playwright-report
+          destination: artifacts
 
 workflows:
-  version: 2
-  build:
+  build-and-test:
     jobs:
       - build-and-test
