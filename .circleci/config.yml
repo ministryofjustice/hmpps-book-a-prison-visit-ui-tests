@@ -1,42 +1,45 @@
 version: 2.1
+
 orbs:
   hmpps: ministryofjustice/hmpps@9
 
 jobs:
   build-and-test:
-    docker:
-      - image: mcr.microsoft.com/playwright:v1.44.1-jammy
+    executor:
+      name: hmpps/node
+      tag: << pipeline.parameters.node-version >>
     environment:
       INTEG_USER_NAME: ${INTEG_USER_NAME}
       INTEG_PASSWORD: ${INTEG_PASSWORD}
-    working_directory: ~/repo
+    circleci_ip_ranges: true
+
     steps:
       - checkout
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
+      - attach_workspace:
+          at: ~/app
       - run:
-          name: Setup Environment
-          command: |
-            apt-get update
-            apt-get install -y openjdk-11-jdk
-            echo 'export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64' >> $BASH_ENV
-            source $BASH_ENV
+          name: Install missing OS dependency
+          command: sudo apt-get install libxss1
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
       - run:
           name: Install Dependencies
-          command: npm install
+          command: npm ci --no-audit
+      - run:
+          name: Install browsers
+          command: npx playwright install --with-deps
+      - save_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+          paths:
+            - node_modules
+            - ~/.cache
       - run:
           name: Run Playwright Tests
           command: npm run test:CI
       - store_test_results:
           path: results.xml
       - store_artifacts:
-          path: ./playwright-report
-          destination: playwright-report
-      - store_artifacts:
-          path: /tmp/artifacts
+          path: test-results
 
 workflows:
   build-and-test:
