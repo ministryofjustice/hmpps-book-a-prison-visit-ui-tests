@@ -1,0 +1,19 @@
+version: 2.1
+jobs:
+  build:
+    circleci_ip_ranges: true
+    docker:
+      - image: mcr.microsoft.com/playwright:v1.44.1-jammy
+        
+    steps:
+      - checkout
+      - run:
+          name: Build and Run tests
+          command: npm install && npm test
+      - store_test_results:
+          path: results.xml
+
+workflows:
+  run_tests:
+    jobs:
+      - build
