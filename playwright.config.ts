@@ -1,6 +1,9 @@
 import { defineConfig, devices } from '@playwright/test'
 require('dotenv').config()
 
+const oneLoginUsername = process.env.INTEG_USER_NAME ?? ''
+const oneLoginPassword = process.env.INTEG_PASSWORD ?? ''
+
 export default defineConfig({
   globalTimeout: 60000,
   timeout: 30000,
@@ -33,8 +36,8 @@ export default defineConfig({
       args: ['--ignore-certificate-errors'],
     },
     httpCredentials: {
-      username: process.env.INTEG_USER_NAME ?? '',
-      password: process.env.INTEG_PASSWORD ?? '',
+      username: oneLoginUsername,
+      password: oneLoginPassword,
     },
   },
 
