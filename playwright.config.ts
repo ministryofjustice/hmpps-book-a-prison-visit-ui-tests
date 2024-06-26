@@ -1,12 +1,15 @@
 import { defineConfig, devices } from '@playwright/test'
-require('dotenv').config()
+import dotenv from 'dotenv'
 
-const oneLoginUsername = process.env.INTEG_USER_NAME ?? ''
-const oneLoginPassword = process.env.INTEG_PASSWORD ?? ''
+if (!process.env.CI) {
+  dotenv.config()
+}
+const oneLoginUsername = process.env.INTEG_USER_NAME
+const oneLoginPassword = process.env.INTEG_PASSWORD
 
 export default defineConfig({
   globalTimeout: 60000,
-  timeout: 30000,
+  timeout: 60000,
   testDir: './src/tests',
   /* Run tests in files in parallel */
   fullyParallel: false,

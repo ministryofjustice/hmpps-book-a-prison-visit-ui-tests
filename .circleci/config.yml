@@ -40,9 +40,11 @@ jobs:
             - ~/.cache
       - run:
           name: Run Playwright Tests
-          command: npm run test:CI
+          command: npx playwright test --reporter=list
       - store_test_results:
           path: results.xml
+      - store_artifacts:
+          path: playwright-report/index.html
       - store_artifacts:
           path: test-results
 
