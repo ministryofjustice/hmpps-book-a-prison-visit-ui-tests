@@ -2,17 +2,17 @@ import { defineConfig, devices } from '@playwright/test'
 require('dotenv').config()
 
 export default defineConfig({
-  globalTimeout: 60000,
+  globalTimeout: 60000 * 5,
   timeout: 60000 * 5,
   testDir: './src/tests',
   /* Run tests in files in parallel */
-  fullyParallel: true,
+  fullyParallel: false,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: process.env.CI !== undefined,
   /* Retry on CI only */
   retries: process.env.CI ? 2 : 1,
   /* Opt out of parallel tests on CI. */
-  workers: 3,
+  workers: 1,
 
   reporter: process.env.CI
     ? [['junit', { outputFile: 'results.xml' }]]
