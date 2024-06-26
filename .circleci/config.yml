@@ -1,9 +1,6 @@
 version: 2.1
-
-executors:
-  pw-jammy-development:
-    docker:
-      - image: mcr.microsoft.com/playwright:v1.44.1-jammy
+orbs:
+  hmpps: ministryofjustice/hmpps@9
 
 jobs:
   build-and-test:
@@ -12,6 +9,11 @@ jobs:
     working_directory: ~/repo
     steps:
       - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
       - run:
           name: Setup Environment
           command: |
@@ -28,8 +30,10 @@ jobs:
       - store_test_results:
           path: results.xml
       - store_artifacts:
-          path: /playwright-report
-          destination: artifacts
+          path: ./playwright-report
+          destination: playwright-report
+      - store_artifacts:
+          path: /tmp/artifacts
 
 workflows:
   build-and-test:
