@@ -9,7 +9,7 @@ const oneLoginPassword = process.env.INTEG_PASSWORD
 
 export default defineConfig({
   globalTimeout: 60000,
-  timeout: 60000,
+  timeout: 45000,
   testDir: './src/tests',
   /* Run tests in files in parallel */
   fullyParallel: false,
