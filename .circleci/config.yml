@@ -6,6 +6,9 @@ jobs:
   build-and-test:
     docker:
       - image: mcr.microsoft.com/playwright:v1.44.1-jammy
+    environment:
+      INTEG_USER_NAME: ${INTEG_USER_NAME}
+      INTEG_PASSWORD: ${INTEG_PASSWORD}
     working_directory: ~/repo
     steps:
       - checkout
