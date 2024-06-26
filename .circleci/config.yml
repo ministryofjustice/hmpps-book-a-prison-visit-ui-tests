@@ -1,6 +1,6 @@
 version: 2.1
 jobs:
-  build:
+  build_and_test:
     circleci_ip_ranges: true
     docker:
       - image: mcr.microsoft.com/playwright:v1.44.1-jammy
@@ -16,4 +16,4 @@ jobs:
 workflows:
   run_tests:
     jobs:
-      - build
+      - build_and_test
