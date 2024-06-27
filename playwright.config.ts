@@ -26,7 +26,7 @@ export default defineConfig({
         ['allure-playwright', { detail: true, outputFolder: 'allure-results' }],
       ],
   use: {
-    baseURL: 'https://visit-dev.prison.service.justice.gov.uk/',
+    baseURL: 'https://visit-staging.prison.service.justice.gov.uk/',
     navigationTimeout: 60000,
     actionTimeout: 10000,
     testIdAttribute: 'data-test',
