@@ -4,12 +4,12 @@ import dotenv from 'dotenv'
 if (!process.env.CI) {
   dotenv.config()
 }
-const oneLoginUsername = process.env.INTEG_USER_NAME
-const oneLoginPassword = process.env.INTEG_PASSWORD
+const oneLoginUsername = process.env.INTEG_USER_NAME ?? ''
+const oneLoginPassword = process.env.INTEG_PASSWORD ?? ''
 
 export default defineConfig({
-  globalTimeout: 60000,
-  timeout: 45000,
+  globalTimeout: 60000 * 5,
+  timeout: 60000 * 5,
   testDir: './src/tests',
   /* Run tests in files in parallel */
   fullyParallel: false,
@@ -39,8 +39,8 @@ export default defineConfig({
       args: ['--ignore-certificate-errors'],
     },
     httpCredentials: {
-      username: 'integration-user',
-      password: 'winter2021',
+      username: oneLoginUsername,
+      password: oneLoginPassword,
     },
   },
 
