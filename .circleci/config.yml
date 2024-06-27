@@ -13,9 +13,9 @@ jobs:
     executor:
       name: hmpps/node
       tag: << pipeline.parameters.node-version >>
-    environment:
-      INTEG_USER_NAME: ${INTEG_USER_NAME}
-      INTEG_PASSWORD: ${INTEG_PASSWORD}
+    # environment:
+    #   INTEG_USER_NAME: ${INTEG_USER_NAME}
+    #   INTEG_PASSWORD: ${INTEG_PASSWORD}
     circleci_ip_ranges: true
 
     steps:
@@ -40,7 +40,7 @@ jobs:
             - ~/.cache
       - run:
           name: Run Playwright Tests
-          command: npx playwright test --reporter=list
+          command: npm run test:ci --reporter=list
       - store_test_results:
           path: results.xml
       - store_artifacts:

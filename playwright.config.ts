@@ -21,7 +21,10 @@ export default defineConfig({
   workers: 1,
 
   reporter: process.env.CI
-    ? [['junit', { outputFile: 'results.xml' }]]
+    ? [
+        ['junit', { outputFile: 'results.xml' }],
+        ['html', { open: 'never' }],
+      ]
     : [
         ['html', { open: 'never' }],
         ['allure-playwright', { detail: true, outputFolder: 'allure-results' }],
@@ -35,6 +38,7 @@ export default defineConfig({
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
+
     launchOptions: {
       args: ['--ignore-certificate-errors'],
     },
