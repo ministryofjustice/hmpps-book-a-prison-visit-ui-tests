@@ -13,9 +13,6 @@ jobs:
     executor:
       name: hmpps/node
       tag: << pipeline.parameters.node-version >>
-    environment:
-      INTEG_USER_NAME: ${INTEG_USER_NAME}
-      INTEG_PASSWORD: ${INTEG_PASSWORD}
     circleci_ip_ranges: true
 
     steps:
