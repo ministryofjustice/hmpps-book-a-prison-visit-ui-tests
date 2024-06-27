@@ -1,4 +1,4 @@
-import { devices, webkit } from '@playwright/test'
+import { chromium, devices } from '@playwright/test'
 import { test, expect } from '../fixtures/PageFixtures'
 import AdditionalSupportPage from '../pages/AdditionalSupportPage'
 import HomePage from '../pages/HomePage'
@@ -57,7 +57,7 @@ test.describe('Create a booking with capacity checks', () => {
     GlobalData.set('applicationReference', applicationReference)
     console.log(`Application Reference: ${applicationReference}`)
 
-    await additionalSupportPage.waitForTimeout(2000)
+    await additionalSupportPage.waitForTimeout(1000)
     let status = await updateOpenSessionCapacity({ request }, applicationReference, 1)
     expect(status).toBe(200)
 
@@ -67,10 +67,10 @@ test.describe('Create a booking with capacity checks', () => {
     await additionalSupportPage.continueToNextPage()
 
     // Wait for the timestamp to be updated
-    await additionalSupportPage.waitForTimeout(5000)
+    await additionalSupportPage.waitForTimeout(1000)
     // New page to create a second booking application to block the session
 
-    const browser = await webkit.launch()
+    const browser = await chromium.launch()
     const context = await browser.newContext({
       ...devices['iPhone 14 Pro Max'],
     })
