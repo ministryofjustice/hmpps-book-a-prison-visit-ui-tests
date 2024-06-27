@@ -3,6 +3,10 @@ import { config as dotenvConfig } from 'dotenv'
 
 dotenvConfig()
 
+if (!process.env.INTEG_USER_NAME || !process.env.INTEG_PASSWORD) {
+  throw new Error('INTEG_USER_NAME and INTEG_PASSWORD environment variables must be set')
+}
+
 export default defineConfig({
   globalTimeout: 60000 * 5,
   timeout: 60000,
@@ -26,7 +30,7 @@ export default defineConfig({
         ['allure-playwright', { detail: true, outputFolder: 'allure-results' }],
       ],
   use: {
-    baseURL: 'https://visit-staging.prison.service.justice.gov.uk/',
+    baseURL: 'https://visit-dev.prison.service.justice.gov.uk/',
     navigationTimeout: 60000,
     actionTimeout: 10000,
     testIdAttribute: 'data-test',
@@ -39,8 +43,8 @@ export default defineConfig({
       args: ['--ignore-certificate-errors'],
     },
     httpCredentials: {
-      username: process.env.INTEG_USER_NAME ?? '',
-      password: process.env.INTEG_PASSWORD ?? '',
+      username: process.env.INTEG_USER_NAME,
+      password: process.env.INTEG_PASSWORD,
     },
   },
 
