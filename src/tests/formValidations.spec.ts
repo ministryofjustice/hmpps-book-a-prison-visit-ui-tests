@@ -6,7 +6,7 @@ test.beforeAll('Get access token and store so it is available as global data', a
   GlobalData.set('authToken', await getAccessToken({ request }))
 })
 
-test.describe.serial('Form validation error messages', () => {
+test.describe('Form validation error messages', () => {
   const prisonerName: string = 'Yhsreepal Edica'
 
   test.beforeEach('Login', async ({ loginPage, homePage }) => {

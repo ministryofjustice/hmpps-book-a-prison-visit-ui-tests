@@ -1,15 +1,11 @@
 import { defineConfig, devices } from '@playwright/test'
-import dotenv from 'dotenv'
+import { config as dotenvConfig } from 'dotenv'
 
-if (!process.env.CI) {
-  dotenv.config()
-}
-const oneLoginUsername = process.env.INTEG_USER_NAME ?? ''
-const oneLoginPassword = process.env.INTEG_PASSWORD ?? ''
+dotenvConfig()
 
 export default defineConfig({
   globalTimeout: 60000 * 5,
-  timeout: 60000 * 5,
+  timeout: 60000,
   testDir: './src/tests',
   /* Run tests in files in parallel */
   fullyParallel: false,
@@ -30,9 +26,9 @@ export default defineConfig({
         ['allure-playwright', { detail: true, outputFolder: 'allure-results' }],
       ],
   use: {
-    baseURL: 'https://visit-dev.prison.service.justice.gov.uk/',
+    baseURL: 'https://visit-staging.prison.service.justice.gov.uk/',
     navigationTimeout: 60000,
-    actionTimeout: 60000,
+    actionTimeout: 10000,
     testIdAttribute: 'data-test',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
@@ -43,8 +39,8 @@ export default defineConfig({
       args: ['--ignore-certificate-errors'],
     },
     httpCredentials: {
-      username: oneLoginUsername,
-      password: oneLoginPassword,
+      username: process.env.INTEG_USER_NAME ?? '',
+      password: process.env.INTEG_PASSWORD ?? '',
     },
   },
 
