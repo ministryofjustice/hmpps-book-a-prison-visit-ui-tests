@@ -17,7 +17,8 @@
     "generate:report": "npx allure generate allure-results --clean",
     "open:report": "npx allure open allure-report",
     "posttest": "npm run generate:report && npm run open:report",
-    "test": "npm run test:chrome || npm run posttest"
+    "test": "npm run test:chrome || npm run posttest",
+    "test:ci": "npm run test:chrome"
   },
   "devDependencies": {
     "@playwright/test": "^1.44.1",

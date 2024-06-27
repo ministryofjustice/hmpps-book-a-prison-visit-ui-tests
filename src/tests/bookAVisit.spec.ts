@@ -6,7 +6,7 @@ test.beforeAll('Get access token and store so it is available as global data', a
   GlobalData.set('authToken', await getAccessToken({ request }))
 })
 
-test.describe.serial('Create a booking via public ui', () => {
+test.describe('Create a booking via public ui', () => {
   const prisonerName: string = 'Yhsreepal Edica'
   const additionalSupportDetails: string = 'Wheelchair access'
   const someOneElseAsMainContact: string = 'Mr Nobody'

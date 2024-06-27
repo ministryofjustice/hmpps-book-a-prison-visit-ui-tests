@@ -1,19 +1,41 @@
 version: 2.1
+
+orbs:
+  hmpps: ministryofjustice/hmpps@9
+
 jobs:
-  build_and_test:
-    circleci_ip_ranges: true
+  build-and-test:
+    executors:
+    pw-jammy-development:
     docker:
       - image: mcr.microsoft.com/playwright:v1.44.1-jammy
-        
+    circleci_ip_ranges: true
+
     steps:
       - checkout
+      - attach_workspace:
+          at: ~/app
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
       - run:
-          name: Build and Run tests
-          command: npm install && npm test
+          name: Install Dependencies
+          command: npm ci --no-audit
+      - save_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+          paths:
+            - node_modules
+            - ~/.cache
+      - run:
+          name: Run Playwright Tests
+          command: npm run test:ci
       - store_test_results:
           path: results.xml
+      - store_artifacts:
+          path: playwright-report/index.html
+      - store_artifacts:
+          path: test-results
 
 workflows:
-  run_tests:
+  build-and-test:
     jobs:
-      - build_and_test
+      - build-and-test
