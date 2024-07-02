@@ -8,7 +8,7 @@ test-results/
 playwright-report/
 
 # playwright cache
-/playwright/.cache/
+/playwright/
 
 # dotenv environment variables file
 .env
