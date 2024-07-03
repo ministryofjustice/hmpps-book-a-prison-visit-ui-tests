@@ -45,34 +45,46 @@ export default defineConfig({
 
   projects: [
     {
+      name: 'setup',
+      testMatch: /.*\.setup\.ts/,
+    },
+    {
       name: 'chromium',
       use: {
         ...devices['Desktop Chrome'],
         viewport: { width: 1920, height: 1080 },
+        storageState: './playwright/.auth/auth.json',
       },
+      dependencies: ['setup'],
     },
     {
       name: 'firefox',
       use: {
         ...devices['Desktop Firefox'],
         viewport: { width: 1920, height: 1080 },
+        storageState: './playwright/.auth/auth.json',
       },
+      dependencies: ['setup'],
     },
     {
       name: 'webkit',
       use: {
         ...devices['Desktop Safari'],
         viewport: { width: 1920, height: 1080 },
+        storageState: './playwright/.auth/auth.json',
       },
+      dependencies: ['setup'],
     },
     /* Test against mobile viewports. */
     {
       name: 'iPhone13',
-      use: { ...devices['iPhone 13 Pro Max'] },
+      use: { ...devices['iPhone 13 Pro Max'], storageState: './playwright/.auth/auth.json' },
+      dependencies: ['setup'],
     },
     {
       name: 'nexus7',
-      use: { ...devices['Nexus 7'] },
+      use: { ...devices['Nexus 7'], storageState: './playwright/.auth/auth.json' },
+      dependencies: ['setup'],
     },
   ],
 })

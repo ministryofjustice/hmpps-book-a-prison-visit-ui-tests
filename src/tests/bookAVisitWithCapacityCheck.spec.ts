@@ -24,11 +24,7 @@ test.describe('Create a booking with capacity checks', () => {
 
   test.beforeEach(async ({ loginPage, homePage }) => {
     await loginPage.navigateTo('/')
-    await loginPage.checkOnPage('Create your GOV.UK One Login or sign in')
-    await loginPage.goToSignInPage()
-    await loginPage.signIntoBookVisitsService()
-
-    await homePage.checkOnPage('Book a visit')
+   
     const name = await homePage.getPrisonerName()
     expect(name).toBe(prisonerName)
     await homePage.startBooking()
@@ -74,6 +70,7 @@ test.describe('Create a booking with capacity checks', () => {
     const context = await browser.newContext({
       ...devices['iPhone 14 Pro Max'],
     })
+    await context.clearCookies()
     const newPage = await context.newPage()
 
     // New page objects for the second booking

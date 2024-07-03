@@ -11,11 +11,19 @@ export default class HomePage extends BasePage {
     this.startButton = page.getByTestId('start-booking')
   }
 
-  async getPrisonerName() {
+  async getPrisonerName(): Promise<string> {
     return this.prisonerName.innerText()
   }
 
-  async startBooking() {
+  async startBooking(): Promise<void> {
     await this.startButton.click()
+  }
+
+  async startBookingButtonIsVisible(): Promise<boolean> {
+    return this.startButton.isVisible()
+  }
+
+  async setAuthCookiesInStorage(path: string): Promise<void> {
+    await this.page.context().storageState({ path })
   }
 }

@@ -11,11 +11,7 @@ test.describe('Form validation error messages', () => {
 
   test.beforeEach('Login', async ({ loginPage, homePage }) => {
     await loginPage.navigateTo('/')
-    await loginPage.checkOnPage('Create your GOV.UK One Login or sign in')
-    await loginPage.goToSignInPage()
-    await loginPage.signIntoBookVisitsService()
-
-    homePage.checkOnPage('Book a visit')
+    
     const name = await homePage.getPrisonerName()
     expect(name).toBe(prisonerName)
     await homePage.startBooking()

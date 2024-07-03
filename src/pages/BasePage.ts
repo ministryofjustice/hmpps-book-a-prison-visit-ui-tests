@@ -7,6 +7,7 @@ export abstract class BasePage {
   private readonly signOutLink: Locator
   private readonly alertErrorMessage: Locator
   private readonly homePageLink: Locator
+  private readonly bookingsPageLink: Locator
 
   constructor(page: Page) {
     this.page = page
@@ -15,6 +16,7 @@ export abstract class BasePage {
     this.signOutLink = page.locator('a[name="Sign out"]')
     this.alertErrorMessage = page.locator('div[role="alert"]')
     this.homePageLink = page.getByRole('link', { name: 'Home' })
+    this.bookingsPageLink = page.locator('[class^=service-header] a:has-text("Bookings")')
   }
 
   async checkOnPage(title: string): Promise<void> {
@@ -29,6 +31,10 @@ export abstract class BasePage {
 
   async navigateToHomePage() {
     await this.homePageLink.click()
+  }
+
+  async navigateToBookingsPage() {
+    await this.bookingsPageLink.click()
   }
 
   async navigateTo(url: string) {

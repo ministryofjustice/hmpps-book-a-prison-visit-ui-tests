@@ -13,11 +13,7 @@ test.describe('Create a booking via public ui', () => {
 
   test.beforeEach(async ({ loginPage, homePage }) => {
     await loginPage.navigateTo('/')
-    await loginPage.checkOnPage('Create your GOV.UK One Login or sign in')
-    await loginPage.goToSignInPage()
-    await loginPage.signIntoBookVisitsService()
 
-    await homePage.checkOnPage('Book a visit')
     const name = await homePage.getPrisonerName()
     expect(name).toBe(prisonerName)
     await homePage.startBooking()
