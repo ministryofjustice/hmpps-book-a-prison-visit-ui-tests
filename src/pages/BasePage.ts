@@ -8,6 +8,10 @@ export abstract class BasePage {
   private readonly alertErrorMessage: Locator
   private readonly homePageLink: Locator
   private readonly bookingsPageLink: Locator
+  private readonly feedbackLink: Locator
+  private readonly accessibilityStatementLink: Locator
+  private readonly privacyPolicyLink: Locator
+  private readonly termsAndConditionsLink: Locator
 
   constructor(page: Page) {
     this.page = page
@@ -17,6 +21,10 @@ export abstract class BasePage {
     this.alertErrorMessage = page.locator('div[role="alert"]')
     this.homePageLink = page.getByRole('link', { name: 'Home' })
     this.bookingsPageLink = page.locator('[class^=service-header] a:has-text("Bookings")')
+    this.feedbackLink = page.getByRole('link', { name: 'feedback' })
+    this.accessibilityStatementLink = page.getByRole('link', { name: 'Accessibility' })
+    this.privacyPolicyLink = page.getByRole('link', { name: 'Privacy' })
+    this.termsAndConditionsLink = page.getByRole('link', { name: 'Terms and conditions' })
   }
 
   async checkOnPage(title: string): Promise<void> {
@@ -65,5 +73,25 @@ export abstract class BasePage {
 
   async getAlertErrorMessage(): Promise<string> {
     return (await this.alertErrorMessage.locator('a').allInnerTexts()).join(' ')
+  }
+
+  async navigateToFeedbackPage() {
+    await this.feedbackLink.click()
+  }
+
+  async navigateToAccessibilityStatementPage() {
+    await this.accessibilityStatementLink.click()
+  }
+
+  async navigateToPrivacyPolicyPage() {
+    await this.privacyPolicyLink.click()
+  }
+
+  async navigateToTermsAndConditionsPage() {
+    await this.termsAndConditionsLink.click()
+  }
+
+  async doesUrlContain(url: string): Promise<boolean> {
+    return this.page.url().includes(url)
   }
 }
