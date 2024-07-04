@@ -12,3 +12,5 @@ playwright-report/
 
 # dotenv environment variables file
 .env
+.env.dev
+.env.staging

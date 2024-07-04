@@ -1,5 +1,6 @@
 import { defineConfig, devices } from '@playwright/test'
 import { config as dotenvConfig } from 'dotenv'
+import ENV from './src/setup/env'
 
 dotenvConfig()
 
@@ -8,6 +9,7 @@ if (!process.env.INTEG_USER_NAME || !process.env.INTEG_PASSWORD) {
 }
 
 export default defineConfig({
+  globalSetup: './src/setup/globalSetup.ts',
   globalTimeout: 60000 * 5,
   timeout: 60000,
   testDir: './src/tests',
@@ -26,7 +28,7 @@ export default defineConfig({
         ['allure-playwright', { detail: true, outputFolder: 'allure-results' }],
       ],
   use: {
-    baseURL: 'https://visit-staging.prison.service.justice.gov.uk/',
+    baseURL: ENV.BASE_URL,
     navigationTimeout: 60000,
     actionTimeout: 10000,
     testIdAttribute: 'data-test',
