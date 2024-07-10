@@ -41,8 +41,12 @@ export abstract class BasePage {
     expect(text).toBe(title)
   }
 
+  async isMobile(): Promise<boolean> {
+    return deviceName.includes('mobile')
+  }
+
   async signOut(): Promise<void> {
-    if (deviceName.includes('mobile')) {
+    if (await this.isMobile()) {
       await this.mobileOneLoginMenuButton.click()
       await this.signOutLink.click()
     } else {
@@ -51,7 +55,7 @@ export abstract class BasePage {
   }
 
   async navigateToHomePage(): Promise<void> {
-    if (deviceName.includes('mobile')) {
+    if (await this.isMobile()) {
       await this.mobileNavMenuButton.click()
       await this.homePageLink.click()
     } else {
@@ -60,7 +64,7 @@ export abstract class BasePage {
   }
 
   async navigateToBookingsPage(): Promise<void> {
-    if (deviceName.includes('mobile')) {
+    if (await this.isMobile()) {
       await this.mobileNavMenuButton.click()
       await this.bookingsPageLink.click()
     } else {
@@ -116,9 +120,5 @@ export abstract class BasePage {
 
   async doesUrlContain(url: string): Promise<boolean> {
     return this.page.url().includes(url)
-  }
-
-  async getDeviceName(): Promise<string> {
-    return GlobalData.get('deviceName')
   }
 }
