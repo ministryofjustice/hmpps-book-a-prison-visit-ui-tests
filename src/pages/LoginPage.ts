@@ -13,14 +13,14 @@ export default class LoginPage extends BasePage {
     this.passwordInput = page.locator('#password')
   }
 
-  async signIntoBookVisitsService() {
+  async signIntoBookVisitsService(): Promise<void> {
     await this.emailInput.fill(process.env.USER_NAME || '')
     await this.continueButton.click()
     await this.passwordInput.fill(process.env.PASSWORD || '')
     await this.continueButton.click()
   }
 
-  async signInWithANewUser() {
+  async signInWithANewUser(): Promise<void> {
     await this.emailInput.fill(process.env.NEW_USER_NAME || '')
     await this.continueButton.click()
     await this.passwordInput.fill(process.env.NEW_PASSWORD || '')

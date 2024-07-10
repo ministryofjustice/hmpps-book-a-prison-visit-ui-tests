@@ -2,8 +2,9 @@ import { expect, test } from '../fixtures/PageFixtures'
 import GlobalData from '../setup/GlobalData'
 import { deleteApplication, getAccessToken } from '../support/testingHelperClient'
 
-test.beforeAll('Get access token and store so it is available as global data', async ({ request }) => {
+test.beforeAll('Get access token and store so it is available as global data', async ({ request }, testInfo) => {
   GlobalData.set('authToken', await getAccessToken({ request }))
+  GlobalData.set('deviceName', testInfo.project.name)
 })
 
 test.describe('Form validation error messages', () => {
@@ -11,7 +12,7 @@ test.describe('Form validation error messages', () => {
 
   test.beforeEach('Login', async ({ loginPage, homePage }) => {
     await loginPage.navigateTo('/')
-    
+
     const name = await homePage.getPrisonerName()
     expect(name).toBe(prisonerName)
     await homePage.startBooking()

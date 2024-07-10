@@ -1,6 +1,6 @@
 import { expect, test } from '../../fixtures/PageFixtures'
 
-test('test', async ({ page, loginPage, homePage }) => {
+test('test', async ({ loginPage, homePage }) => {
   await loginPage.navigateTo('/')
   await loginPage.checkOnPage('Create your GOV.UK One Login or sign in')
   await loginPage.goToSignInPage()

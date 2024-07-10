@@ -79,12 +79,12 @@ export default defineConfig({
     },
     /* Test against mobile viewports. */
     {
-      name: 'iPhone13',
+      name: 'mobile_iPhone13',
       use: { ...devices['iPhone 13 Pro Max'], storageState: './playwright/.auth/auth.json' },
       dependencies: ['setup'],
     },
     {
-      name: 'nexus7',
+      name: 'mobile_nexus7',
       use: { ...devices['Nexus 7'], storageState: './playwright/.auth/auth.json' },
       dependencies: ['setup'],
     },

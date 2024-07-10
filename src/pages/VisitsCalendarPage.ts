@@ -10,16 +10,28 @@ export default class VisitsCalendarPage extends BasePage {
   constructor(page: Page) {
     super(page)
     this.calendarDate = page.locator('a[id^=day-link]')
-    this.calendarTime = page.locator('input[type=radio]')
+    this.calendarTime = page.locator('[class$=day-group--active] input[name=visitSession]')
     this.formErrorMessage = page.locator('[class$= active] [class$=error-message]')
     this.visitTimeNolongerAvailable = page.getByTestId('message')
   }
 
-  async selectFirstAvailableDate() {
+  async selectRandomAvailableDateAndTime(): Promise<void> {
+    const availableDates = await this.calendarDate.elementHandles()
+    const count = availableDates.length
+    if (count > 0) {
+      const randomIndex = Math.floor(Math.random() * count)
+      await availableDates[randomIndex].click()
+      await this.selectFirstAvailableTime()
+    } else {
+      throw new Error('No available dates to select')
+    }
+  }
+
+  async selectFirstAvailableDate(): Promise<void> {
     await this.calendarDate.first().click()
   }
 
-  async selectFirstAvailableTime() {
+  async selectFirstAvailableTime(): Promise<void> {
     await this.calendarTime.first().click()
   }
 

@@ -12,7 +12,6 @@ export default class MainContactPage extends BasePage {
   private readonly formSomeoneElseErrorMessage: Locator
   private readonly formNoNumberErrorMessage: Locator
 
-
   constructor(page: Page) {
     super(page)
     this.mainContactRadio = page.locator("input[name='contact']:not([value='someoneElse'])")
@@ -26,21 +25,25 @@ export default class MainContactPage extends BasePage {
     this.formNoNumberErrorMessage = page.locator('[id$=Number-error]')
   }
 
-  async selectMainContact() {
+  async selectMainContact(): Promise<void> {
     await this.mainContactRadio.first().click()
   }
 
-  async selectSomeoneElse(name: string) {
+  async selectSomeoneElse(name: string): Promise<void> {
     await this.someoneElseRadio.click()
     await this.someoneElseName.fill(name)
   }
 
-  async selectUKPhoneNumber(phoneNumber: string) {
+  async isSomeoneElseNameInputboxVisible(): Promise<boolean> {
+    return await this.someoneElseName.isVisible()
+  }
+
+  async selectUKPhoneNumber(phoneNumber: string): Promise<void> {
     await this.ukPhoneNumberRadio.click()
     await this.ukPhoneNumber.fill(phoneNumber)
   }
 
-  async selectNoPhoneNumberProvided() {
+  async selectNoPhoneNumberProvided(): Promise<void> {
     await this.noPhoneNumberProvidedRadio.click()
   }
 
