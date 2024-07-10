@@ -15,11 +15,11 @@ export default class AdditionalSupportPage extends BasePage {
     this.formErrorMessage = page.locator('[id^=additionalSupport][class$=error-message]')
   }
 
-  async selectNoSupport() {
+  async selectNoSupport(): Promise<void>{
     await this.noAdditionalSupportRequiredRadio.click()
   }
 
-  async selectSupport(details: string) {
+  async selectSupport(details: string): Promise<void> {
     await this.additionalSupportRequiredRadio.click()
     await this.additionalSupportDetailsInputbox.fill(details)
   }
@@ -30,5 +30,9 @@ export default class AdditionalSupportPage extends BasePage {
 
   async getFormErrorMessage(): Promise<string> {
     return await this.formErrorMessage.textContent()
+  }
+
+  async isAdditionalSupportInputboxVisible(): Promise<boolean> {
+    return await this.additionalSupportDetailsInputbox.isVisible()
   }
 }

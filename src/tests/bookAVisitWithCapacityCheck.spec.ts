@@ -14,8 +14,9 @@ import {
   updateOpenSessionCapacity,
 } from '../support/testingHelperClient'
 
-test.beforeAll('Get access token and store as global variable', async ({ request }) => {
+test.beforeAll('Get access token and store as global variable', async ({ request }, testInfo) => {
   GlobalData.set('authToken', await getAccessToken({ request }))
+  GlobalData.set('deviceName', testInfo.project.name)
 })
 
 test.describe('Create a booking with capacity checks', () => {
@@ -24,7 +25,7 @@ test.describe('Create a booking with capacity checks', () => {
 
   test.beforeEach(async ({ loginPage, homePage }) => {
     await loginPage.navigateTo('/')
-   
+
     const name = await homePage.getPrisonerName()
     expect(name).toBe(prisonerName)
     await homePage.startBooking()

@@ -7,10 +7,11 @@ test.beforeAll('Get access token and store so it is available as global data', a
   GlobalData.set('deviceName', testInfo.project.name)
 })
 
-test.describe('Create a booking via public ui', () => {
+test.describe('Create a booking and change the visit details', () => {
   const prisonerName: string = 'Yhsreepal Edica'
   const additionalSupportDetails: string = 'Wheelchair access'
   const someOneElseAsMainContact: string = 'Mr Nobody'
+  const mainContactPhoneNumber: string = '07123456789'
 
   test.beforeEach(async ({ loginPage, homePage }) => {
     await loginPage.navigateTo('/')
@@ -20,13 +21,12 @@ test.describe('Create a booking via public ui', () => {
     await homePage.startBooking()
   })
 
-  test('Book a visit - with 1 visitor and no additional support needed', async ({
+  test('should be able to change visitors for the booking', async ({
     visitorPage,
     visitCalendarPage,
     additionalSupportPage,
     mainContactPage,
     visitDetailsPage,
-    bookingConfirmationPage,
   }) => {
     await visitorPage.checkOnPage('Who is going on the visit?')
     await visitorPage.slectLastVisitor()
@@ -54,6 +54,24 @@ test.describe('Create a booking via public ui', () => {
     await mainContactPage.continueToNextPage()
 
     await visitDetailsPage.checkOnPage('Check the visit details before booking')
+    await visitDetailsPage.changeVisitors()
+    await visitorPage.checkOnPage('Who is going on the visit?')
+    const currentVisitors = await visitorPage.getAllTheVisitorsNames()
+    expect(currentVisitors).toEqual(visitors)
+    await visitorPage.selectVisitors(2)
+    const newVisitors = await visitorPage.getAllTheVisitorsNames()
+    await visitorPage.continueToNextPage()
+    await visitCalendarPage.checkOnPage('Choose the visit time')
+    await visitCalendarPage.continueToNextPage()
+
+    await additionalSupportPage.checkOnPage('Is additional support needed for any of the visitors?')
+    GlobalData.set('applicationReference', applicationReference)
+    await additionalSupportPage.continueToNextPage()
+
+    await mainContactPage.checkOnPage('Who is the main contact for this booking?')
+    await mainContactPage.continueToNextPage()
+    await visitDetailsPage.checkOnPage('Check the visit details before booking')
+
     const prisonerNameOnDetails = await visitDetailsPage.getPrisonerName()
     const visitorsNamesOnDetails = await visitDetailsPage.getAllTheVisitorsNames()
     const visitDateAndTimeOnDetails = await visitDetailsPage.getSelectedDateAndTime()
@@ -61,31 +79,21 @@ test.describe('Create a booking via public ui', () => {
     const mainContactNameOnDetails = await visitDetailsPage.getMainContactName()
 
     expect(prisonerNameOnDetails).toBe(prisonerName)
-    expect(visitorsNamesOnDetails).toEqual(visitors)
+    expect(visitorsNamesOnDetails).toEqual(newVisitors)
     expect(visitDateAndTimeOnDetails.join(' ')).toBe(`${visitDate} ${visitTime}`)
     expect(additionalSupportDetailsOnDetails).toBe('None')
     expect(mainContactNameOnDetails).toContain(mainContact)
-
-    await visitDetailsPage.submitBooking()
-
-    await bookingConfirmationPage.checkOnPage('Visit booked')
-    expect(await bookingConfirmationPage.isBookingConfirmationDisplayed()).toBeTruthy()
-    expect(await bookingConfirmationPage.isVisitDetailsDisplayed()).toBeTruthy()
-    const visitReference = await bookingConfirmationPage.getReferenceNumber()
-    GlobalData.set('visitReference', visitReference)
-    console.log('Confirmation message: ', visitReference)
   })
 
-  test('Book a visit - with 3 visitors and additional support needed', async ({
+  test('should be able to change date and time for the booking', async ({
     visitorPage,
     visitCalendarPage,
     additionalSupportPage,
     mainContactPage,
     visitDetailsPage,
-    bookingConfirmationPage,
   }) => {
     await visitorPage.checkOnPage('Who is going on the visit?')
-    await visitorPage.selectVisitors(3)
+    await visitorPage.selectVisitors(2)
     const visitors = await visitorPage.getAllTheVisitorsNames()
     await visitorPage.continueToNextPage()
 
@@ -110,6 +118,27 @@ test.describe('Create a booking via public ui', () => {
     await mainContactPage.continueToNextPage()
 
     await visitDetailsPage.checkOnPage('Check the visit details before booking')
+    await visitDetailsPage.changeDateTime()
+    await visitCalendarPage.checkOnPage('Choose the visit time')
+
+    const currentVisitDate = await visitCalendarPage.getSelectedDate()
+    const currentVisitTime = await visitCalendarPage.getSelectedTime()
+
+    expect(`${currentVisitDate} ${currentVisitTime}`).toEqual(`${visitDate} ${visitTime}`)
+
+    await visitCalendarPage.selectRandomAvailableDateAndTime()
+
+    const newVisitDate = await visitCalendarPage.getSelectedDate()
+    const newVisitTime = await visitCalendarPage.getSelectedTime()
+
+    await visitCalendarPage.continueToNextPage()
+
+    await additionalSupportPage.checkOnPage('Is additional support needed for any of the visitors?')
+    await additionalSupportPage.continueToNextPage()
+    await mainContactPage.checkOnPage('Who is the main contact for this booking?')
+    await mainContactPage.continueToNextPage()
+    await visitDetailsPage.checkOnPage('Check the visit details before booking')
+
     const prisonerNameOnDetails = await visitDetailsPage.getPrisonerName()
     const visitorsNamesOnDetails = await visitDetailsPage.getAllTheVisitorsNames()
     const visitDateAndTimeOnDetails = await visitDetailsPage.getSelectedDateAndTime()
@@ -118,27 +147,17 @@ test.describe('Create a booking via public ui', () => {
 
     expect(prisonerNameOnDetails).toBe(prisonerName)
     expect(visitorsNamesOnDetails).toEqual(visitors)
-    expect(visitDateAndTimeOnDetails.join(' ')).toEqual(`${visitDate} ${visitTime}`)
+    expect(visitDateAndTimeOnDetails.join(' ')).toEqual(`${newVisitDate} ${newVisitTime}`)
     expect(additionalSupportDetailsOnDetails).toBe(additionalSupportDetails)
     expect(mainContactNameOnDetails).toContain(mainContact)
-
-    await visitDetailsPage.submitBooking()
-
-    await bookingConfirmationPage.checkOnPage('Visit booked')
-    expect(await bookingConfirmationPage.isBookingConfirmationDisplayed()).toBeTruthy()
-    expect(await bookingConfirmationPage.isVisitDetailsDisplayed()).toBeTruthy()
-    const visitReference = await bookingConfirmationPage.getReferenceNumber()
-    GlobalData.set('visitReference', visitReference)
-    console.log('Confirmation message: ', visitReference)
   })
 
-  test('Book a visit - with 2 visitors and someone else as a main contact', async ({
+  test('should be able to update additional support requests for the booking', async ({
     visitorPage,
     visitCalendarPage,
     additionalSupportPage,
     mainContactPage,
     visitDetailsPage,
-    bookingConfirmationPage,
   }) => {
     await visitorPage.checkOnPage('Who is going on the visit?')
     await visitorPage.selectVisitors(2)
@@ -165,6 +184,19 @@ test.describe('Create a booking via public ui', () => {
     await mainContactPage.continueToNextPage()
 
     await visitDetailsPage.checkOnPage('Check the visit details before booking')
+    await visitDetailsPage.changeAdditionalSupport()
+
+    await additionalSupportPage.checkOnPage('Is additional support needed for any of the visitors?')
+    expect(await additionalSupportPage.isAdditionalSupportInputboxVisible()).toBeFalsy()
+
+    await additionalSupportPage.selectSupport(additionalSupportDetails)
+    await additionalSupportPage.continueToNextPage()
+
+    await mainContactPage.checkOnPage('Who is the main contact for this booking?')
+    await mainContactPage.continueToNextPage()
+
+    await visitDetailsPage.checkOnPage('Check the visit details before booking')
+
     const prisonerNameOnDetails = await visitDetailsPage.getPrisonerName()
     const visitorsNamesOnDetails = await visitDetailsPage.getAllTheVisitorsNames()
     const visitDateAndTimeOnDetails = await visitDetailsPage.getSelectedDateAndTime()
@@ -174,17 +206,65 @@ test.describe('Create a booking via public ui', () => {
     expect(prisonerNameOnDetails).toBe(prisonerName)
     expect(visitorsNamesOnDetails).toEqual(visitors)
     expect(visitDateAndTimeOnDetails.join(' ')).toBe(`${visitDate} ${visitTime}`)
-    expect(additionalSupportDetailsOnDetails).toBe('None')
+    expect(additionalSupportDetailsOnDetails).toBe(additionalSupportDetails)
     expect(mainContactNameOnDetails).toContain(someOneElseAsMainContact)
+  })
 
-    await visitDetailsPage.submitBooking()
+  test('should be able to update main contact details for the booking', async ({
+    visitorPage,
+    visitCalendarPage,
+    additionalSupportPage,
+    mainContactPage,
+    visitDetailsPage,
+  }) => {
+    await visitorPage.checkOnPage('Who is going on the visit?')
+    await visitorPage.selectVisitors(2)
+    const visitors = await visitorPage.getAllTheVisitorsNames()
+    await visitorPage.continueToNextPage()
 
-    await bookingConfirmationPage.checkOnPage('Visit booked')
-    expect(await bookingConfirmationPage.isBookingConfirmationDisplayed()).toBeTruthy()
-    expect(await bookingConfirmationPage.isVisitDetailsDisplayed()).toBeTruthy()
-    const visitReference = await bookingConfirmationPage.getReferenceNumber()
-    GlobalData.set('visitReference', visitReference)
-    console.log('Confirmation message: ', visitReference)
+    await visitCalendarPage.checkOnPage('Choose the visit time')
+    await visitCalendarPage.selectFirstAvailableDate()
+    await visitCalendarPage.selectFirstAvailableTime()
+
+    const visitDate = await visitCalendarPage.getSelectedDate()
+    const visitTime = await visitCalendarPage.getSelectedTime()
+    await visitCalendarPage.continueToNextPage()
+
+    await additionalSupportPage.checkOnPage('Is additional support needed for any of the visitors?')
+    await additionalSupportPage.selectNoSupport()
+    const applicationReference = await additionalSupportPage.getApplicationReference()
+    GlobalData.set('applicationReference', applicationReference)
+    await additionalSupportPage.continueToNextPage()
+
+    await mainContactPage.checkOnPage('Who is the main contact for this booking?')
+    await mainContactPage.selectMainContact()
+    await mainContactPage.selectNoPhoneNumberProvided()
+    await mainContactPage.continueToNextPage()
+
+    await visitDetailsPage.checkOnPage('Check the visit details before booking')
+    await visitDetailsPage.changeMainContact()
+
+    await mainContactPage.checkOnPage('Who is the main contact for this booking?')
+    expect(await mainContactPage.isSomeoneElseNameInputboxVisible()).toBeFalsy()
+
+    await mainContactPage.selectSomeoneElse(someOneElseAsMainContact)
+    await mainContactPage.selectUKPhoneNumber(mainContactPhoneNumber)
+    await mainContactPage.continueToNextPage()
+
+    await visitDetailsPage.checkOnPage('Check the visit details before booking')
+
+    const prisonerNameOnDetails = await visitDetailsPage.getPrisonerName()
+    const visitorsNamesOnDetails = await visitDetailsPage.getAllTheVisitorsNames()
+    const visitDateAndTimeOnDetails = await visitDetailsPage.getSelectedDateAndTime()
+    const additionalSupportDetailsOnDetails = await visitDetailsPage.getAdditionalSupportDetails()
+    const mainContactNameOnDetails = await visitDetailsPage.getMainContactName()
+
+    console.log('mainContactNameOnDetails', mainContactNameOnDetails)
+    expect(prisonerNameOnDetails).toBe(prisonerName)
+    expect(visitorsNamesOnDetails).toEqual(visitors)
+    expect(visitDateAndTimeOnDetails.join(' ')).toBe(`${visitDate} ${visitTime}`)
+    expect(additionalSupportDetailsOnDetails).toBe('None')
+    expect(mainContactNameOnDetails).toBe(`${someOneElseAsMainContact} ${mainContactPhoneNumber}`)
   })
 })
 

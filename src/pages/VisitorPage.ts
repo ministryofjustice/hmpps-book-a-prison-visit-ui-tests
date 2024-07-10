@@ -11,19 +11,19 @@ export default class VisitorPage extends BasePage {
     this.formErrorMessage = page.locator('[class$=error-message]')
   }
 
-  async selectFirstVisitor() {
+  async selectFirstVisitor(): Promise<void> {
     const firstCheckbox = this.visitorCheckboxes.first()
     await firstCheckbox.check()
     expect(await firstCheckbox.isChecked()).toBeTruthy()
   }
 
-  async slectLastVisitor() {
+  async slectLastVisitor(): Promise<void> {
     const lastCheckbox = this.visitorCheckboxes.last()
     await lastCheckbox.check()
     expect(await lastCheckbox.isChecked()).toBeTruthy()
   }
 
-  async selectVisitors(numberOfVisitors: number) {
+  async selectVisitors(numberOfVisitors: number): Promise<void> {
     try {
       for (let i = 0; i < numberOfVisitors; i++) {
         const checkbox = this.visitorCheckboxes.nth(i)

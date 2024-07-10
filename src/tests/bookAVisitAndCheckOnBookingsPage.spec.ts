@@ -2,8 +2,9 @@ import { test, expect } from '../fixtures/PageFixtures'
 import GlobalData from '../setup/GlobalData'
 import { deleteApplication, deleteVisit, getAccessToken } from '../support/testingHelperClient'
 
-test.beforeAll('Get access token and store so it is available as global data', async ({ request }) => {
+test.beforeAll('Get access token and store so it is available as global data', async ({ request }, testInfo) => {
   GlobalData.set('authToken', await getAccessToken({ request }))
+  GlobalData.set('deviceName', testInfo.project.name)
 })
 
 test.describe('Book a visit and verify on bookins page', () => {
