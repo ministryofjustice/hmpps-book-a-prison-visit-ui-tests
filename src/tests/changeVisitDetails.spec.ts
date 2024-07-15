@@ -30,7 +30,7 @@ test.describe('Create a booking and change the visit details', () => {
   }) => {
     await visitorPage.checkOnPage('Who is going on the visit?')
     await visitorPage.slectLastVisitor()
-    const visitors = await visitorPage.getAllTheVisitorsNames()
+    const visitors = await visitorPage.getAllTheVisitorsNamesWithAge()
     await visitorPage.continueToNextPage()
 
     await visitCalendarPage.checkOnPage('Choose the visit time')
@@ -56,10 +56,10 @@ test.describe('Create a booking and change the visit details', () => {
     await visitDetailsPage.checkOnPage('Check the visit details before booking')
     await visitDetailsPage.changeVisitors()
     await visitorPage.checkOnPage('Who is going on the visit?')
-    const currentVisitors = await visitorPage.getAllTheVisitorsNames()
+    const currentVisitors = await visitorPage.getAllTheVisitorsNamesWithAge()
     expect(currentVisitors).toEqual(visitors)
     await visitorPage.selectVisitors(2)
-    const newVisitors = await visitorPage.getAllTheVisitorsNames()
+    const newVisitors = await visitorPage.getAllTheVisitorsNamesWithAge()
     await visitorPage.continueToNextPage()
     await visitCalendarPage.checkOnPage('Choose the visit time')
     await visitCalendarPage.continueToNextPage()
@@ -94,7 +94,7 @@ test.describe('Create a booking and change the visit details', () => {
   }) => {
     await visitorPage.checkOnPage('Who is going on the visit?')
     await visitorPage.selectVisitors(2)
-    const visitors = await visitorPage.getAllTheVisitorsNames()
+    const visitors = await visitorPage.getAllTheVisitorsNamesWithAge()
     await visitorPage.continueToNextPage()
 
     await visitCalendarPage.checkOnPage('Choose the visit time')
@@ -161,7 +161,7 @@ test.describe('Create a booking and change the visit details', () => {
   }) => {
     await visitorPage.checkOnPage('Who is going on the visit?')
     await visitorPage.selectVisitors(2)
-    const visitors = await visitorPage.getAllTheVisitorsNames()
+    const visitors = await visitorPage.getAllTheVisitorsNamesWithAge()
     await visitorPage.continueToNextPage()
 
     await visitCalendarPage.checkOnPage('Choose the visit time')
@@ -219,7 +219,7 @@ test.describe('Create a booking and change the visit details', () => {
   }) => {
     await visitorPage.checkOnPage('Who is going on the visit?')
     await visitorPage.selectVisitors(2)
-    const visitors = await visitorPage.getAllTheVisitorsNames()
+    const visitors = await visitorPage.getAllTheVisitorsNamesWithAge()
     await visitorPage.continueToNextPage()
 
     await visitCalendarPage.checkOnPage('Choose the visit time')

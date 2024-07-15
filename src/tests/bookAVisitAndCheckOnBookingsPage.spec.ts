@@ -8,6 +8,10 @@ test.beforeAll('Get access token and store so it is available as global data', a
 })
 
 test.describe('Book a visit and verify on bookins page', () => {
+  const prisonerName = 'Yhsreepal Edica'
+  const additionalSupportRequired = 'Wheelchair access'
+  const mainContactPhoneNumber = '07123456789'
+
   test.beforeEach(async ({ context, loginPage, homePage }) => {
     context.clearCookies()
     await loginPage.navigateTo('/')
@@ -76,7 +80,6 @@ test.describe('Book a visit and verify on bookins page', () => {
     await bookingConfirmationPage.navigateToBookingsPage()
     await bookingsPage.checkOnPage('Bookings')
 
-
     const bookingsCount = await bookingsPage.getConfirmedBookingsCount()
     const confirmedVisitStartTime = await bookingsPage.getBookingStartTime()
     const confirmedVisitEndTime = await bookingsPage.getBookingEndTime()
@@ -86,9 +89,80 @@ test.describe('Book a visit and verify on bookins page', () => {
     expect(`${confirmedVisitStartTime} to ${confirmedVisitEndTime}`).toBe(visitTime)
     expect(await bookingsPage.getBookingReference()).toBe(visitReference)
   })
+
+  test('should take user to booking details page when user clicks on view booking details link', async ({
+    homePage,
+    visitorPage,
+    visitCalendarPage,
+    additionalSupportPage,
+    mainContactPage,
+    visitDetailsPage,
+    bookingConfirmationPage,
+    bookingsPage,
+    bookingDetailsPage,
+  }) => {
+    await homePage.startBooking()
+    await visitorPage.checkOnPage('Who is going on the visit?')
+    await visitorPage.selectVisitors(3)
+    const visitors = await visitorPage.getAllTheVisitorsNames()
+    await visitorPage.continueToNextPage()
+
+    await visitCalendarPage.checkOnPage('Choose the visit time')
+    await visitCalendarPage.selectRandomAvailableDateAndTime()
+
+    const visitDate = await visitCalendarPage.getSelectedDate()
+    const visitTime = await visitCalendarPage.getSelectedTime()
+    await visitCalendarPage.continueToNextPage()
+
+    await additionalSupportPage.checkOnPage('Is additional support needed for any of the visitors?')
+    await additionalSupportPage.selectSupport(additionalSupportRequired)
+    const applicationReference = await additionalSupportPage.getApplicationReference()
+    GlobalData.set('applicationReference', applicationReference)
+    await additionalSupportPage.continueToNextPage()
+
+    await mainContactPage.checkOnPage('Who is the main contact for this booking?')
+    await mainContactPage.selectMainContact()
+    await mainContactPage.selectUKPhoneNumber(mainContactPhoneNumber)
+    const mainContact = await mainContactPage.getMainContactName()
+    await mainContactPage.continueToNextPage()
+
+    await visitDetailsPage.checkOnPage('Check the visit details before booking')
+    await visitDetailsPage.submitBooking()
+
+    await bookingConfirmationPage.checkOnPage('Visit booked')
+    expect(await bookingConfirmationPage.isBookingConfirmationDisplayed()).toBeTruthy()
+    expect(await bookingConfirmationPage.isVisitDetailsDisplayed()).toBeTruthy()
+    const visitReference = await bookingConfirmationPage.getReferenceNumber()
+    GlobalData.set('visitReference', visitReference)
+
+    await bookingConfirmationPage.navigateToBookingsPage()
+    await bookingsPage.checkOnPage('Bookings')
+    await bookingsPage.clickBookingDetailsLink()
+    await bookingDetailsPage.checkOnPage('Visit booking details')
+
+    const convirmedVisitReferenceId = await bookingDetailsPage.getVisitReferenceNumber()
+    const confirmedVisitDate = await bookingDetailsPage.getVisitDate()
+    const confirmedVisitStartTime = await bookingDetailsPage.getVisitStartTime()
+    const confirmedVisitEndTime = await bookingDetailsPage.getVisitEndTime()
+    const confirmedPrisonerName = await bookingDetailsPage.getPrisonerName()
+    const confirmedMainContact = await bookingDetailsPage.getMainContactName()
+    const confirmedMainContactPhoneNumber = await bookingDetailsPage.getMainContactPhoneNumber()
+    const confirmedVisitors = await bookingDetailsPage.getVisitorsNames()
+    const confirmedAdditionalSupport = await bookingDetailsPage.getAdditionalSupportRequest()
+
+    expect(convirmedVisitReferenceId).toBe(visitReference)
+    expect(confirmedVisitDate).toBe(visitDate)
+    expect(`${confirmedVisitStartTime} to ${confirmedVisitEndTime}`).toBe(visitTime)
+    expect(confirmedPrisonerName).toBe(prisonerName)
+    expect(confirmedMainContact).toBe(mainContact)
+    expect(confirmedMainContactPhoneNumber).toBe(mainContactPhoneNumber)
+    expect(confirmedVisitors.length).toBe(visitors.length)
+    expect(confirmedVisitors).toEqual(expect.arrayContaining(visitors))
+    expect(confirmedAdditionalSupport).toBe(additionalSupportRequired)
+  })
 })
 
-test.afterAll('Teardown test data', async ({ request }) => {
+test.afterEach('Teardown test data', async ({ request }) => {
   let appRef = GlobalData.getAll('applicationReference')
   let visitRef = GlobalData.getAll('visitReference')
 
