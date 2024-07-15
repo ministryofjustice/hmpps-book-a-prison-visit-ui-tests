@@ -4,11 +4,15 @@ import { BasePage } from './BasePage'
 export default class VisitorPage extends BasePage {
   private readonly visitorCheckboxes: Locator
   private readonly formErrorMessage: Locator
+  private readonly addNewVisitorLink: Locator
+  private readonly addNewVisitorFormLink: Locator
 
   constructor(page: Page) {
     super(page)
     this.visitorCheckboxes = page.locator('input[type="checkbox"]')
     this.formErrorMessage = page.locator('[class$=error-message]')
+    this.addNewVisitorLink = page.locator('[class$=details] summary')
+    this.addNewVisitorFormLink = page.locator('a:has-text("complete the form")')
   }
 
   async selectFirstVisitor(): Promise<void> {
@@ -35,13 +39,27 @@ export default class VisitorPage extends BasePage {
     }
   }
 
-  async getAllTheVisitorsNames(): Promise<string[]> {
+  async getAllTheVisitorsNamesWithAge(): Promise<string[]> {
     const checkedCheckboxes = await this.page.$$('input[type="checkbox"]:checked + label')
     const labels = await Promise.all(checkedCheckboxes.map(checkbox => checkbox.innerText()))
     return labels
   }
 
+  async getAllTheVisitorsNames(): Promise<string[]> {
+    this.page.waitForTimeout(1000)
+    const checkedCheckboxes = await this.page.$$('input[type="checkbox"]:checked + label')
+    const labels = await Promise.all(
+      checkedCheckboxes.map(checkbox => checkbox.innerText().then(text => text.split('(')[0].trim())),
+    )
+    return labels
+  }
+
   async getFormErrorMessage(): Promise<string> {
     return await this.formErrorMessage.textContent()
+  }
+
+  async addNewVisitor(): Promise<void> {
+    await this.addNewVisitorLink.click()
+    await this.addNewVisitorFormLink.click()
   }
 }

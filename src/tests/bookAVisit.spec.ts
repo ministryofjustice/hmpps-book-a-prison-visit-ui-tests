@@ -30,7 +30,7 @@ test.describe('Create a booking via public ui', () => {
   }) => {
     await visitorPage.checkOnPage('Who is going on the visit?')
     await visitorPage.slectLastVisitor()
-    const visitors = await visitorPage.getAllTheVisitorsNames()
+    const visitors = await visitorPage.getAllTheVisitorsNamesWithAge()
     await visitorPage.continueToNextPage()
 
     await visitCalendarPage.checkOnPage('Choose the visit time')
@@ -86,7 +86,7 @@ test.describe('Create a booking via public ui', () => {
   }) => {
     await visitorPage.checkOnPage('Who is going on the visit?')
     await visitorPage.selectVisitors(3)
-    const visitors = await visitorPage.getAllTheVisitorsNames()
+    const visitors = await visitorPage.getAllTheVisitorsNamesWithAge()
     await visitorPage.continueToNextPage()
 
     await visitCalendarPage.checkOnPage('Choose the visit time')
@@ -142,7 +142,7 @@ test.describe('Create a booking via public ui', () => {
   }) => {
     await visitorPage.checkOnPage('Who is going on the visit?')
     await visitorPage.selectVisitors(2)
-    const visitors = await visitorPage.getAllTheVisitorsNames()
+    const visitors = await visitorPage.getAllTheVisitorsNamesWithAge()
     await visitorPage.continueToNextPage()
 
     await visitCalendarPage.checkOnPage('Choose the visit time')

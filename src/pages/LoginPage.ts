@@ -27,6 +27,20 @@ export default class LoginPage extends BasePage {
     await this.continueButton.click()
   }
 
+  async signAsUnknownBooker(): Promise<void> {
+    await this.emailInput.fill(process.env.UNKNOWN_USER_NAME || '')
+    await this.continueButton.click()
+    await this.passwordInput.fill(process.env.PASSWORD || '')
+    await this.continueButton.click()
+  }
+
+  async signAsAUserWithNoVOBalance(): Promise<void> {
+    await this.emailInput.fill(process.env.NO_VO_USER_NAME || '')
+    await this.continueButton.click()
+    await this.passwordInput.fill(process.env.PASSWORD || '')
+    await this.continueButton.click()
+  }
+
   goToSignInPage = async () => {
     await this.signInButton.click()
   }
