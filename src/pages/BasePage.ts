@@ -17,6 +17,7 @@ export abstract class BasePage {
   private readonly termsAndConditionsLink: Locator
   private readonly mobileOneLoginMenuButton: Locator
   private readonly mobileNavMenuButton: Locator
+  private readonly cookieBanner: Locator
 
   constructor(page: Page) {
     this.page = page
@@ -33,6 +34,7 @@ export abstract class BasePage {
     this.termsAndConditionsLink = page.getByRole('link', { name: 'Terms and conditions' })
     this.mobileOneLoginMenuButton = page.getByRole('button', { name: 'Show GOV.UK One Login menu' })
     this.mobileNavMenuButton = page.getByRole('button', { name: 'Show service navigation menu' })
+    this.cookieBanner = page.locator('#cookie-banner-main button[value=yes]')
   }
 
   async checkOnPage(title: string): Promise<void> {
@@ -120,5 +122,13 @@ export abstract class BasePage {
 
   async doesUrlContain(url: string): Promise<boolean> {
     return this.page.url().includes(url)
+  }
+
+  async isCookieBannerVisible(): Promise<boolean> {
+    return await this.cookieBanner.isVisible()
+  }
+
+  async acceptCookieBanner(): Promise<void> {
+    await this.cookieBanner.click()
   }
 }

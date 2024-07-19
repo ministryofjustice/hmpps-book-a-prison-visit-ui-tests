@@ -20,7 +20,7 @@ test.beforeAll('Get access token and store as global variable', async ({ request
 })
 
 test.describe('Create a booking with capacity checks', () => {
-  const prisonerName: string = 'Yhsreepal Edica'
+  const prisonerName: string = 'Arkmanain Editha'
   const someOneElseAsMainContact: string = 'Mr Nobody'
 
   test.beforeEach(async ({ loginPage, homePage }) => {

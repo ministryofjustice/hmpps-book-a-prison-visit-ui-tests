@@ -8,7 +8,7 @@ test.beforeAll('Get access token and store so it is available as global data', a
 })
 
 test.describe('Form validation error messages', () => {
-  const prisonerName: string = 'Yhsreepal Edica'
+  const prisonerName: string = 'Arkmanain Editha'
 
   test.beforeEach('Login', async ({ loginPage, homePage }) => {
     await loginPage.navigateTo('/')
@@ -16,6 +16,18 @@ test.describe('Form validation error messages', () => {
     const name = await homePage.getPrisonerName()
     expect(name).toBe(prisonerName)
     await homePage.startBooking()
+  })
+
+  test('should display visitor restrictions error message when you select more than allowed visitors', async ({
+    visitorPage,
+  }) => {
+    await visitorPage.checkOnPage('Who is going on the visit?')
+    await visitorPage.selectVisitors(4)
+    await visitorPage.continueToNextPage()
+
+    expect(await visitorPage.isErrorMessageDisplayed()).toBeTruthy()
+    expect(await visitorPage.getFormErrorMessage()).toContain('Select no more than 3 visitors')
+    expect(await visitorPage.getAlertErrorMessage()).toContain('Select no more than 3 visitors')
   })
 
   test('should display no visitors selected error message', async ({ visitorPage }) => {

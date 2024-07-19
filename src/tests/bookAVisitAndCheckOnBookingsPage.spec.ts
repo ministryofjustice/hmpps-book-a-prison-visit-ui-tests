@@ -8,7 +8,7 @@ test.beforeAll('Get access token and store so it is available as global data', a
 })
 
 test.describe('Book a visit and verify on bookins page', () => {
-  const prisonerName = 'Yhsreepal Edica'
+  const prisonerName = 'Arkmanain Editha'
   const additionalSupportRequired = 'Wheelchair access'
   const mainContactPhoneNumber = '07123456789'
 

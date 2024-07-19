@@ -6,6 +6,17 @@ test.beforeAll('Get access token and store so it is available as global data', a
 })
 
 test.describe('Static page validations', () => {
+  test('should set the cookie banner to accepted', async ({ context, loginPage, homePage }) => {
+    await loginPage.navigateTo('/')
+    expect(await homePage.isCookieBannerVisible()).toBeTruthy()
+
+    await homePage.acceptCookieBanner()
+    await homePage.waitForTimeout(1000)
+    const cookies = await context.cookies()
+
+    expect(cookies.find(cookie => cookie.name === 'cookie_policy').value).toBe('{"acceptAnalytics":"yes"}')
+  })
+
   test('should take the user to feedback page', async ({ context, loginPage, homePage }) => {
     await loginPage.navigateTo('/')
     await homePage.checkOnPage('Book a visit')
