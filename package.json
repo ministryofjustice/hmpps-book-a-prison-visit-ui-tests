@@ -7,7 +7,7 @@
   "scripts": {
     "clean:reports": "rimraf allure-results allure-report test-results playwright-report",
     "pretest": "npm run clean:reports",
-    "test:chrome": "playwright test --project=chromium",
+    "test:chrome": "playwright test --project=chromium --bail",
     "test:chrome:headed": "playwright test --project=chromium --headed",
     "test:safari:headed": "playwright test --project=webkit --headed",
     "test:iPhone13": "playwright test --project=mobile_iphone13",
