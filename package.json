@@ -7,7 +7,7 @@
   "scripts": {
     "clean:reports": "rimraf allure-results allure-report test-results playwright-report",
     "pretest": "npm run clean:reports",
-    "test:chrome": "playwright test --project=chromium --bail",
+    "test:chrome": "playwright test --project=chromium",
     "test:chrome:headed": "playwright test --project=chromium --headed",
     "test:safari:headed": "playwright test --project=webkit --headed",
     "test:iPhone13": "playwright test --project=mobile_iphone13",
@@ -19,7 +19,7 @@
     "posttest": "npm run generate:report && npm run open:report",
     "test": "npm run test:chrome || npm run posttest",
     "posttest:ci": "rimraf playwright",
-    "test:ci": "cross-env test_env=staging npm run test:chrome || npm run posttest:ci"
+    "test:ci": "cross-env test_env=staging npm run test:chrome"
   },
   "devDependencies": {
     "@playwright/test": "^1.44.1",
