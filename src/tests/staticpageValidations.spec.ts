@@ -1,7 +1,7 @@
 import { expect, test } from '../fixtures/PageFixtures'
 import GlobalData from '../setup/GlobalData'
 
-test.beforeAll('Get access token and store so it is available as global data', async ({ request }, testInfo) => {
+test.beforeAll('Get access token and store so it is available as global data', async ({}, testInfo) => {
   GlobalData.set('deviceName', testInfo.project.name)
 })
 

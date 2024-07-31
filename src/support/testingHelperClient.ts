@@ -1,10 +1,11 @@
 import { APIRequestContext } from '@playwright/test'
 import globalData from './../setup/GlobalData'
+import { IApplication } from '../data/IApplication'
 
 const testHelperUri = process.env.TEST_HELPER_API_URL
 
 export const getAccessToken = async ({ request }: { request: APIRequestContext }) => {
-  const basicAuthToken = btoa(`${process.env.TESTING_CLIENT_ID}:${process.env.TESTING_CLIENT_SECRET}`)
+  const basicAuthToken = btoa(`${process.env.CLIENT_ID}:${process.env.CLIENT_SECRET}`)
   const authUri = `${process.env.HMPPS_AUTH_URL}/oauth/token`
 
   const response = await request.post(authUri, {
@@ -118,4 +119,31 @@ export const updateClosedSessionCapacity = async (
     },
   )
   return response.status()
+}
+
+export const createApplication = async ({ request }: { request: APIRequestContext }, application: IApplication) => {
+  const accessToken = globalData.get('authToken')
+  const response = await request.put(`${testHelperUri}/test/application/create`, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+    data: application,
+  })
+
+  const res = {
+    status: response.status(),
+    applicationRef: await response.text(),
+  }
+  return res
+}
+
+export const createVisit = async ({ request }: { request: APIRequestContext }, applicationReference: string) => {
+  const accessToken = globalData.get('authToken')
+  const response = await request.post(`${testHelperUri}/test/visit/${applicationReference}/book`, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  })
+
+  return response
 }

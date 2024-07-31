@@ -1,5 +1,6 @@
 import { expect, test } from '../fixtures/PageFixtures'
 import GlobalData from '../setup/GlobalData'
+import { UserType } from '../support/UserType'
 
 test.beforeAll('Get access token and store so it is available as global data', async ({}, testInfo) => {
   GlobalData.set('deviceName', testInfo.project.name)
@@ -19,7 +20,7 @@ test.describe('Unhappy path validations', () => {
     loginPage,
     homePage,
   }) => {
-    await loginPage.signAsUnknownBooker()
+    await loginPage.signInWith(UserType.UNKNOWN_USER_NAME)
     await homePage.checkOnPage('You cannot access this service')
 
     expect(await homePage.doesUrlContain('access-denied')).toBeTruthy()
@@ -30,7 +31,7 @@ test.describe('Unhappy path validations', () => {
     homePage,
     visitorPage,
   }) => {
-    await loginPage.signAsAUserWithNoVOBalance()
+    await loginPage.signInWith(UserType.NO_VO_USER_NAME)
     await homePage.checkOnPage('Book a visit')
 
     const name = await homePage.getPrisonerName()
@@ -39,5 +40,21 @@ test.describe('Unhappy path validations', () => {
     await visitorPage.checkOnPage('A visit cannot be booked')
 
     expect(await homePage.doesUrlContain('visit-cannot-be-booked')).toBeTruthy()
+  })
+
+  test('should be land on the new signout page when user signs out', async ({ homePage, signedOutPage, loginPage }) => {
+    await loginPage.signInWith(UserType.NO_VO_USER_NAME)
+    await homePage.checkOnPage('Book a visit')
+    await homePage.signOut()
+
+    await signedOutPage.checkOnPage('You have signed out')
+    await signedOutPage.navigateToLoginPage()
+
+    await loginPage.checkOnPage('Create your GOV.UK One Login or sign in')
+    await loginPage.goToSignInPage()
+    await loginPage.signInWith(UserType.USER_NAME)
+
+    await homePage.checkOnPage('Book a visit')
+    expect(await homePage.startBookingButtonIsVisible()).toBeTruthy()
   })
 })

@@ -1,6 +1,7 @@
 import { test, expect } from '../fixtures/PageFixtures'
 import GlobalData from '../setup/GlobalData'
 import { deleteApplication, deleteVisit, getAccessToken } from '../support/testingHelperClient'
+import { UserType } from '../support/UserType'
 
 test.beforeAll('Get access token and store so it is available as global data', async ({ request }, testInfo) => {
   GlobalData.set('authToken', await getAccessToken({ request }))
@@ -17,7 +18,7 @@ test.describe('Book a visit and verify on bookins page', () => {
     await loginPage.navigateTo('/')
     await loginPage.checkOnPage('Create your GOV.UK One Login or sign in')
     await loginPage.goToSignInPage()
-    await loginPage.signIntoBookVisitsService()
+    await loginPage.signInWith(UserType.USER_NAME)
     await homePage.checkOnPage('Book a visit')
   })
 

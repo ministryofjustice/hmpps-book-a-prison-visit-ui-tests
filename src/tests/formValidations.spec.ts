@@ -150,26 +150,6 @@ test.describe('Form validation error messages', () => {
       'Enter the name of the main contact Enter a phone number',
     )
   })
-
-  test('should be land on the new signout page when user signs out', async ({
-    visitorPage,
-    homePage,
-    signedOutPage,
-    loginPage,
-  }) => {
-    await visitorPage.checkOnPage('Who is going on the visit?')
-    await homePage.signOut()
-
-    await signedOutPage.checkOnPage('You have signed out')
-    await signedOutPage.navigateToLoginPage()
-
-    await loginPage.checkOnPage('Create your GOV.UK One Login or sign in')
-    await loginPage.goToSignInPage()
-    await loginPage.signIntoBookVisitsService()
-
-    await homePage.checkOnPage('Book a visit')
-    expect(await homePage.startBookingButtonIsVisible()).toBeTruthy()
-  })
 })
 
 test.afterAll('Sign out and clear test data', async ({ request }) => {

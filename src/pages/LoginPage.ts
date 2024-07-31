@@ -1,5 +1,6 @@
 import { BasePage } from './BasePage'
 import { Locator, Page } from '@playwright/test'
+import { UserType } from '../support/UserType'
 
 export default class LoginPage extends BasePage {
   private readonly signInButton: Locator
@@ -13,32 +14,34 @@ export default class LoginPage extends BasePage {
     this.passwordInput = page.locator('#password')
   }
 
-  async signIntoBookVisitsService(): Promise<void> {
-    await this.emailInput.fill(process.env.USER_NAME || '')
+  async signInWith(userName: UserType): Promise<void> {
+    await this.emailInput.fill(await this.getUserName(userName))
     await this.continueButton.click()
     await this.passwordInput.fill(process.env.PASSWORD || '')
     await this.continueButton.click()
   }
 
-  async signInWithANewUser(): Promise<void> {
-    await this.emailInput.fill(process.env.NEW_USER_NAME || '')
-    await this.continueButton.click()
-    await this.passwordInput.fill(process.env.NEW_PASSWORD || '')
-    await this.continueButton.click()
-  }
+  private async getUserName(userType: UserType): Promise<string> {
+    let userName
+    switch (userType) {
+      case UserType.USER_NAME:
+        userName = process.env.USER_NAME || ''
+        break
+      case UserType.NEW_USER_NAME:
+        userName = process.env.NEW_USER_NAME || ''
+        break
+      case UserType.UNKNOWN_USER_NAME:
+        userName = process.env.UNKNOWN_USER_NAME || ''
+        break
+      case UserType.NO_VO_USER_NAME:
+        userName = process.env.NO_VO_USER_NAME || ''
+        break
+      case UserType.ONE_VO_BALANCE_USER_NAME:
+        userName = process.env.ONE_VO_BALANCE_USER_NAME || ''
+        break
+    }
 
-  async signAsUnknownBooker(): Promise<void> {
-    await this.emailInput.fill(process.env.UNKNOWN_USER_NAME || '')
-    await this.continueButton.click()
-    await this.passwordInput.fill(process.env.PASSWORD || '')
-    await this.continueButton.click()
-  }
-
-  async signAsAUserWithNoVOBalance(): Promise<void> {
-    await this.emailInput.fill(process.env.NO_VO_USER_NAME || '')
-    await this.continueButton.click()
-    await this.passwordInput.fill(process.env.PASSWORD || '')
-    await this.continueButton.click()
+    return userName
   }
 
   goToSignInPage = async () => {
