@@ -305,9 +305,12 @@ const bookAVisitViaStaffUI = async ({ request }: { request: APIRequestContext })
   const createApplicationResponse = await createApplication({ request }, application)
   expect(createApplicationResponse.status).toBe(200)
   const applicationReference = createApplicationResponse.applicationRef
+  GlobalData.set('applicationReference', applicationReference)
   await new Promise(resolve => setTimeout(resolve, 500))
 
   const createVisitResponse = await createVisit({ request }, applicationReference)
-  expect(createVisitResponse.status()).toBe(200)
+  const visitReference = createVisitResponse.visitRef
+  expect(createVisitResponse.status).toBe(200)
   await new Promise(resolve => setTimeout(resolve, 500))
+  GlobalData.set('visitReference', visitReference)
 }

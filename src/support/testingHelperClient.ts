@@ -145,5 +145,9 @@ export const createVisit = async ({ request }: { request: APIRequestContext }, a
     },
   })
 
-  return response
+  const res = {
+    status: response.status(),
+    visitRef: await response.text(),
+  }
+  return res
 }
