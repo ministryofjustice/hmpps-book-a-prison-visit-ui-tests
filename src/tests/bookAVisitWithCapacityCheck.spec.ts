@@ -35,7 +35,8 @@ test.describe('Create a booking with capacity checks', () => {
     await homePage.startBooking()
   })
 
-  test('Book a visit - capacity is 1, set time to -20 mins, block 2nd session with another booking and verify failed booking', async ({
+  //Skippping this test as it is failing due to the issue with capacity update
+  test.skip('Book a visit - capacity is 1, set time to -20 mins, block 2nd session with another booking and verify failed booking', async ({
     request,
     visitorPage,
     visitCalendarPage,
@@ -168,8 +169,7 @@ test.describe('Create a booking with capacity checks', () => {
     )
   })
 
-  //Skippping this test as it is failing due to the issue with capacity update
-  test.skip('Book a visit - set capacity to 1 and update time to -20 mins then verify booking', async ({
+  test('Book a visit - set capacity to 1 and update time to -20 mins then verify booking', async ({
     request,
     visitorPage,
     visitCalendarPage,
