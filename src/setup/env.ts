@@ -3,7 +3,7 @@ export default class ENV {
 
   public static readonly USER_NAME = process.env.USER_NAME
   public static readonly NEW_USER_NAME = process.env.NEW_USER_NAME
-  public static readonly UNKNOWN_USER_NAM = process.env.UNKNOWN_USER_NAME
+  public static readonly UNKNOWN_USER_NAME = process.env.UNKNOWN_USER_NAME
   public static readonly NO_VO_USER_NAME = process.env.NO_VO_USER_NAME
   public static readonly ONE_VO_BALANCE_USER_NAME = process.env.ONE_VO_BALANCE_USER_NAME
 
