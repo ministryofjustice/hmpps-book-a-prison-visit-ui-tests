@@ -1,4 +1,4 @@
-import { chromium, devices } from '@playwright/test'
+import { APIRequestContext, chromium, devices } from '@playwright/test'
 import { test, expect } from '../fixtures/PageFixtures'
 import AdditionalSupportPage from '../pages/AdditionalSupportPage'
 import HomePage from '../pages/HomePage'
@@ -7,12 +7,16 @@ import VisitorPage from '../pages/VisitorPage'
 import VisitsCalendarPage from '../pages/VisitsCalendarPage'
 import GlobalData from '../setup/GlobalData'
 import {
+  createApplication,
+  createVisit,
   deleteApplication,
   deleteVisit,
   getAccessToken,
   updateModifyTimestamp,
   updateOpenSessionCapacity,
 } from '../support/testingHelperClient'
+import { UserType } from '../support/UserType'
+import { IApplication } from '../data/IApplication'
 
 test.beforeAll('Get access token and store as global variable', async ({ request }, testInfo) => {
   GlobalData.set('authToken', await getAccessToken({ request }))
@@ -84,7 +88,7 @@ test.describe('Create a booking with capacity checks', () => {
     await newLoginPage.navigateTo('/')
     await newLoginPage.checkOnPage('Create your GOV.UK One Login or sign in')
     await newLoginPage.goToSignInPage()
-    await newLoginPage.signInWithANewUser()
+    await newLoginPage.signInWith(UserType.NEW_USER_NAME)
 
     await newHomePage.checkOnPage('Book a visit')
     await newHomePage.startBooking()
@@ -211,6 +215,61 @@ test.describe('Create a booking with capacity checks', () => {
     GlobalData.set('visitReference', visitReference)
     console.log('Confirmation message: ', visitReference)
   })
+
+  test('should not be allowed to book a visit when a prisoner has 1 VO available and that has been used to book a staff visit', async ({
+    context,
+    request,
+    loginPage,
+    homePage,
+    visitorPage,
+    visitCalendarPage,
+    additionalSupportPage,
+    mainContactPage,
+    visitDetailsPage,
+  }) => {
+    const priosnerName = "Ef'liaico Braderto"
+
+    context.clearCookies()
+    await loginPage.navigateTo('/')
+    await loginPage.checkOnPage('Create your GOV.UK One Login or sign in')
+    await loginPage.goToSignInPage()
+
+    await loginPage.signInWith(UserType.ONE_VO_BALANCE_USER_NAME)
+    await homePage.checkOnPage('Book a visit')
+
+    const name = await homePage.getPrisonerName()
+    expect(name).toBe(priosnerName)
+    await homePage.startBooking()
+
+    await visitorPage.checkOnPage('Who is going on the visit?')
+    await visitorPage.selectFirstVisitor()
+    await visitorPage.continueToNextPage()
+
+    await visitCalendarPage.checkOnPage('Choose the visit time')
+    await visitCalendarPage.selectFirstAvailableDate()
+    await visitCalendarPage.selectFirstAvailableTime()
+    await visitCalendarPage.continueToNextPage()
+
+    await additionalSupportPage.checkOnPage('Is additional support needed for any of the visitors?')
+    await additionalSupportPage.selectNoSupport()
+    const applicationReference = await additionalSupportPage.getApplicationReference()
+    GlobalData.set('applicationReference', applicationReference)
+    console.log(`Application Reference: ${applicationReference}`)
+
+    // Block the VO by booking a session via staff UI
+    await bookAVisitViaStaffUI({ request })
+
+    await additionalSupportPage.continueToNextPage()
+
+    await mainContactPage.checkOnPage('Who is the main contact for this booking?')
+    await mainContactPage.selectSomeoneElse(someOneElseAsMainContact)
+    await mainContactPage.selectNoPhoneNumberProvided()
+    await mainContactPage.continueToNextPage()
+
+    await visitDetailsPage.checkOnPage('Check the visit details before booking')
+    await visitDetailsPage.submitBooking()
+    await visitorPage.checkOnPage('A visit cannot be booked')
+  })
 })
 
 test.afterAll('Teardown test data', async ({ request }) => {
@@ -229,3 +288,29 @@ test.afterAll('Teardown test data', async ({ request }) => {
     await deleteApplication({ request }, applicationId)
   }
 })
+
+const bookAVisitViaStaffUI = async ({ request }: { request: APIRequestContext }) => {
+  const application: IApplication = {
+    prisonCode: 'FHI',
+    prisonerId: 'G1672UD',
+    sessionDate: '2024-08-18',
+    sessionStart: '09:30',
+    sessionEnd: '11:30',
+    userType: 'STAFF',
+    contactName: 'HS',
+    visitors: [4539726],
+    visitRestriction: 'OPEN',
+  }
+
+  const createApplicationResponse = await createApplication({ request }, application)
+  expect(createApplicationResponse.status).toBe(200)
+  const applicationReference = createApplicationResponse.applicationRef
+  GlobalData.set('applicationReference', applicationReference)
+  await new Promise(resolve => setTimeout(resolve, 500))
+
+  const createVisitResponse = await createVisit({ request }, applicationReference)
+  const visitReference = createVisitResponse.visitRef
+  expect(createVisitResponse.status).toBe(200)
+  await new Promise(resolve => setTimeout(resolve, 500))
+  GlobalData.set('visitReference', visitReference)
+}
