@@ -38,5 +38,4 @@ jobs:
 workflows:
   build-and-test:
     jobs:
-      - build-and-test:
-          context: visits-public-e2e-tests
+      - build-and-test
