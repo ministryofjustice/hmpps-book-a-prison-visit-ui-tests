@@ -16,6 +16,6 @@ export default class ENV {
 
   public static readonly HMPPS_AUTH_URL = process.env.HMPPS_AUTH_URL
   public static readonly TEST_HELPER_API_URL = process.env.TEST_HELPER_API_URL
-  public static readonly CLIENT_ID = process.env.CLIENT_ID
-  public static readonly CLIENT_SECRET = process.env.CLIENT_SECRET
+  public static readonly TESTING_CLIENT_ID = process.env.TESTING_CLIENT_ID
+  public static readonly TESTING_CLIENT_SECRET = process.env.TESTING_CLIENT_SECRET
 }

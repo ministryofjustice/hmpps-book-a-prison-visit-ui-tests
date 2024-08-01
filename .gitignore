@@ -14,3 +14,5 @@ playwright-report/
 .env
 .env.dev
 .env.staging
+
+.idea
