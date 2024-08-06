@@ -50,6 +50,10 @@ export default defineConfig({
       name: 'setup',
       testMatch: /.*\.setup\.ts/,
     },
+    // {
+    //   name: 'androidSetup',
+    //   testMatch: /.*\android.setup\.ts/,
+    // },
     {
       name: 'chromium',
       use: {
@@ -87,6 +91,15 @@ export default defineConfig({
       name: 'mobile_nexus7',
       use: { ...devices['Nexus 7'], storageState: './playwright/.auth/auth.json' },
       dependencies: ['setup'],
+    },
+    {
+      name: 'mobile_android',
+      use: {
+        launchOptions: {
+          slowMo: 10000,
+        },
+      },
+      // dependencies: ['androidSetup'],
     },
   ],
 })
