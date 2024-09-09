@@ -9,6 +9,7 @@ export default class BookingsPage extends BasePage {
   private readonly bookingReference: Locator
   private readonly noBookingsMessage: Locator
   private readonly bookingDetailsLink: Locator
+  private readonly viewCancelledVisitsLink: Locator
 
   constructor(page: Page) {
     super(page)
@@ -19,6 +20,7 @@ export default class BookingsPage extends BasePage {
     this.bookingReference = page.getByTestId('visit-reference-1')
     this.noBookingsMessage = page.getByTestId('no-visits')
     this.bookingDetailsLink = page.getByTestId('visit-link-1')
+    this.viewCancelledVisitsLink = page.getByTestId('cancelled-visits-link')
   }
 
   async getConfirmedBookingsCount(): Promise<number> {
@@ -51,5 +53,8 @@ export default class BookingsPage extends BasePage {
 
   async clickBookingDetailsLink(): Promise<void> {
     await this.bookingDetailsLink.click()
+  }
+  async clickViewCancelledVisitsLink(): Promise<void> {
+    await this.viewCancelledVisitsLink.click()
   }
 }
