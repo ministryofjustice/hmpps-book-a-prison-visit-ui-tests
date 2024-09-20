@@ -11,6 +11,7 @@ export abstract class BasePage {
   private readonly alertErrorMessage: Locator
   private readonly homePageLink: Locator
   private readonly bookingsPageLink: Locator
+  private readonly visitorsPageLink: Locator
   private readonly feedbackLink: Locator
   private readonly accessibilityStatementLink: Locator
   private readonly privacyPolicyLink: Locator
@@ -28,6 +29,7 @@ export abstract class BasePage {
     this.alertErrorMessage = page.locator('div[role="alert"]')
     this.homePageLink = page.getByRole('link', { name: 'Home' })
     this.bookingsPageLink = page.locator('[class^=service-header] a:has-text("Bookings")')
+    this.visitorsPageLink = page.locator('[class^=service-header] a:has-text("Visitors")')
     this.feedbackLink = page.getByRole('link', { name: 'feedback' })
     this.accessibilityStatementLink = page.getByRole('link', { name: 'Accessibility' })
     this.privacyPolicyLink = page.getByRole('link', { name: 'Privacy' })
@@ -118,6 +120,10 @@ export abstract class BasePage {
 
   async navigateToTermsAndConditionsPage(): Promise<void> {
     await this.termsAndConditionsLink.click()
+  }
+
+  async navigateToVisitorsPage(): Promise<void> {
+    await this.visitorsPageLink.click()
   }
 
   async doesUrlContain(url: string): Promise<boolean> {

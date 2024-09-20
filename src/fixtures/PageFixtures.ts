@@ -11,6 +11,7 @@ import BookingsPage from '../pages/BookingsPage'
 import BookingsDetailsPage from '../pages/BookingsDetailsPage'
 import SignedOutPage from '../pages/SignedOutPage'
 import CancelledBookingsPage from '../pages/CancelledBookingsPage'
+import BookableVisitorsPage from '../pages/BookableVisitorsPage'
 
 type PageFixtures = {
   loginPage: LoginPage
@@ -25,6 +26,7 @@ type PageFixtures = {
   bookingDetailsPage: BookingsDetailsPage
   signedOutPage: SignedOutPage
   cancelledBookingsPage: CancelledBookingsPage
+  bookableVisitorsPage: BookableVisitorsPage
 }
 
 const test = baseTest.extend<PageFixtures>({
@@ -75,6 +77,10 @@ const test = baseTest.extend<PageFixtures>({
   cancelledBookingsPage: async ({ page }, use) => {
     await use(new CancelledBookingsPage(page))
   },
+
+  bookableVisitorsPage: async ({ page }, use) => {
+    await use(new BookableVisitorsPage(page))
+  }
 })
 
 export { test, expect }
