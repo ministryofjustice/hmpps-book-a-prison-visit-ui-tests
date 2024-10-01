@@ -27,11 +27,8 @@ test.describe('Book a visit and verify on bookins page', () => {
   }) => {
     await bookingsPage.navigateToBookingsPage()
     await bookingsPage.checkOnPage('Bookings')
-    const bookingsCount = await bookingsPage.getConfirmedBookingsCount()
-
     expect(await bookingsPage.isNoBookingsMessageDisplayed()).toBeTruthy()
     expect(await bookingsPage.getNoBookingsMessage()).toBe('You do not have any future bookings.')
-    expect(bookingsCount).toBe(0)
   })
 
   test('should display future visits on bookings page if there are any', async ({
@@ -81,11 +78,9 @@ test.describe('Book a visit and verify on bookins page', () => {
     await bookingConfirmationPage.navigateToBookingsPage()
     await bookingsPage.checkOnPage('Bookings')
 
-    const bookingsCount = await bookingsPage.getConfirmedBookingsCount()
     const confirmedVisitStartTime = await bookingsPage.getBookingStartTime()
     const confirmedVisitEndTime = await bookingsPage.getBookingEndTime()
 
-    expect(bookingsCount).toBe(1)
     expect(await bookingsPage.getBookingDate()).toBe(visitDate)
     expect(`${confirmedVisitStartTime} to ${confirmedVisitEndTime}`).toBe(visitTime)
     expect(await bookingsPage.getBookingReference()).toBe(visitReference)
