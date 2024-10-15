@@ -14,7 +14,7 @@ test.describe('Static page validations', () => {
     await homePage.waitForTimeout(1000)
     const cookies = await context.cookies()
 
-    expect(cookies.find(cookie => cookie.name === 'cookie_policy').value).toBe('{"acceptAnalytics":"yes"}')
+    expect(cookies.find(cookie => cookie.name === 'cookie_policy').value).toBe(encodeURIComponent('{"acceptAnalytics":"yes"}'))
   })
 
   test('should take the user to feedback page', async ({ context, loginPage, homePage }) => {
