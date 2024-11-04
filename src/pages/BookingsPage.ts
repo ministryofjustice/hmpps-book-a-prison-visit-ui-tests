@@ -20,7 +20,7 @@ export default class BookingsPage extends BasePage {
     this.bookingEndTime = page.getByTestId('visit-end-time-1')
     this.bookingReference = page.getByTestId('visit-reference-1')
     this.noBookingsMessage = page.getByTestId('no-visits')
-    this.bookingDetailsLink = page.getByTestId('visit-link-1')
+    this.bookingDetailsLink = page.getByTestId('visit-link-booking-1')
     this.viewCancelledVisitsLink = page.getByTestId('cancelled-visits-link')
     this.cancelBookingLink = page.getByTestId('visit-link-cancel-1')
 
