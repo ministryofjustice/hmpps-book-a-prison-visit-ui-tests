@@ -49,7 +49,7 @@ test.describe('Create a booking via public ui', () => {
 
         await mainContactPage.checkOnPage('Who is the main contact for this booking?')
         await mainContactPage.selectMainContact()
-        await mainContactPage.selectNoPhoneNumberProvided()
+        await mainContactPage.selectUKPhoneNumber('07700900982')
         const mainContact = await mainContactPage.getMainContactName()
         await mainContactPage.continueToNextPage()
 
@@ -85,7 +85,7 @@ test.describe('Create a booking via public ui', () => {
         await homePage.clickConfirm()
         await homePage.checkOnPage('Booking cancelled')
         const message = await homePage.getConfirmationMessage()
-        expect(message).toContain('The main contact for this booking will get a text message to confirm it has been cancelled.')
+        expect(message).toContain('A text message will be sent to the main contact to confirm the booking has been cancelled.')
         console.log('Confirmation message: ', visitReference)
     })
 
