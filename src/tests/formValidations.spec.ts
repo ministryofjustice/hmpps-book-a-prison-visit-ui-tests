@@ -136,18 +136,15 @@ test.describe('Form validation error messages', () => {
 
     expect(await mainContactPage.isErrorMessageDisplayed()).toBeTruthy()
     expect(await mainContactPage.getFormNoContactErrorMessage()).toContain('No main contact selected')
-    expect(await mainContactPage.getFormNoNumberErrorMessage()).toContain('No answer selected')
-    expect(await mainContactPage.getAlertErrorMessage()).toContain('No main contact selected No answer selected')
+    expect(await mainContactPage.getAlertErrorMessage()).toContain('No main contact selected')
 
     await mainContactPage.selectSomeoneElse('')
-    await mainContactPage.selectUKPhoneNumber('')
     await mainContactPage.continueToNextPage()
 
     expect(await mainContactPage.isErrorMessageDisplayed()).toBeTruthy()
     expect(await mainContactPage.getFormSomeoneElseErrorMessage()).toContain('Enter the name of the main contact')
-    expect(await mainContactPage.getFormNoNumberErrorMessage()).toContain('Enter a phone number')
     expect(await mainContactPage.getAlertErrorMessage()).toContain(
-      'Enter the name of the main contact Enter a phone number',
+      'Enter the name of the main contact',
     )
   })
 })

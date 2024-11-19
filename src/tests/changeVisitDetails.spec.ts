@@ -27,6 +27,7 @@ test.describe('Create a booking and change the visit details', () => {
     additionalSupportPage,
     mainContactPage,
     visitDetailsPage,
+    contactDetailsPage
   }) => {
     await visitorPage.checkOnPage('Who is going on the visit?')
     await visitorPage.slectLastVisitor()
@@ -49,9 +50,12 @@ test.describe('Create a booking and change the visit details', () => {
 
     await mainContactPage.checkOnPage('Who is the main contact for this booking?')
     await mainContactPage.selectMainContact()
-    await mainContactPage.selectNoPhoneNumberProvided()
     const mainContact = await mainContactPage.getMainContactName()
     await mainContactPage.continueToNextPage()
+
+    await contactDetailsPage.enterEmailAdd()
+    await contactDetailsPage.enterPhoneNumber()
+    await contactDetailsPage.continueToNextPage()
 
     await visitDetailsPage.checkOnPage('Check the visit details before booking')
     await visitDetailsPage.changeVisitors()
@@ -70,6 +74,11 @@ test.describe('Create a booking and change the visit details', () => {
 
     await mainContactPage.checkOnPage('Who is the main contact for this booking?')
     await mainContactPage.continueToNextPage()
+
+    await contactDetailsPage.enterEmailAdd()
+    await contactDetailsPage.enterPhoneNumber()
+    await contactDetailsPage.continueToNextPage()
+
     await visitDetailsPage.checkOnPage('Check the visit details before booking')
 
     const prisonerNameOnDetails = await visitDetailsPage.getPrisonerName()
@@ -91,6 +100,7 @@ test.describe('Create a booking and change the visit details', () => {
     additionalSupportPage,
     mainContactPage,
     visitDetailsPage,
+    contactDetailsPage
   }) => {
     await visitorPage.checkOnPage('Who is going on the visit?')
     await visitorPage.selectVisitors(2)
@@ -113,9 +123,12 @@ test.describe('Create a booking and change the visit details', () => {
 
     await mainContactPage.checkOnPage('Who is the main contact for this booking?')
     await mainContactPage.selectMainContact()
-    await mainContactPage.selectNoPhoneNumberProvided()
     const mainContact = await mainContactPage.getMainContactName()
     await mainContactPage.continueToNextPage()
+
+    await contactDetailsPage.enterEmailAdd()
+    await contactDetailsPage.enterPhoneNumber()
+    await contactDetailsPage.continueToNextPage()
 
     await visitDetailsPage.checkOnPage('Check the visit details before booking')
     await visitDetailsPage.changeDateTime()
@@ -137,6 +150,9 @@ test.describe('Create a booking and change the visit details', () => {
     await additionalSupportPage.continueToNextPage()
     await mainContactPage.checkOnPage('Who is the main contact for this booking?')
     await mainContactPage.continueToNextPage()
+
+    await contactDetailsPage.continueToNextPage()
+
     await visitDetailsPage.checkOnPage('Check the visit details before booking')
 
     const prisonerNameOnDetails = await visitDetailsPage.getPrisonerName()
@@ -158,6 +174,7 @@ test.describe('Create a booking and change the visit details', () => {
     additionalSupportPage,
     mainContactPage,
     visitDetailsPage,
+    contactDetailsPage
   }) => {
     await visitorPage.checkOnPage('Who is going on the visit?')
     await visitorPage.selectVisitors(2)
@@ -180,8 +197,11 @@ test.describe('Create a booking and change the visit details', () => {
 
     await mainContactPage.checkOnPage('Who is the main contact for this booking?')
     await mainContactPage.selectSomeoneElse(someOneElseAsMainContact)
-    await mainContactPage.selectNoPhoneNumberProvided()
     await mainContactPage.continueToNextPage()
+
+    await contactDetailsPage.enterEmailAdd()
+    await contactDetailsPage.enterPhoneNumber()
+    await contactDetailsPage.continueToNextPage()
 
     await visitDetailsPage.checkOnPage('Check the visit details before booking')
     await visitDetailsPage.changeAdditionalSupport()
@@ -194,6 +214,8 @@ test.describe('Create a booking and change the visit details', () => {
 
     await mainContactPage.checkOnPage('Who is the main contact for this booking?')
     await mainContactPage.continueToNextPage()
+
+    await contactDetailsPage.continueToNextPage()
 
     await visitDetailsPage.checkOnPage('Check the visit details before booking')
 
@@ -216,6 +238,7 @@ test.describe('Create a booking and change the visit details', () => {
     additionalSupportPage,
     mainContactPage,
     visitDetailsPage,
+    contactDetailsPage
   }) => {
     await visitorPage.checkOnPage('Who is going on the visit?')
     await visitorPage.selectVisitors(2)
@@ -238,8 +261,11 @@ test.describe('Create a booking and change the visit details', () => {
 
     await mainContactPage.checkOnPage('Who is the main contact for this booking?')
     await mainContactPage.selectMainContact()
-    await mainContactPage.selectNoPhoneNumberProvided()
     await mainContactPage.continueToNextPage()
+
+    // await contactDetailsPage.enterEmailAdd()
+    // await contactDetailsPage.enterPhoneNumber()
+    await contactDetailsPage.continueToNextPage()
 
     await visitDetailsPage.checkOnPage('Check the visit details before booking')
     await visitDetailsPage.changeMainContact()
@@ -248,8 +274,9 @@ test.describe('Create a booking and change the visit details', () => {
     expect(await mainContactPage.isSomeoneElseNameInputboxVisible()).toBeFalsy()
 
     await mainContactPage.selectSomeoneElse(someOneElseAsMainContact)
-    await mainContactPage.selectUKPhoneNumber(mainContactPhoneNumber)
     await mainContactPage.continueToNextPage()
+
+    await contactDetailsPage.continueToNextPage()
 
     await visitDetailsPage.checkOnPage('Check the visit details before booking')
 
@@ -264,7 +291,7 @@ test.describe('Create a booking and change the visit details', () => {
     expect(visitorsNamesOnDetails).toEqual(visitors)
     expect(visitDateAndTimeOnDetails.join(' ')).toBe(`${visitDate} ${visitTime}`)
     expect(additionalSupportDetailsOnDetails).toBe('None')
-    expect(mainContactNameOnDetails).toBe(`${someOneElseAsMainContact} ${mainContactPhoneNumber}`)
+    expect(mainContactNameOnDetails).toBe(`${someOneElseAsMainContact}`)
   })
 })
 
