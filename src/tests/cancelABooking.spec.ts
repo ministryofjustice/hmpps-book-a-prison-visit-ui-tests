@@ -26,7 +26,8 @@ test.describe('Create a booking via public ui', () => {
         mainContactPage,
         visitDetailsPage,
         bookingConfirmationPage,
-        bookingsPage
+        bookingsPage,
+        contactDetailsPage
     }) => {
         await visitorPage.checkOnPage('Who is going on the visit?')
         await visitorPage.slectLastVisitor()
@@ -49,9 +50,12 @@ test.describe('Create a booking via public ui', () => {
 
         await mainContactPage.checkOnPage('Who is the main contact for this booking?')
         await mainContactPage.selectMainContact()
-        await mainContactPage.selectUKPhoneNumber('07700900982')
         const mainContact = await mainContactPage.getMainContactName()
         await mainContactPage.continueToNextPage()
+
+        await contactDetailsPage.enterEmailAdd()
+        await contactDetailsPage.enterPhoneNumber()
+        await contactDetailsPage.continueToNextPage()
 
         await visitDetailsPage.checkOnPage('Check the visit details before booking')
         const prisonerNameOnDetails = await visitDetailsPage.getPrisonerName()
@@ -85,7 +89,7 @@ test.describe('Create a booking via public ui', () => {
         await homePage.clickConfirm()
         await homePage.checkOnPage('Booking cancelled')
         const message = await homePage.getConfirmationMessage()
-        expect(message).toContain('A text message will be sent to the main contact to confirm the booking has been cancelled.')
+        expect(message).toContain('An email and a text message will be sent to the main contact to confirm the booking has been cancelled.')
         console.log('Confirmation message: ', visitReference)
     })
 
@@ -97,7 +101,8 @@ test.describe('Create a booking via public ui', () => {
         mainContactPage,
         visitDetailsPage,
         bookingConfirmationPage,
-        bookingsPage
+        bookingsPage,
+        contactDetailsPage
     }) => {
         await visitorPage.checkOnPage('Who is going on the visit?')
         await visitorPage.slectLastVisitor()
@@ -120,9 +125,12 @@ test.describe('Create a booking via public ui', () => {
 
         await mainContactPage.checkOnPage('Who is the main contact for this booking?')
         await mainContactPage.selectMainContact()
-        await mainContactPage.selectNoPhoneNumberProvided()
         const mainContact = await mainContactPage.getMainContactName()
         await mainContactPage.continueToNextPage()
+
+        await contactDetailsPage.enterEmailAdd()
+        await contactDetailsPage.enterPhoneNumber()
+        await contactDetailsPage.continueToNextPage()
 
         await visitDetailsPage.checkOnPage('Check the visit details before booking')
         const prisonerNameOnDetails = await visitDetailsPage.getPrisonerName()
@@ -173,3 +181,4 @@ test.describe('Create a booking via public ui', () => {
         }
     })
 })
+

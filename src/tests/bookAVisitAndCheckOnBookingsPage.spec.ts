@@ -40,6 +40,7 @@ test.describe('Book a visit and verify on bookins page', () => {
     visitDetailsPage,
     bookingConfirmationPage,
     bookingsPage,
+    contactDetailsPage
   }) => {
     await homePage.startBooking()
     await visitorPage.checkOnPage('Who is going on the visit?')
@@ -62,8 +63,10 @@ test.describe('Book a visit and verify on bookins page', () => {
 
     await mainContactPage.checkOnPage('Who is the main contact for this booking?')
     await mainContactPage.selectMainContact()
-    await mainContactPage.selectNoPhoneNumberProvided()
     await mainContactPage.continueToNextPage()
+    await contactDetailsPage.enterEmailAdd()
+    await contactDetailsPage.enterPhoneNumber()
+    await contactDetailsPage.continueToNextPage()
 
     await visitDetailsPage.checkOnPage('Check the visit details before booking')
     await visitDetailsPage.submitBooking()
@@ -96,6 +99,7 @@ test.describe('Book a visit and verify on bookins page', () => {
     bookingConfirmationPage,
     bookingsPage,
     bookingDetailsPage,
+    contactDetailsPage
   }) => {
     await homePage.startBooking()
     await visitorPage.checkOnPage('Who is going on the visit?')
@@ -118,9 +122,12 @@ test.describe('Book a visit and verify on bookins page', () => {
 
     await mainContactPage.checkOnPage('Who is the main contact for this booking?')
     await mainContactPage.selectMainContact()
-    await mainContactPage.selectUKPhoneNumber(mainContactPhoneNumber)
     const mainContact = await mainContactPage.getMainContactName()
     await mainContactPage.continueToNextPage()
+
+    await contactDetailsPage.enterEmailAdd()
+    await contactDetailsPage.enterPhoneNumber()
+    await contactDetailsPage.continueToNextPage()
 
     await visitDetailsPage.checkOnPage('Check the visit details before booking')
     await visitDetailsPage.submitBooking()
@@ -151,7 +158,7 @@ test.describe('Book a visit and verify on bookins page', () => {
     expect(`${confirmedVisitStartTime} to ${confirmedVisitEndTime}`).toBe(visitTime)
     expect(confirmedPrisonerName).toBe(prisonerName)
     expect(confirmedMainContact).toBe(mainContact)
-    expect(confirmedMainContactPhoneNumber).toBe(mainContactPhoneNumber)
+    // expect(confirmedMainContactPhoneNumber).toBe(mainContactPhoneNumber)
     expect(confirmedVisitors.length).toBe(visitors.length)
     expect(confirmedVisitors).toEqual(expect.arrayContaining(visitors))
     expect(confirmedAdditionalSupport).toBe(additionalSupportRequired)

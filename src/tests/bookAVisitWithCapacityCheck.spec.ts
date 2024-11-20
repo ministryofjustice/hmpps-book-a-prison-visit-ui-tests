@@ -43,6 +43,7 @@ test.describe('Create a booking with capacity checks', () => {
     additionalSupportPage,
     mainContactPage,
     visitDetailsPage,
+    contactDetailsPage
   }) => {
     await visitorPage.checkOnPage('Who is going on the visit?')
     await visitorPage.selectVisitors(3)
@@ -113,8 +114,10 @@ test.describe('Create a booking with capacity checks', () => {
     // Continue with the first booking
     await mainContactPage.checkOnPage('Who is the main contact for this booking?')
     await mainContactPage.selectSomeoneElse(someOneElseAsMainContact)
-    await mainContactPage.selectNoPhoneNumberProvided()
     await mainContactPage.continueToNextPage()
+    await contactDetailsPage.enterEmailAdd()
+    await contactDetailsPage.enterPhoneNumber()
+    await contactDetailsPage.continueToNextPage()
 
     await visitDetailsPage.checkOnPage('Check the visit details before booking')
     await visitDetailsPage.submitBooking()
@@ -133,6 +136,7 @@ test.describe('Create a booking with capacity checks', () => {
     additionalSupportPage,
     mainContactPage,
     visitDetailsPage,
+    contactDetailsPage
   }) => {
     await visitorPage.checkOnPage('Who is going on the visit?')
     await visitorPage.selectVisitors(2)
@@ -156,8 +160,10 @@ test.describe('Create a booking with capacity checks', () => {
 
     await mainContactPage.checkOnPage('Who is the main contact for this booking?')
     await mainContactPage.selectSomeoneElse(someOneElseAsMainContact)
-    await mainContactPage.selectNoPhoneNumberProvided()
     await mainContactPage.continueToNextPage()
+    await contactDetailsPage.enterEmailAdd()
+    await contactDetailsPage.enterPhoneNumber()
+    await contactDetailsPage.continueToNextPage()
 
     await visitDetailsPage.checkOnPage('Check the visit details before booking')
     await visitDetailsPage.submitBooking()
@@ -177,6 +183,7 @@ test.describe('Create a booking with capacity checks', () => {
     mainContactPage,
     visitDetailsPage,
     bookingConfirmationPage,
+    contactDetailsPage
   }) => {
     await visitorPage.checkOnPage('Who is going on the visit?')
     await visitorPage.selectVisitors(3)
@@ -203,8 +210,11 @@ test.describe('Create a booking with capacity checks', () => {
 
     await mainContactPage.checkOnPage('Who is the main contact for this booking?')
     await mainContactPage.selectSomeoneElse(someOneElseAsMainContact)
-    await mainContactPage.selectNoPhoneNumberProvided()
     await mainContactPage.continueToNextPage()
+
+    await contactDetailsPage.enterEmailAdd()
+    await contactDetailsPage.enterPhoneNumber()
+    await contactDetailsPage.continueToNextPage()
 
     await visitDetailsPage.checkOnPage('Check the visit details before booking')
     await visitDetailsPage.submitBooking()
@@ -228,6 +238,7 @@ test.describe('Create a booking with capacity checks', () => {
     additionalSupportPage,
     mainContactPage,
     visitDetailsPage,
+    contactDetailsPage
   }) => {
     const priosnerName = "Ef'liaico Braderto"
 
@@ -265,8 +276,11 @@ test.describe('Create a booking with capacity checks', () => {
 
     await mainContactPage.checkOnPage('Who is the main contact for this booking?')
     await mainContactPage.selectSomeoneElse(someOneElseAsMainContact)
-    await mainContactPage.selectNoPhoneNumberProvided()
     await mainContactPage.continueToNextPage()
+
+    await contactDetailsPage.enterEmailAdd()
+    await contactDetailsPage.enterPhoneNumber()
+    await contactDetailsPage.continueToNextPage()
 
     await visitDetailsPage.checkOnPage('Check the visit details before booking')
     await visitDetailsPage.submitBooking()

@@ -21,7 +21,7 @@ test.describe('Verify details of visitors a booker can book for', () => {
     // Number of bookable visitors for this booker is 5 & one of them (Uhoyneke Tevyon) is banned.
     test("List all visitors asssociated with a booker", async ({ homePage, bookableVisitorsPage }) => {
         await homePage.navigateToVisitorsPage()
-        const pageHeading = "Visitors you can book for"
+        const pageHeading = "Visitors"
         const vistorPageHeading = await bookableVisitorsPage.getPageHeading()
         const vistorsCount = await bookableVisitorsPage.getVisitorsCount()
         expect(pageHeading).toBe(vistorPageHeading)
