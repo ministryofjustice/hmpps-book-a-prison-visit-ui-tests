@@ -25,7 +25,7 @@ test.describe('Static page validations', () => {
     await homePage.navigateToFeedbackPage()
     const feedbackPage = await waitForFeedbackPage
     const header = feedbackPage.locator('#main-content h1')
-    expect(await header.textContent()).toContain('Visit someone in prison - feedback')
+    expect(await header.textContent()).toContain('Provide feedback')
   })
 
   test('should take the user to accessibility statement page', async ({ loginPage, homePage }) => {
