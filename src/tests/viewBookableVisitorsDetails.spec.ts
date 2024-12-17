@@ -13,7 +13,8 @@ test.describe('Verify details of visitors a booker can book for', () => {
     test.beforeEach(async ({ context, loginPage, homePage }) => {
         context.clearCookies()
         await loginPage.navigateTo('/')
-        await loginPage.checkOnPage('Create your GOV.UK One Login or sign in')
+        await loginPage.checkOnPage('Visit someone in prison')
+        await loginPage.clickStartNowButton()
         await loginPage.goToSignInPage()
         await loginPage.signInWith(UserType.USER_NAME)
     })
