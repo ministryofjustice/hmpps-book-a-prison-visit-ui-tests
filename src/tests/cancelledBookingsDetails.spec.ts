@@ -13,7 +13,8 @@ test.describe('Verify cancelled bookings details', () => {
   test.beforeEach(async ({ context, loginPage, homePage }) => {
     context.clearCookies()
     await loginPage.navigateTo('/')
-    await loginPage.checkOnPage('Create your GOV.UK One Login or sign in')
+    await loginPage.checkOnPage('Visit someone in prison')
+    await loginPage.clickStartNowButton()
     await loginPage.goToSignInPage()
     await loginPage.signInWith(UserType.USER_NAME)
     await homePage.checkOnPage('Book a visit')

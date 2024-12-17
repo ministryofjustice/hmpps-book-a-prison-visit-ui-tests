@@ -6,9 +6,11 @@ export default class LoginPage extends BasePage {
   private readonly signInButton: Locator
   private readonly emailInput: Locator
   private readonly passwordInput: Locator
+  private readonly startNowButton: Locator
 
   constructor(page: Page) {
     super(page)
+    this.startNowButton = page.getByRole('button', { name: 'Start now' })
     this.signInButton = page.getByRole('button', { name: 'Sign in' })
     this.emailInput = page.locator('#email')
     this.passwordInput = page.locator('#password')
@@ -46,5 +48,9 @@ export default class LoginPage extends BasePage {
 
   goToSignInPage = async () => {
     await this.signInButton.click()
+  }
+
+  clickStartNowButton = async () => {
+    await this.startNowButton.click()
   }
 }

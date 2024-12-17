@@ -11,7 +11,8 @@ const prisonerName: string = 'Sam Cake'
 test.beforeEach(async ({ context, loginPage }) => {
   context.clearCookies()
   await loginPage.navigateTo('/')
-  await loginPage.checkOnPage('Create your GOV.UK One Login or sign in')
+  await loginPage.checkOnPage('Visit someone in prison')
+  await loginPage.clickStartNowButton()
   await loginPage.goToSignInPage()
 })
 

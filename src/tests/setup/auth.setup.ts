@@ -3,7 +3,8 @@ import { UserType } from '../../support/UserType'
 
 test('test', async ({ loginPage, homePage }) => {
   await loginPage.navigateTo('/')
-  await loginPage.checkOnPage('Create your GOV.UK One Login or sign in')
+  await loginPage.checkOnPage('Visit someone in prison')
+  await loginPage.clickStartNowButton()
   await loginPage.goToSignInPage()
   await loginPage.signInWith(UserType.USER_NAME)
 
