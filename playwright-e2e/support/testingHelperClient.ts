@@ -1,5 +1,5 @@
 import { APIRequestContext } from '@playwright/test'
-import globalData from './../setup/GlobalData'
+import globalData from '../setup/GlobalData'
 import { IApplication } from '../data/IApplication'
 
 const testHelperUri = process.env.TEST_HELPER_API_URL
