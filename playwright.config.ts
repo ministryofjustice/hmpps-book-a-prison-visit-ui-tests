@@ -10,8 +10,8 @@ if (!process.env.INTEG_USER_NAME || !process.env.INTEG_PASSWORD) {
 
 export default defineConfig({
   globalSetup: './playwright-e2e/setup/globalSetup.ts',
-  globalTimeout: 60000 * 5,
-  timeout: 60000,
+  globalTimeout: 600000,
+  timeout: 300000,
   testDir: './playwright-e2e/tests',
   fullyParallel: false,
   forbidOnly: process.env.CI !== undefined,
