@@ -30,7 +30,7 @@ test.describe('Create a booking and change the visit details', () => {
     contactDetailsPage
   }) => {
     await visitorPage.checkOnPage('Who is going on the visit?')
-    await visitorPage.slectLastVisitor()
+    await visitorPage.selectLastVisitor()
     const visitors = await visitorPage.getAllTheVisitorsNamesWithAge()
     await visitorPage.continueToNextPage()
 

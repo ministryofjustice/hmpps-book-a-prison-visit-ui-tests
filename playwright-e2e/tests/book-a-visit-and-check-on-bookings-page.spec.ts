@@ -45,7 +45,7 @@ test.describe('Book a visit and verify on bookins page', () => {
   }) => {
     await homePage.startBooking()
     await visitorPage.checkOnPage('Who is going on the visit?')
-    await visitorPage.slectLastVisitor()
+    await visitorPage.selectLastVisitor()
     await visitorPage.continueToNextPage()
 
     await visitCalendarPage.checkOnPage('Choose the visit time')

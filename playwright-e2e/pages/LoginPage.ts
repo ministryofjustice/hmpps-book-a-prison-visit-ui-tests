@@ -41,6 +41,9 @@ export default class LoginPage extends BasePage {
       case UserType.ONE_VO_BALANCE_USER_NAME:
         userName = process.env.ONE_VO_BALANCE_USER_NAME || ''
         break
+      case UserType.REMAND_PRISONER_VISITOR:
+        userName = process.env.REMAND_PRISONER_VISITOR || ''
+          break
     }
 
     return userName

@@ -6,6 +6,7 @@ export default class ENV {
   public static readonly UNKNOWN_USER_NAME = process.env.UNKNOWN_USER_NAME
   public static readonly NO_VO_USER_NAME = process.env.NO_VO_USER_NAME
   public static readonly ONE_VO_BALANCE_USER_NAME = process.env.ONE_VO_BALANCE_USER_NAME
+  public static readonly REMAND_PRISONER_VISITOR = process.env.REMAND_PRISONER_VISITOR
 
   public static readonly PASSWORD = process.env.PASSWORD
 
