@@ -21,7 +21,7 @@ export default class VisitorPage extends BasePage {
     expect(await firstCheckbox.isChecked()).toBeTruthy()
   }
 
-  async slectLastVisitor(): Promise<void> {
+  async selectLastVisitor(): Promise<void> {
     const lastCheckbox = this.visitorCheckboxes.last()
     await lastCheckbox.check()
     expect(await lastCheckbox.isChecked()).toBeTruthy()
