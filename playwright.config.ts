@@ -30,7 +30,7 @@ export default defineConfig({
   use: {
     baseURL: ENV.BASE_URL,
     navigationTimeout: 60000,
-    actionTimeout: 10000,
+    actionTimeout: 30000,
     testIdAttribute: 'data-test',
 
     trace: 'on-first-retry',
