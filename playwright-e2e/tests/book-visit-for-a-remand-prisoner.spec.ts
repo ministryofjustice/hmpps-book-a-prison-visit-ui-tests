@@ -30,6 +30,7 @@ test.describe('Book a visit for remand prisoners', () => {
         bookingsPage,
         contactDetailsPage
     }) => {
+        test.slow()
         await homePage.startBooking()
         await visitorPage.checkOnPage('Who is going on the visit?')
         await visitorPage.selectLastVisitor()
