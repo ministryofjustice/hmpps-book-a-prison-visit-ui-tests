@@ -37,7 +37,7 @@ export default defineConfig({
     screenshot: 'only-on-failure',
 
     launchOptions: {
-      args: ['--ignore-certificate-errors'],
+      args: ['--ignore-certificate-errors','--no-sandbox', '--disable-gpu'],
     },
     httpCredentials: {
       username: process.env.INTEG_USER_NAME,
