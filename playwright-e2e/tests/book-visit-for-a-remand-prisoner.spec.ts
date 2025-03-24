@@ -11,7 +11,7 @@ test.beforeAll('Get access token and store so it is available as global data', a
 test.describe('Book a visit for remand prisoners', () => {
 
     test.beforeEach(async ({ context, loginPage, homePage }) => {
-        context.clearCookies()
+        await context.clearCookies()
         await loginPage.navigateTo('/')
         await loginPage.checkOnPage('Visit someone in prison')
         await loginPage.clickStartNowButton()

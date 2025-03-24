@@ -14,7 +14,7 @@ test.describe('Book a visit and verify on bookins page', () => {
   const mainContactPhoneNumber = '07123456789'
 
   test.beforeEach(async ({ context, loginPage, homePage }) => {
-    context.clearCookies()
+    await context.clearCookies()
     await loginPage.navigateTo('/')
     await loginPage.checkOnPage('Visit someone in prison')
     await loginPage.clickStartNowButton()

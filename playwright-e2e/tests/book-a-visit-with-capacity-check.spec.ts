@@ -242,7 +242,7 @@ test.describe('Create a booking with capacity checks', () => {
   }) => {
     const priosnerName = "Ef'liaico Braderto"
 
-    context.clearCookies()
+    await context.clearCookies()
     await loginPage.navigateTo('/')
     await loginPage.checkOnPage('Create your GOV.UK One Login or sign in')
     await loginPage.goToSignInPage()
