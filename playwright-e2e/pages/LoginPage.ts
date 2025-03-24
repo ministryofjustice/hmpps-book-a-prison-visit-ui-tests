@@ -19,7 +19,7 @@ export default class LoginPage extends BasePage {
   async signInWith(userName: UserType): Promise<void> {
     await this.emailInput.fill(await this.getUserName(userName))
     await this.continueButton.click()
-    await this.passwordInput.fill(process.env.PASSWORD || '')
+    await this.passwordInput.fill(process.env.PASSWORD || '', { timeout: 60000 })
     await this.continueButton.click()
   }
 
