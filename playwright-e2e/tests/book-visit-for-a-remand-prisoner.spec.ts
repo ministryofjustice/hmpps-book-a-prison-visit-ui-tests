@@ -10,14 +10,17 @@ test.beforeAll('Get access token and store so it is available as global data', a
 
 test.describe('Book a visit for remand prisoners', () => {
 
-    test.beforeEach(async ({ context, loginPage, homePage }) => {
-        await context.clearCookies()
+    test.beforeEach(async ({  loginPage, homePage }) => {
+         const prisonerName: string = "Ef'liaico Olivetria"
         await loginPage.navigateTo('/')
         await loginPage.checkOnPage('Visit someone in prison')
         await loginPage.clickStartNowButton()
         await loginPage.goToSignInPage()
         await loginPage.signInWith(UserType.REMAND_PRISONER_VISITOR)
         await homePage.checkOnPage('Book a visit')
+        const name = await homePage.getPrisonerName()
+        expect(name).toBe(prisonerName)
+
     })
     test('Should be able to book a visit for remand prisoner', async ({
         homePage,
