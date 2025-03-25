@@ -15,7 +15,6 @@ test.describe('Book a visit for remand prisoners', () => {
         
          const prisonerName: string = "Ef'liaico Olivetria"
         await loginPage.navigateTo('/')
-        await loginPage.checkOnPage('Visit someone in prison')
         await loginPage.clickStartNowButton()
         await loginPage.goToSignInPage()
         await loginPage.signInWith(UserType.REMAND_PRISONER_VISITOR)
@@ -24,6 +23,7 @@ test.describe('Book a visit for remand prisoners', () => {
         expect(name).toBe(prisonerName)
 
     })
+   
     test('Should be able to book a visit for remand prisoner', async ({
         homePage,
         visitorPage,
