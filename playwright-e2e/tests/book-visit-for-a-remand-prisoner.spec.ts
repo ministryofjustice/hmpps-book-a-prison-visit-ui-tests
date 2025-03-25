@@ -10,7 +10,9 @@ test.beforeAll('Get access token and store so it is available as global data', a
 
 test.describe('Book a visit for remand prisoners', () => {
 
-    test.beforeEach(async ({  loginPage, homePage }) => {
+    test.beforeEach(async ({ context,loginPage, homePage }) => {
+        await context.clearCookies()
+        
          const prisonerName: string = "Ef'liaico Olivetria"
         await loginPage.navigateTo('/')
         await loginPage.checkOnPage('Visit someone in prison')
