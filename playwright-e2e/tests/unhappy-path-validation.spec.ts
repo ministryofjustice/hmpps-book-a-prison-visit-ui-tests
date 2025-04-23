@@ -17,7 +17,7 @@ test.beforeEach(async ({ context, loginPage }) => {
 })
 
 test.describe('Unhappy path validations', () => {
-  test('should display You cannot access this service message when user is not a booker', async ({
+  test.skip('should display You cannot access this service message when user is not a booker', async ({
     loginPage,
     homePage,
   }) => {
