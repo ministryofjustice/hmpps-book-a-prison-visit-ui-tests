@@ -44,6 +44,9 @@ export default class LoginPage extends BasePage {
       case UserType.REMAND_PRISONER_VISITOR:
         userName = process.env.REMAND_PRISONER_VISITOR || ''
           break
+      case UserType.USER_WITH_NO_PRISONERS:
+        userName = process.env.USER_WITH_NO_PRISONERS || ''
+        break   
     }
 
     return userName

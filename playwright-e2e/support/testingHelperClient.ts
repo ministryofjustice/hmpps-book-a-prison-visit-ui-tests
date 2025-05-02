@@ -152,3 +152,25 @@ export const createVisit = async ({ request }: { request: APIRequestContext }, a
   return res
 }
 
+export const resetBooker = async (
+  { request }: { request: APIRequestContext },
+  bookerEmail: string
+) => {
+  const accessToken = globalData.get('authToken')
+
+  try {
+    const response = await request.delete(`${testHelperUri}/test/booker/email/${bookerEmail}`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`
+      }
+    })
+
+    return {
+      status: response.status(),
+      ok: response.ok()
+    }
+  } catch (error) {
+    console.error(`Failed to reset booker with email ${bookerEmail}:`, error)
+    throw error
+  }
+}
