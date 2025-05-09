@@ -9,6 +9,7 @@ export default class HomePage extends BasePage {
   private readonly confirmButton: Locator
   private readonly confirmationMessage: Locator
   private readonly bookingRefNUmber: Locator
+  private readonly addPrisoner: Locator
 
   constructor(page: Page) {
     super(page)
@@ -19,6 +20,7 @@ export default class HomePage extends BasePage {
     this.confirmButton = page.getByTestId('confirm-button')
     this.confirmationMessage = page.locator('[id$=main-content]')
     this.bookingRefNUmber = page.getByTestId('booking-reference')
+    this.addPrisoner = page.getByTestId('add-prisoner')
   }
 
   async getPrisonerName(): Promise<string> {
@@ -31,10 +33,6 @@ export default class HomePage extends BasePage {
 
   async startBookingButtonIsVisible(): Promise<boolean> {
     return this.startButton.isVisible()
-  }
-
-  async setAuthCookiesInStorage(path: string): Promise<void> {
-    await this.page.context().storageState({ path })
   }
 
   async cancelBooking(): Promise<void> {
@@ -56,4 +54,17 @@ export default class HomePage extends BasePage {
     return this.bookingRefNUmber.innerText()
   }
 
+  async clickOnAddPrisoner(): Promise<void> {
+    await this.addPrisoner.click()
+  }
+
+  async selectPrisonFromList(prisonName: string): Promise<void> {
+    const prisonRadio = this.page.locator(`input[type="radio"][name="prisonId"][value="${prisonName}"]`)
+    await prisonRadio.waitFor({ state: 'visible' }) // ensure it's in view
+    await prisonRadio.check()
+  }
+  // Utility
+  async setAuthCookiesInStorage(path: string): Promise<void> {
+    await this.page.context().storageState({ path })
+  }
 }
