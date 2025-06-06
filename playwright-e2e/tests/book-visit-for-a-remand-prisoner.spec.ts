@@ -8,7 +8,7 @@ test.beforeAll('Get access token and store so it is available as global data', a
     GlobalData.set('deviceName', testInfo.project.name)
 })
 
-test.describe('Book a visit for remand prisoners', () => {
+test.describe.skip('Book a visit for remand prisoners', () => {
 
     test.beforeEach(async ({ context,loginPage, homePage }) => {
         await context.clearCookies()

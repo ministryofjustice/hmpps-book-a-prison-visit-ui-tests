@@ -5,35 +5,50 @@ orbs:
 
 jobs:
   build-and-test:
-    executors:
-    pw-jammy-development:
     docker:
       - image: mcr.microsoft.com/playwright:v1.44.1-jammy
     circleci_ip_ranges: true
 
     steps:
       - checkout
+
       - attach_workspace:
           at: ~/app
+
       - restore_cache:
           key: dependency-cache-{{ checksum "package-lock.json" }}
+
       - run:
           name: Install Dependencies
           command: npm ci --no-audit
+
+      - run:
+          name: Ensure Playwright Dependencies Installed
+          command: npx playwright install --with-deps
+
       - save_cache:
           key: dependency-cache-{{ checksum "package-lock.json" }}
           paths:
             - node_modules
             - ~/.cache
+
       - run:
           name: Run Playwright Tests
           command: npm run test:ci
+
+      # Store JUnit test results for CircleCI test insights
       - store_test_results:
           path: results.xml
+
+      # Store Playwright HTML report as artifact
       - store_artifacts:
-          path: playwright-report/index.html
+          path: playwright-report
+          destination: playwright-report
+
+      # Store any additional test results if used
       - store_artifacts:
           path: test-results
+          destination: test-results
 
 workflows:
   build-and-test:
