@@ -35,6 +35,7 @@ export default defineConfig({
 
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
+    video: 'retain-on-failure', 
 
     launchOptions: {
       args: ['--ignore-certificate-errors','--no-sandbox', '--disable-gpu'],
