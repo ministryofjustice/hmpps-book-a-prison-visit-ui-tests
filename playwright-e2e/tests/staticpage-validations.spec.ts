@@ -33,7 +33,7 @@ test.describe('Static page validations', () => {
     await homePage.checkOnPage('Book a visit')
 
     await homePage.navigateToAccessibilityStatementPage()
-    await homePage.checkOnPage('Accessibility statement')
+    await homePage.checkOnPage('Accessibility statement for Visit someone in prison')
 
     expect(await homePage.doesUrlContain('accessibility-statement')).toBeTruthy()
   })
