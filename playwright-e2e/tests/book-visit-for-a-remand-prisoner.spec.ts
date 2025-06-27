@@ -62,7 +62,7 @@ test.describe.skip('Book a visit for remand prisoners', () => {
         await contactDetailsPage.enterPhoneNumber()
         await contactDetailsPage.continueToNextPage()
 
-        await visitDetailsPage.checkOnPage('Check the visit details before booking')
+        await visitDetailsPage.checkOnPage('Check the visit details')
         await visitDetailsPage.submitBooking()
 
         await bookingConfirmationPage.checkOnPage('Visit booked')

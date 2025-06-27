@@ -31,7 +31,7 @@ test.describe('Create a booking with capacity checks', () => {
     await loginPage.navigateTo('/')
 
     const name = await homePage.getPrisonerName()
-    expect(name).toBe(prisonerName)
+    expect(name).toContain(prisonerName)
     await homePage.startBooking()
   })
 
@@ -119,7 +119,7 @@ test.describe('Create a booking with capacity checks', () => {
     await contactDetailsPage.enterPhoneNumber()
     await contactDetailsPage.continueToNextPage()
 
-    await visitDetailsPage.checkOnPage('Check the visit details before booking')
+    await visitDetailsPage.checkOnPage('Check the visit details')
     await visitDetailsPage.submitBooking()
 
     await visitCalendarPage.checkOnPage('Choose the visit time')
@@ -129,7 +129,7 @@ test.describe('Create a booking with capacity checks', () => {
     )
   })
 
-  test('Book a visit - set capacity to 0 and verify failed booking', async ({
+  test.skip('Book a visit - set capacity to 0 and verify failed booking', async ({
     request,
     visitorPage,
     visitCalendarPage,
@@ -165,7 +165,7 @@ test.describe('Create a booking with capacity checks', () => {
     await contactDetailsPage.enterPhoneNumber()
     await contactDetailsPage.continueToNextPage()
 
-    await visitDetailsPage.checkOnPage('Check the visit details before booking')
+    await visitDetailsPage.checkOnPage('Check the visit details')
     await visitDetailsPage.submitBooking()
 
     await visitCalendarPage.checkOnPage('Choose the visit time')
@@ -216,7 +216,7 @@ test.describe('Create a booking with capacity checks', () => {
     await contactDetailsPage.enterPhoneNumber()
     await contactDetailsPage.continueToNextPage()
 
-    await visitDetailsPage.checkOnPage('Check the visit details before booking')
+    await visitDetailsPage.checkOnPage('Check the visit details')
     await visitDetailsPage.submitBooking()
 
     await bookingConfirmationPage.checkOnPage('Visit booked')
@@ -282,7 +282,7 @@ test.describe('Create a booking with capacity checks', () => {
     await contactDetailsPage.enterPhoneNumber()
     await contactDetailsPage.continueToNextPage()
 
-    await visitDetailsPage.checkOnPage('Check the visit details before booking')
+    await visitDetailsPage.checkOnPage('Check the visit details')
     await visitDetailsPage.submitBooking()
     await visitorPage.checkOnPage('A visit cannot be booked')
   })

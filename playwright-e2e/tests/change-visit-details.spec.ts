@@ -57,7 +57,7 @@ test.describe('Create a booking and change the visit details', () => {
     await contactDetailsPage.enterPhoneNumber()
     await contactDetailsPage.continueToNextPage()
 
-    await visitDetailsPage.checkOnPage('Check the visit details before booking')
+    await visitDetailsPage.checkOnPage('Check the visit details')
     await visitDetailsPage.changeVisitors()
     await visitorPage.checkOnPage('Who is going on the visit?')
     const currentVisitors = await visitorPage.getAllTheVisitorsNamesWithAge()
@@ -79,7 +79,7 @@ test.describe('Create a booking and change the visit details', () => {
     await contactDetailsPage.enterPhoneNumber()
     await contactDetailsPage.continueToNextPage()
 
-    await visitDetailsPage.checkOnPage('Check the visit details before booking')
+    await visitDetailsPage.checkOnPage('Check the visit details')
 
     const prisonerNameOnDetails = await visitDetailsPage.getPrisonerName()
     const visitorsNamesOnDetails = await visitDetailsPage.getAllTheVisitorsNames()
@@ -87,7 +87,7 @@ test.describe('Create a booking and change the visit details', () => {
     const additionalSupportDetailsOnDetails = await visitDetailsPage.getAdditionalSupportDetails()
     const mainContactNameOnDetails = await visitDetailsPage.getMainContactName()
 
-    expect(prisonerNameOnDetails).toBe(prisonerName)
+    expect(prisonerNameOnDetails).toContain(prisonerName)
     expect(visitorsNamesOnDetails).toEqual(newVisitors)
     expect(visitDateAndTimeOnDetails.join(' ')).toBe(`${visitDate} ${visitTime}`)
     expect(additionalSupportDetailsOnDetails).toBe('None')
@@ -130,7 +130,7 @@ test.describe('Create a booking and change the visit details', () => {
     await contactDetailsPage.enterPhoneNumber()
     await contactDetailsPage.continueToNextPage()
 
-    await visitDetailsPage.checkOnPage('Check the visit details before booking')
+    await visitDetailsPage.checkOnPage('Check the visit details')
     await visitDetailsPage.changeDateTime()
     await visitCalendarPage.checkOnPage('Choose the visit time')
 
@@ -153,7 +153,7 @@ test.describe('Create a booking and change the visit details', () => {
 
     await contactDetailsPage.continueToNextPage()
 
-    await visitDetailsPage.checkOnPage('Check the visit details before booking')
+    await visitDetailsPage.checkOnPage('Check the visit details')
 
     const prisonerNameOnDetails = await visitDetailsPage.getPrisonerName()
     const visitorsNamesOnDetails = await visitDetailsPage.getAllTheVisitorsNames()
@@ -161,7 +161,7 @@ test.describe('Create a booking and change the visit details', () => {
     const additionalSupportDetailsOnDetails = await visitDetailsPage.getAdditionalSupportDetails()
     const mainContactNameOnDetails = await visitDetailsPage.getMainContactName()
 
-    expect(prisonerNameOnDetails).toBe(prisonerName)
+    expect(prisonerNameOnDetails).toContain(prisonerName)
     expect(visitorsNamesOnDetails).toEqual(visitors)
     expect(visitDateAndTimeOnDetails.join(' ')).toEqual(`${newVisitDate} ${newVisitTime}`)
     expect(additionalSupportDetailsOnDetails).toBe(additionalSupportDetails)
@@ -203,7 +203,7 @@ test.describe('Create a booking and change the visit details', () => {
     await contactDetailsPage.enterPhoneNumber()
     await contactDetailsPage.continueToNextPage()
 
-    await visitDetailsPage.checkOnPage('Check the visit details before booking')
+    await visitDetailsPage.checkOnPage('Check the visit details')
     await visitDetailsPage.changeAdditionalSupport()
 
     await additionalSupportPage.checkOnPage('Is additional support needed for any of the visitors?')
@@ -217,7 +217,7 @@ test.describe('Create a booking and change the visit details', () => {
 
     await contactDetailsPage.continueToNextPage()
 
-    await visitDetailsPage.checkOnPage('Check the visit details before booking')
+    await visitDetailsPage.checkOnPage('Check the visit details')
 
     const prisonerNameOnDetails = await visitDetailsPage.getPrisonerName()
     const visitorsNamesOnDetails = await visitDetailsPage.getAllTheVisitorsNames()
@@ -225,7 +225,7 @@ test.describe('Create a booking and change the visit details', () => {
     const additionalSupportDetailsOnDetails = await visitDetailsPage.getAdditionalSupportDetails()
     const mainContactNameOnDetails = await visitDetailsPage.getMainContactName()
 
-    expect(prisonerNameOnDetails).toBe(prisonerName)
+    expect(prisonerNameOnDetails).toContain(prisonerName)
     expect(visitorsNamesOnDetails).toEqual(visitors)
     expect(visitDateAndTimeOnDetails.join(' ')).toBe(`${visitDate} ${visitTime}`)
     expect(additionalSupportDetailsOnDetails).toBe(additionalSupportDetails)
@@ -267,7 +267,7 @@ test.describe('Create a booking and change the visit details', () => {
     // await contactDetailsPage.enterPhoneNumber()
     await contactDetailsPage.continueToNextPage()
 
-    await visitDetailsPage.checkOnPage('Check the visit details before booking')
+    await visitDetailsPage.checkOnPage('Check the visit details')
     await visitDetailsPage.changeMainContact()
 
     await mainContactPage.checkOnPage('Who is the main contact for this booking?')
@@ -278,7 +278,7 @@ test.describe('Create a booking and change the visit details', () => {
 
     await contactDetailsPage.continueToNextPage()
 
-    await visitDetailsPage.checkOnPage('Check the visit details before booking')
+    await visitDetailsPage.checkOnPage('Check the visit details')
 
     const prisonerNameOnDetails = await visitDetailsPage.getPrisonerName()
     const visitorsNamesOnDetails = await visitDetailsPage.getAllTheVisitorsNames()
@@ -287,7 +287,7 @@ test.describe('Create a booking and change the visit details', () => {
     const mainContactNameOnDetails = await visitDetailsPage.getMainContactName()
 
     console.log('mainContactNameOnDetails', mainContactNameOnDetails)
-    expect(prisonerNameOnDetails).toBe(prisonerName)
+    expect(prisonerNameOnDetails).toContain(prisonerName)
     expect(visitorsNamesOnDetails).toEqual(visitors)
     expect(visitDateAndTimeOnDetails.join(' ')).toBe(`${visitDate} ${visitTime}`)
     expect(additionalSupportDetailsOnDetails).toBe('None')

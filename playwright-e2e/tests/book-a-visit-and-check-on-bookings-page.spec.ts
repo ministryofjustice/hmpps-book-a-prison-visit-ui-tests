@@ -8,7 +8,7 @@ test.beforeAll('Get access token and store so it is available as global data', a
   GlobalData.set('deviceName', testInfo.project.name)
 })
 
-test.describe('Book a visit and verify on bookins page', () => {
+test.describe('Book a visit and verify on bookings page', () => {
   const prisonerName = 'Arkmanain Editha'
   const additionalSupportRequired = 'Wheelchair access'
   const mainContactPhoneNumber = '07123456789'
@@ -69,7 +69,7 @@ test.describe('Book a visit and verify on bookins page', () => {
     await contactDetailsPage.enterPhoneNumber()
     await contactDetailsPage.continueToNextPage()
 
-    await visitDetailsPage.checkOnPage('Check the visit details before booking')
+    await visitDetailsPage.checkOnPage('Check the visit details')
     await visitDetailsPage.submitBooking()
 
     await bookingConfirmationPage.checkOnPage('Visit booked')
@@ -130,7 +130,7 @@ test.describe('Book a visit and verify on bookins page', () => {
     await contactDetailsPage.enterPhoneNumber()
     await contactDetailsPage.continueToNextPage()
 
-    await visitDetailsPage.checkOnPage('Check the visit details before booking')
+    await visitDetailsPage.checkOnPage('Check the visit details')
     await visitDetailsPage.submitBooking()
 
     await bookingConfirmationPage.checkOnPage('Visit booked')
