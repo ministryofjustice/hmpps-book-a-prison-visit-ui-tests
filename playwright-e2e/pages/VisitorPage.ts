@@ -62,4 +62,11 @@ export default class VisitorPage extends BasePage {
     await this.addNewVisitorLink.click()
     await this.addNewVisitorFormLink.click()
   }
+
+  async verifyVisitorDetails(name: string, dob: string, canBook: string): Promise<void> {
+  const row = this.page.locator('tr', { hasText: name })
+  await expect(row).toContainText(dob)
+  await expect(row).toContainText(canBook)
+}
+
 }
