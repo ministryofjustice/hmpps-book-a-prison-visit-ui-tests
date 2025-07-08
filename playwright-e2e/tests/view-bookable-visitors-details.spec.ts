@@ -10,7 +10,7 @@ test.beforeAll('Get access token and store so it is available as global data', a
 
 test.describe('Verify details of visitors a booker can book for', () => {
 
-    test.beforeEach(async ({ context, loginPage, homePage }) => {
+    test.beforeEach(async ({ context, loginPage }) => {
         context.clearCookies()
         await loginPage.navigateTo('/')
         await loginPage.checkOnPage('Visit someone in prison')
@@ -26,7 +26,7 @@ test.describe('Verify details of visitors a booker can book for', () => {
         const vistorPageHeading = await bookableVisitorsPage.getPageHeading()
         const vistorsCount = await bookableVisitorsPage.getVisitorsCount()
         expect(pageHeading).toBe(vistorPageHeading)
-        expect(vistorsCount).toBe(5)
+        expect(vistorsCount).toBe(6)
     })
 
     // Banned visitors(Uhoyneke Tevyon) are not displayed when selecting visitors who can visit
@@ -37,4 +37,10 @@ test.describe('Verify details of visitors a booker can book for', () => {
         const visitors = await visitorPage.getAllTheVisitorsNamesWithAge()
         expect(visitors).not.toContain("Uhoyneke Tevyon")
     })
+
+    test("Indicate which visitors have been banned", async ({ homePage, visitorPage }) => {
+        await homePage.navigateTo('visitors')
+        await visitorPage.verifyVisitorDetails('Uhoyneke Tevyon', '23 October 1973', 'Banned')
+    }
+    )
 })
