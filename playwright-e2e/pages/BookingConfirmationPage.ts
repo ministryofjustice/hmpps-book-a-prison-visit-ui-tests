@@ -8,6 +8,7 @@ export default class BookingConfirmationPage extends BasePage {
   private readonly prisonName: Locator
   private readonly prisonContactNumber: Locator
   private readonly cancelVisitLink: Locator
+  private readonly requestReference :Locator
 
   constructor(page: any) {
     super(page)
@@ -17,6 +18,8 @@ export default class BookingConfirmationPage extends BasePage {
     this.prisonName = this.page.getByTestId('prison-name')
     this.prisonContactNumber = this.page.getByTestId('prison-phone-number')
     this.cancelVisitLink = page.getByRole('link', { name: 'the bookings page' })
+     this.requestReference = this.page.getByTestId('request-reference')
+
   }
 
   async isBookingConfirmationDisplayed(): Promise<boolean> {
@@ -42,4 +45,9 @@ export default class BookingConfirmationPage extends BasePage {
   async clickCancelBooking(): Promise<void> {
     await this.cancelVisitLink.click()
   }
+  
+  async getRequestRefNumber(): Promise<string> {
+    return await this.requestReference.innerText()
+  }
+
 }

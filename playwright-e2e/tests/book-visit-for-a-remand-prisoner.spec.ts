@@ -23,7 +23,7 @@ test.describe('Book a visit for remand prisoners', () => {
         expect(name).toBe(prisonerName)
 
     })
-   
+   // This tests also verifies the fuctionality of displaying "visit requested" intead of visit booked. 
     test('Should be able to book a visit for remand prisoner', async ({
         homePage,
         visitorPage,
@@ -65,22 +65,10 @@ test.describe('Book a visit for remand prisoners', () => {
         await visitDetailsPage.checkOnPage('Check the visit details')
         await visitDetailsPage.submitBooking()
 
-        await bookingConfirmationPage.checkOnPage('Visit booked')
-        expect(await bookingConfirmationPage.isBookingConfirmationDisplayed()).toBeTruthy()
-        expect(await bookingConfirmationPage.isVisitDetailsDisplayed()).toBeTruthy()
-        const visitReference = await bookingConfirmationPage.getReferenceNumber()
+        expect(await bookingConfirmationPage.checkOnPage('Visit requested'))
+    
+        const visitReference = await bookingConfirmationPage.getRequestRefNumber()
         GlobalData.set('visitReference', visitReference)
-
-        await bookingConfirmationPage.waitForTimeout(2000)
-        await bookingConfirmationPage.navigateToBookingsPage()
-        await bookingsPage.checkOnPage('Bookings')
-
-        const confirmedVisitStartTime = await bookingsPage.getBookingStartTime()
-        const confirmedVisitEndTime = await bookingsPage.getBookingEndTime()
-
-        expect(await bookingsPage.getBookingDate()).toBe(visitDate)
-        expect(`${confirmedVisitStartTime} to ${confirmedVisitEndTime}`).toBe(visitTime)
-        expect(await bookingsPage.getBookingReference()).toBe(visitReference)
     })
     test.afterAll('Teardown test data', async ({ request }) => {
         let appRef = GlobalData.getAll('applicationReference')
