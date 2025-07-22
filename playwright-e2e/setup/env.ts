@@ -8,6 +8,9 @@ export default class ENV {
   public static readonly ONE_VO_BALANCE_USER_NAME = process.env.ONE_VO_BALANCE_USER_NAME
   public static readonly REMAND_PRISONER_VISITOR = process.env.REMAND_PRISONER_VISITOR
   public static readonly USER_WITH_NO_PRISONERS = process.env.USER_WITH_NO_PRISONERS
+  public static readonly USER_WITH_PRISONER_ALERTS = process.env.USER_WITH_PRISONER_ALERTS
+  public static readonly USER_WITH_PRISONER_RESTRICTIONS = process.env.USER_WITH_PRISONER_RESTRICTIONS
+  public static readonly USER_WITH_VISITOR_RESTRICTIONS = process.env.USER_WITH_VISITOR_RESTRICTIONS
 
   public static readonly PASSWORD = process.env.PASSWORD
 

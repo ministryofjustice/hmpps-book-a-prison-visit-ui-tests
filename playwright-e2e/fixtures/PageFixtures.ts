@@ -14,6 +14,7 @@ import CancelledBookingsPage from '../pages/CancelledBookingsPage'
 import BookableVisitorsPage from '../pages/BookableVisitorsPage'
 import ContactDetailsPage from '../pages/ContactDetailsPage'
 import PrisonerDetailsPage from '../pages/PrisonerDetailsPage'
+import VisitRequestedPage from '../pages/VisitRequestedPage'
 
 type PageFixtures = {
   loginPage: LoginPage
@@ -31,6 +32,7 @@ type PageFixtures = {
   bookableVisitorsPage: BookableVisitorsPage
   contactDetailsPage: ContactDetailsPage
   prisonerDetailsPage: PrisonerDetailsPage
+  visitRequestedPage: VisitRequestedPage
 }
 
 const test = baseTest.extend<PageFixtures>({
@@ -92,6 +94,10 @@ const test = baseTest.extend<PageFixtures>({
 
   prisonerDetailsPage: async ({ page }, use) => {
     await use(new PrisonerDetailsPage(page))
+  },
+
+  visitRequestedPage: async ({ page }, use) => {
+    await use(new VisitRequestedPage(page))
   }
 
 })
