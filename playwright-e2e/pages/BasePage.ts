@@ -28,8 +28,8 @@ export abstract class BasePage {
     this.signOutLink = page.getByRole('link', { name: 'Sign out' })
     this.alertErrorMessage = page.locator('div[role="alert"]')
     this.homePageLink = page.getByRole('link', { name: 'Home' })
-    this.bookingsPageLink = page.locator('[class^=service-header] a:has-text("Bookings")')
-    this.visitorsPageLink = page.locator('[class^=service-header] a:has-text("Visitors")')
+    this.bookingsPageLink = page.locator('[class^=govuk-service-navigation] a:has-text("Bookings")')
+    this.visitorsPageLink = page.locator('[class^=govuk-service-navigation] a:has-text("Visitors")')
     this.feedbackLink = page.getByRole('link', { name: 'feedback' })
     this.accessibilityStatementLink = page.getByRole('link', { name: 'Accessibility' })
     this.privacyPolicyLink = page.getByRole('link', { name: 'Privacy' })
@@ -52,28 +52,25 @@ export abstract class BasePage {
   async signOut(): Promise<void> {
     if (await this.isMobile()) {
       await this.mobileOneLoginMenuButton.click()
-      await this.signOutLink.click()
-    } else {
-      await this.signOutLink.click()
     }
+
+    await this.signOutLink.click()
   }
 
   async navigateToHomePage(): Promise<void> {
     if (await this.isMobile()) {
       await this.mobileNavMenuButton.click()
-      await this.homePageLink.click()
-    } else {
-      await this.homePageLink.click()
     }
+
+    await this.homePageLink.click()
   }
 
   async navigateToBookingsPage(): Promise<void> {
     if (await this.isMobile()) {
       await this.mobileNavMenuButton.click()
-      await this.bookingsPageLink.click()
-    } else {
-      await this.bookingsPageLink.click()
     }
+
+    await this.bookingsPageLink.click()
   }
 
   async navigateTo(url: string): Promise<void> {
