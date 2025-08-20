@@ -84,7 +84,7 @@ test.describe('Create a booking via public ui', () => {
 
         bookingsPage.checkOnPage('Bookings')
         await bookingsPage.clickCancelBookingLink()
-        await homePage.checkOnPage('Are you sure you want to cancel your booking?')
+        await homePage.checkOnPage('Are you sure you want to cancel your visit?')
         await homePage.cancelBooking()
         await homePage.clickConfirm()
         await homePage.checkOnPage('Booking cancelled')
@@ -159,7 +159,7 @@ test.describe('Create a booking via public ui', () => {
 
         bookingsPage.checkOnPage('Bookings')
         await bookingsPage.clickCancelBookingLink()
-        await homePage.checkOnPage('Are you sure you want to cancel your booking?')
+        await homePage.checkOnPage('Are you sure you want to cancel your visit?')
         await homePage.selectKeepThislBooking()
         await homePage.clickConfirm()
         await homePage.checkOnPage('Visit booking details')
