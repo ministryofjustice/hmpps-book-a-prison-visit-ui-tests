@@ -263,8 +263,8 @@ test.describe('Create a booking and change the visit details', () => {
     await mainContactPage.selectMainContact()
     await mainContactPage.continueToNextPage()
 
-    // await contactDetailsPage.enterEmailAdd()
-    // await contactDetailsPage.enterPhoneNumber()
+    await contactDetailsPage.enterEmailAdd()
+    await contactDetailsPage.enterPhoneNumber()
     await contactDetailsPage.continueToNextPage()
 
     await visitDetailsPage.checkOnPage('Check the visit details')
