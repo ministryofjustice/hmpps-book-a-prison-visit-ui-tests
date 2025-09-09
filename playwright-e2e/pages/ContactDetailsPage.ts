@@ -10,7 +10,7 @@ export default class ContactDetailsPage extends BasePage {
     constructor(page: Page) {
         super(page)
         this.contactEmailCheckbox = page.getByLabel('Get updates by email')
-        this.contactPhoneNum = page.getByLabel('Get updates by phone')
+        this.contactPhoneNum = page.getByLabel('Get updates by text message')
         this.contactEmailInput = page.locator('input[id$=mainContactEmail]')
         this.contactPhoneNumInput = page.locator('input[id$=mainContactPhone]')
     }
