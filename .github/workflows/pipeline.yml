@@ -1,0 +1,88 @@
+name: Playwright Public-UI E2E Tests
+
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  e2e-tests:
+    name: Run Playwright Public-UI E2E Tests
+    runs-on: [self-hosted, Linux, X64, hmpps-github-actions-runner]
+    timeout-minutes: 60
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci --no-audit
+
+      - name: Ensure Playwright browsers are installed
+        run: npx playwright install
+
+      - name: Show Node and NPM versions
+        run: |
+          node -v
+          npm -v
+
+      - name: Run Playwright Tests
+        run: npx playwright test --project=chromium --trace on
+        env:
+          test_env: staging
+          BASE_URL: ${{ secrets.BASE_URL }}
+          HMPPS_AUTH_URL: ${{ secrets.HMPPS_AUTH_URL }}
+          PASSWORD: ${{ secrets.PASSWORD }}
+          INTEG_USER_NAME: ${{ secrets.INTEG_USER_NAME }}
+          INTEG_PASSWORD: ${{ secrets.INTEG_PASSWORD }}
+          NEW_USER_NAME: ${{ secrets.NEW_USER_NAME }}
+          NO_VO_USER_NAME: ${{ secrets.NO_VO_USER_NAME }}
+          ONE_VO_BALANCE_USER_NAME: ${{ secrets.ONE_VO_BALANCE_USER_NAME }}
+          REMAND_PRISONER_VISITOR: ${{ secrets.REMAND_PRISONER_VISITOR }}
+          UNKNOWN_USER_NAME: ${{ secrets.UNKNOWN_USER_NAME }}
+          USER_NAME: ${{ secrets.USER_NAME }}
+          USER_WITH_NO_PRISONERS: ${{ secrets.USER_WITH_NO_PRISONERS }}
+          USER_WITH_PRISONER_ALERTS: ${{ secrets.USER_WITH_PRISONER_ALERTS }}
+          USER_WITH_PRISONER_RESTRICTIONS: ${{ secrets.USER_WITH_PRISONER_RESTRICTIONS }}
+          USER_WITH_VISITOR_RESTRICTIONS: ${{ secrets.USER_WITH_VISITOR_RESTRICTIONS }}
+          TEST_HELPER_API_URL: ${{ secrets.TEST_HELPER_API_URL }}
+          TESTING_CLIENT_ID: ${{ secrets.TESTING_CLIENT_ID }}
+          TESTING_CLIENT_SECRET: ${{ secrets.TESTING_CLIENT_SECRET }}
+
+      - name: Upload Playwright HTML report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report
+
+      - name: Upload additional test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: test-results
+
+      - name: Upload Playwright traces & screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-debug
+          path: |
+            test-results/
+            playwright-report/
