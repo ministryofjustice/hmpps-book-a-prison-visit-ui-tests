@@ -14,9 +14,7 @@ test.describe('Book a visit for remand prisoners', () => {
         await context.clearCookies()
 
         const prisonerName: string = "Do Not Use Vsip_remand"
-        await loginPage.navigateTo('/')
-        await loginPage.clickStartNowButton()
-        await loginPage.goToSignInPage()
+        await loginPage.navigateTo('/home')
         await loginPage.signInWith(UserType.REMAND_PRISONER_VISITOR)
         await homePage.checkOnPage('Book a visit')
         const name = await homePage.getPrisonerName()

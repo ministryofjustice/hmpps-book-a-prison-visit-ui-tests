@@ -12,10 +12,7 @@ test.describe('Request a booking', () => {
 
     test.beforeEach(async ({ context, loginPage }) => {
         await context.clearCookies()
-        await loginPage.navigateTo('/')
-        await loginPage.clickStartNowButton()
-        await loginPage.goToSignInPage()
-
+        await loginPage.navigateTo('/home')
     })
     // A booking would be requested instead of confirmed based on the alerts applicable for a prisoner.
     test('Booking is requested , not confirmed, if alerts apply to the prisoner.', async ({

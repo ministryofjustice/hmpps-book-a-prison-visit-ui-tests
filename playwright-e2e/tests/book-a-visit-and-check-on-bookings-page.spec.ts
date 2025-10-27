@@ -15,10 +15,8 @@ test.describe('Book a visit and verify on bookings page', () => {
 
   test.beforeEach(async ({ context, loginPage, homePage }) => {
     await context.clearCookies()
-    await loginPage.navigateTo('/')
-    await loginPage.checkOnPage('Visit someone in prison')
-    await loginPage.clickStartNowButton()
-    await loginPage.goToSignInPage()
+    await loginPage.navigateTo('/home')
+    await loginPage.checkOnPage('Create your GOV.UK One Login or sign in')
     await loginPage.signInWith(UserType.USER_NAME)
     await homePage.checkOnPage('Book a visit')
   })

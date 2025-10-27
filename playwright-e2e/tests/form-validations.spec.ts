@@ -11,7 +11,7 @@ test.describe('Form validation error messages', () => {
   const prisonerName: string = 'Arkmanain Editha'
 
   test.beforeEach('Login', async ({ loginPage, homePage }) => {
-    await loginPage.navigateTo('/')
+    await loginPage.navigateTo('/home')
 
     const name = await homePage.getPrisonerName()
     expect(name).toBe(prisonerName)

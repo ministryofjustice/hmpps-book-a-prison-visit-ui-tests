@@ -28,7 +28,7 @@ test.describe('Create a booking with capacity checks', () => {
   const someOneElseAsMainContact: string = 'Mr Nobody'
 
   test.beforeEach(async ({ loginPage, homePage }) => {
-    await loginPage.navigateTo('/')
+    await loginPage.navigateTo('/home')
 
     const name = await homePage.getPrisonerName()
     expect(name).toContain(prisonerName)
