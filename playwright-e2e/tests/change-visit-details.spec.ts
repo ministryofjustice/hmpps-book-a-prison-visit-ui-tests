@@ -14,7 +14,7 @@ test.describe('Create a booking and change the visit details', () => {
   const mainContactPhoneNumber: string = '07123456789'
 
   test.beforeEach(async ({ loginPage, homePage }) => {
-    await loginPage.navigateTo('/')
+    await loginPage.navigateTo('/home')
 
     const name = await homePage.getPrisonerName()
     expect(name).toBe(prisonerName)

@@ -10,10 +10,8 @@ const prisonerName: string = 'Sam Cake'
 
 test.beforeEach(async ({ context, loginPage }) => {
   context.clearCookies()
-  await loginPage.navigateTo('/')
-  await loginPage.checkOnPage('Visit someone in prison')
-  await loginPage.clickStartNowButton()
-  await loginPage.goToSignInPage()
+  await loginPage.navigateTo('/home')
+  await loginPage.checkOnPage('Create your GOV.UK One Login or sign in')
 })
 
 test.describe('Unhappy path validations', () => {
@@ -52,7 +50,6 @@ test.describe('Unhappy path validations', () => {
     await signedOutPage.navigateToLoginPage()
 
     await loginPage.checkOnPage('Create your GOV.UK One Login or sign in')
-    await loginPage.goToSignInPage()
     await loginPage.signInWith(UserType.USER_NAME)
 
     await homePage.checkOnPage('Book a visit')
