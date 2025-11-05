@@ -21,16 +21,20 @@
     "posttest:ci": "rimraf playwright",
     "test:ci": "cross-env test_env=staging npm run test:chrome"
   },
+  "engines": {
+    "node": "^24",
+    "npm": "^11"
+  },
   "devDependencies": {
-    "@playwright/test": "^1.44.1",
-    "@types/node": "^20.14.2",
+    "@playwright/test": "^1.56.1",
+    "@types/node": "^24.10.0",
     "allure-commandline": "^2.29.0",
-    "allure-playwright": "^3.0.0-beta.3",
-    "cross-env": "^7.0.3",
-    "dotenv": "^16.4.5",
-    "eslint": "^9.4.0",
+    "allure-playwright": "^3.4.2",
+    "cross-env": "^10.1.0",
+    "dotenv": "^17.2.3",
+    "eslint": "^9.39.1",
     "mkdirp": "^3.0.1",
     "prettier": "^3.3.2",
-    "rimraf": "^5.0.7"
+    "rimraf": "^6.1.0"
   }
 }
