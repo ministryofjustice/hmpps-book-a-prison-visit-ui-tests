@@ -38,7 +38,7 @@ test.describe('Verify details of visitors a booker can book for', () => {
 
     test("Indicate which visitors have been banned", async ({ homePage, visitorPage }) => {
         await homePage.navigateTo('visitors')
-        await visitorPage.verifyVisitorDetails('Uhoyneke Tevyon', '23 October 1973', 'Banned')
+        await visitorPage.verifyVisitorDetails('Uhoyneke Tevyon', '23 October 1973', ' No, banned')
     }
     )
 })
