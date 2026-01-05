@@ -69,4 +69,29 @@ export default class VisitorPage extends BasePage {
   await expect(row).toContainText(canBook)
 }
 
+  async selectVisitorByAge(age: number): Promise<void> {
+  const labels = this.page.locator('.govuk-checkboxes__label')
+  const count = await labels.count()
+
+  for (let i = 0; i < count; i++) {
+    const label = labels.nth(i)
+    const text = await label.innerText()
+
+    const match = text.match(/\((\d+)\s*years?\s*old\)/)
+
+    if (match && Number(match[1]) === age) {
+      await label.click()
+
+      const inputId = await label.getAttribute('for')
+      const checkbox = this.page.locator(`#${inputId}`)
+
+      await expect(checkbox).toBeChecked()
+      return
+    }
+  }
+
+  throw new Error(`No visitor found with age ${age}`)
+}
+
+
 }
