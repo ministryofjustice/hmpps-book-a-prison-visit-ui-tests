@@ -64,9 +64,33 @@ export default class VisitorPage extends BasePage {
   }
 
   async verifyVisitorDetails(name: string, dob: string, canBook: string): Promise<void> {
-  const row = this.page.locator('tr', { hasText: name })
-  await expect(row).toContainText(dob)
-  await expect(row).toContainText(canBook)
-}
+    const row = this.page.locator('tr', { hasText: name })
+    await expect(row).toContainText(dob)
+    await expect(row).toContainText(canBook)
+  }
+
+  async selectVisitorUnder18(): Promise<void> {
+    const labels = this.page.locator('.govuk-checkboxes__label')
+    const count = await labels.count()
+
+    for (let i = 0; i < count; i++) {
+      const label = labels.nth(i)
+      const text = await label.innerText()
+
+      // Extract the age from the label text
+      const match = text.match(/\((\d+)\s*years?\s*old\)/)
+
+      if (match && Number(match[1]) < 18) {
+        await label.click()
+
+        const inputId = await label.getAttribute('for')
+        const checkbox = this.page.locator(`#${inputId}`)
+        await expect(checkbox).toBeChecked()
+        return
+      }
+    }
+
+    throw new Error('No under-18 visitor found')
+  }
 
 }
