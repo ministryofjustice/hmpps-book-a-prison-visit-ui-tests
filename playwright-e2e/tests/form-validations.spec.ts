@@ -41,7 +41,7 @@ test.describe('Form validation error messages', () => {
 
   test('should display add a visitor who is 18 years old or older error message', async ({ visitorPage }) => {
     await visitorPage.checkOnPage('Who is going on the visit?')
-    await visitorPage.selectVisitorByAge(17)
+    await visitorPage.selectVisitorUnder18()
     await visitorPage.continueToNextPage()
 
     expect(await visitorPage.isErrorMessageDisplayed()).toBeTruthy()
