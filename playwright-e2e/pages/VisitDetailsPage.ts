@@ -20,7 +20,7 @@ export default class VisitDetailsPage extends BasePage {
     this.visitDateAndTime = this.page.locator('dl dt:has-text("Date and time") + dd')
     this.additionalSupportDetails = this.page.locator('dl dt:has-text("Additional support requests") + dd p')
     this.mainsContactName = this.page.locator('dl dt:has-text("Main contact") + dd')
-    this.submitBookingButton = this.page.locator('button:has-text("Submit")')
+    this.submitBookingButton = this.page.locator('button:has-text("Confirm and send")')
     this.changeVisitorsLink = this.page.getByTestId('change-visitors')
     this.changeDateTimeLink = this.page.getByTestId('change-time')
     this.changeAdditionalSupportLink = this.page.getByTestId('change-additional-support')
