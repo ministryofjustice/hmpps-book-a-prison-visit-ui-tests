@@ -26,7 +26,7 @@ test.describe('Add prisoner to a booker', () => {
     }) => {
 
         expect(await prisonerDetailsPage.checkOnPage('Prisoner details'))
-        await prisonerDetailsPage.continueToNextPage()
+        await prisonerDetailsPage.clickConfirmAndSend()
         const noFirstNameErr = await prisonerDetailsPage.getFirstNameErrorMsg()
         const noSecondNameErr = await prisonerDetailsPage.getSecondNameErrorMsg()
         const noDobErrorMsg = await prisonerDetailsPage.getDobErrorMsg()
@@ -45,7 +45,7 @@ test.describe('Add prisoner to a booker', () => {
         await prisonerDetailsPage.enterName('Diydonopher', 'Armoline')
         await prisonerDetailsPage.enterDob('04', '11', '1979')
         await prisonerDetailsPage.enterPrisonNum('G2484UX')
-        await prisonerDetailsPage.continueToNextPage()
+        await prisonerDetailsPage.clickConfirmAndSend()
         await prisonerDetailsPage.checkOnPage('Prisoner added')
     })
 
