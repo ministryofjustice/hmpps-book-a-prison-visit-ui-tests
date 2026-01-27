@@ -7,6 +7,7 @@ export abstract class BasePage {
   protected readonly page: Page
   private readonly pageHeader: Locator
   protected readonly continueButton: Locator
+  protected readonly confirmAndSend: Locator
   private readonly signOutLink: Locator
   private readonly alertErrorMessage: Locator
   private readonly homePageLink: Locator
@@ -25,6 +26,7 @@ export abstract class BasePage {
     deviceName = GlobalData.get('deviceName')
     this.pageHeader = page.locator('#main-content h1')
     this.continueButton = page.getByRole('button', { name: 'Continue' })
+    this.confirmAndSend =  page.locator('[data-test="confirm-button"]')
     this.signOutLink = page.getByRole('link', { name: 'Sign out' })
     this.alertErrorMessage = page.locator('div[role="alert"]')
     this.homePageLink = page.getByRole('link', { name: 'Home' })
@@ -88,6 +90,10 @@ export abstract class BasePage {
 
   async continueToNextPage(): Promise<void> {
     await this.continueButton.click()
+  }
+
+    async clickConfirmAndSend(): Promise<void> {
+    await this.confirmAndSend.click()
   }
 
   async pause(): Promise<void> {
