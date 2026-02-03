@@ -162,7 +162,7 @@ test.describe('Create a booking via public ui', () => {
         await homePage.checkOnPage('Are you sure you want to cancel your visit?')
         await homePage.selectKeepThislBooking()
         await homePage.clickConfirm()
-        await homePage.checkOnPage('Visit visit details')
+        await homePage.checkOnPage('Visit details')
         const refNumberInBookingDetails = await homePage.getBookingRefNumber()
         expect(visitReference).toEqual(refNumberInBookingDetails)
 
