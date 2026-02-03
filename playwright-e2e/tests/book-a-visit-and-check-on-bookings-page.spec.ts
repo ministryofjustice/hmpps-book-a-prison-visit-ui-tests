@@ -140,7 +140,7 @@ test.describe('Book a visit and verify on bookings page', () => {
     await bookingConfirmationPage.navigateToBookingsPage()
     await bookingsPage.checkOnPage('Visits')
     await bookingsPage.clickBookingDetailsLink()
-    await bookingDetailsPage.checkOnPage('Visit booking details')
+    await bookingDetailsPage.checkOnPage('Visit details')
 
     const confirmedVisitReferenceId = await bookingDetailsPage.getVisitReferenceNumber()
     const confirmedVisitDate = await bookingDetailsPage.getVisitDate()

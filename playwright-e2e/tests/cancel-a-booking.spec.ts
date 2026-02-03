@@ -89,7 +89,7 @@ test.describe('Create a booking via public ui', () => {
         await homePage.clickConfirm()
         await homePage.checkOnPage('Visit cancelled')
         const message = await homePage.getConfirmationMessage()
-        expect(message).toContain('An email and a text message will be sent to the main contact to confirm the booking has been cancelled.')
+        expect(message).toContain('An email and a text message will be sent to the main contact to confirm the visit has been cancelled.')
         console.log('Confirmation message: ', visitReference)
     })
 
