@@ -22,7 +22,7 @@ test.describe('Verify cancelled bookings details', () => {
   }) => {
     const cancelledBookings = await cancelledBookingsPage.getCancelledBookingsCount()
     await bookingsPage.navigateToBookingsPage()
-    await bookingsPage.checkOnPage('Bookings')
+    await bookingsPage.checkOnPage('Visits')
     await bookingsPage.clickViewCancelledVisitsLink()
     expect(cancelledBookings).toBe(0)
   })

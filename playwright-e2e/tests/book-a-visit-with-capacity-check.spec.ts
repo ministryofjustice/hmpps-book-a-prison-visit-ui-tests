@@ -112,7 +112,7 @@ test.describe('Create a booking with capacity checks', () => {
     // Blocked the session
 
     // Continue with the first booking
-    await mainContactPage.checkOnPage('Who is the main contact for this booking?')
+    await mainContactPage.checkOnPage('Who is the main contact for this visit?')
     await mainContactPage.selectSomeoneElse(someOneElseAsMainContact)
     await mainContactPage.continueToNextPage()
     await contactDetailsPage.enterEmailAdd()
@@ -158,7 +158,7 @@ test.describe('Create a booking with capacity checks', () => {
 
     await additionalSupportPage.continueToNextPage()
 
-    await mainContactPage.checkOnPage('Who is the main contact for this booking?')
+    await mainContactPage.checkOnPage('Who is the main contact for this visit?')
     await mainContactPage.selectSomeoneElse(someOneElseAsMainContact)
     await mainContactPage.continueToNextPage()
     await contactDetailsPage.enterEmailAdd()
@@ -208,7 +208,7 @@ test.describe('Create a booking with capacity checks', () => {
 
     await additionalSupportPage.continueToNextPage()
 
-    await mainContactPage.checkOnPage('Who is the main contact for this booking?')
+    await mainContactPage.checkOnPage('Who is the main contact for this visit?')
     await mainContactPage.selectSomeoneElse(someOneElseAsMainContact)
     await mainContactPage.continueToNextPage()
 
@@ -274,7 +274,7 @@ test.describe('Create a booking with capacity checks', () => {
 
     await additionalSupportPage.continueToNextPage()
 
-    await mainContactPage.checkOnPage('Who is the main contact for this booking?')
+    await mainContactPage.checkOnPage('Who is the main contact for this visit?')
     await mainContactPage.selectSomeoneElse(someOneElseAsMainContact)
     await mainContactPage.continueToNextPage()
 

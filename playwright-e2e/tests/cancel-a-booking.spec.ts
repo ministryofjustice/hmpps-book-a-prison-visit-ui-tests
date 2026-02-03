@@ -48,7 +48,7 @@ test.describe('Create a booking via public ui', () => {
         GlobalData.set('applicationReference', applicationReference)
         await additionalSupportPage.continueToNextPage()
 
-        await mainContactPage.checkOnPage('Who is the main contact for this booking?')
+        await mainContactPage.checkOnPage('Who is the main contact for this visit?')
         await mainContactPage.selectMainContact()
         const mainContact = await mainContactPage.getMainContactName()
         await mainContactPage.continueToNextPage()
@@ -82,12 +82,12 @@ test.describe('Create a booking via public ui', () => {
         expect(prisonContactNumber).toContain('0123 456 7890')
         await bookingConfirmationPage.clickCancelBooking()
 
-        bookingsPage.checkOnPage('Bookings')
+        bookingsPage.checkOnPage('Visits')
         await bookingsPage.clickCancelBookingLink()
         await homePage.checkOnPage('Are you sure you want to cancel your visit?')
         await homePage.cancelBooking()
         await homePage.clickConfirm()
-        await homePage.checkOnPage('Booking cancelled')
+        await homePage.checkOnPage('Visit cancelled')
         const message = await homePage.getConfirmationMessage()
         expect(message).toContain('An email and a text message will be sent to the main contact to confirm the booking has been cancelled.')
         console.log('Confirmation message: ', visitReference)
@@ -123,7 +123,7 @@ test.describe('Create a booking via public ui', () => {
         GlobalData.set('applicationReference', applicationReference)
         await additionalSupportPage.continueToNextPage()
 
-        await mainContactPage.checkOnPage('Who is the main contact for this booking?')
+        await mainContactPage.checkOnPage('Who is the main contact for this visit?')
         await mainContactPage.selectMainContact()
         const mainContact = await mainContactPage.getMainContactName()
         await mainContactPage.continueToNextPage()
@@ -157,12 +157,12 @@ test.describe('Create a booking via public ui', () => {
         expect(prisonContactNumber).toContain('0123 456 7890')
         await bookingConfirmationPage.clickCancelBooking()
 
-        bookingsPage.checkOnPage('Bookings')
+        bookingsPage.checkOnPage('Visits')
         await bookingsPage.clickCancelBookingLink()
         await homePage.checkOnPage('Are you sure you want to cancel your visit?')
         await homePage.selectKeepThislBooking()
         await homePage.clickConfirm()
-        await homePage.checkOnPage('Visit booking details')
+        await homePage.checkOnPage('Visit visit details')
         const refNumberInBookingDetails = await homePage.getBookingRefNumber()
         expect(visitReference).toEqual(refNumberInBookingDetails)
 

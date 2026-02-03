@@ -50,7 +50,7 @@ test.describe('Request a booking', () => {
         GlobalData.set('applicationReference', applicationReference)
         await additionalSupportPage.continueToNextPage()
 
-        await mainContactPage.checkOnPage('Who is the main contact for this booking?')
+        await mainContactPage.checkOnPage('Who is the main contact for this visit?')
         await mainContactPage.selectMainContact()
         await mainContactPage.continueToNextPage()
         await contactDetailsPage.enterEmailAdd()
@@ -107,7 +107,7 @@ test.describe('Request a booking', () => {
         GlobalData.set('applicationReference', applicationReference)
         await additionalSupportPage.continueToNextPage()
 
-        await mainContactPage.checkOnPage('Who is the main contact for this booking?')
+        await mainContactPage.checkOnPage('Who is the main contact for this visit?')
         await mainContactPage.selectMainContact()
         await mainContactPage.continueToNextPage()
         await contactDetailsPage.enterEmailAdd()
@@ -165,7 +165,7 @@ test.describe('Request a booking', () => {
         GlobalData.set('applicationReference', applicationReference)
         await additionalSupportPage.continueToNextPage()
 
-        await mainContactPage.checkOnPage('Who is the main contact for this booking?')
+        await mainContactPage.checkOnPage('Who is the main contact for this visit?')
         await mainContactPage.selectMainContact()
         await mainContactPage.continueToNextPage()
         await contactDetailsPage.enterEmailAdd()

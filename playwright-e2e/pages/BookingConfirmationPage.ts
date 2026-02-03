@@ -13,11 +13,11 @@ export default class BookingConfirmationPage extends BasePage {
   constructor(page: any) {
     super(page)
     this.bookingConfirmation = this.page.locator('[class$=confirmation]')
-    this.referenceNumber = this.page.getByTestId('booking-reference-title')
+    this.referenceNumber = this.page.getByTestId('visit-reference-title')
     this.visitDetails = this.page.getByTestId('prison-specific-content')
     this.prisonName = this.page.getByTestId('prison-name')
     this.prisonContactNumber = this.page.getByTestId('prison-phone-number')
-    this.cancelVisitLink = page.getByRole('link', { name: 'the bookings page' })
+    this.cancelVisitLink = page.getByRole('link', { name: 'the visits page' })
      this.requestReference = this.page.getByTestId('request-reference')
 
   }

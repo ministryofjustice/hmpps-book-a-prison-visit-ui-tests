@@ -19,7 +19,7 @@ export default class HomePage extends BasePage {
     this.keepBookingRadio = page.getByRole('radio', { name: 'No, keep this visit' })
     this.confirmButton = page.getByTestId('confirm-button')
     this.confirmationMessage = page.locator('[id$=main-content]')
-    this.bookingRefNUmber = page.getByTestId('booking-reference')
+    this.bookingRefNUmber = page.getByTestId('visit-reference')
     this.addPrisoner = page.getByTestId('add-prisoner')
   }
 

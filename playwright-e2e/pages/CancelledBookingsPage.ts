@@ -6,7 +6,7 @@ export default class CancelledBookingsPage extends BasePage {
 
     constructor(page:Page) {
         super(page)
-        this.cancelledBookings = page.locator('[class^=bookings-content]')
+        this.cancelledBookings = page.locator('[class^=visits-content]')
     }
     async getCancelledBookingsCount(): Promise<number> {
         return await this.cancelledBookings.count()
