@@ -30,7 +30,7 @@ export abstract class BasePage {
     this.signOutLink = page.getByRole('link', { name: 'Sign out' })
     this.alertErrorMessage = page.locator('div[role="alert"]')
     this.homePageLink = page.getByRole('link', { name: 'Home' })
-    this.bookingsPageLink = page.locator('[class^=govuk-service-navigation] a:has-text("Bookings")')
+    this.bookingsPageLink = page.locator('[class^=govuk-service-navigation] a:has-text("Visits")')
     this.visitorsPageLink = page.locator('[class^=govuk-service-navigation] a:has-text("Visitors")')
     this.feedbackLink = page.getByRole('link', { name: 'feedback' })
     this.accessibilityStatementLink = page.getByRole('link', { name: 'Accessibility' })

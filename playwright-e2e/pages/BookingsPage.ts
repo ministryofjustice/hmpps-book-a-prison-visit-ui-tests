@@ -14,7 +14,7 @@ export default class BookingsPage extends BasePage {
 
   constructor(page: Page) {
     super(page)
-    this.confirmedBookings = page.locator('[class^=bookings-content]')
+    this.confirmedBookings = page.locator('[class^=visits-content]')
     this.bookingDate = page.getByTestId('visit-date-1')
     this.bookingStartTime = page.getByTestId('visit-start-time-1')
     this.bookingEndTime = page.getByTestId('visit-end-time-1')

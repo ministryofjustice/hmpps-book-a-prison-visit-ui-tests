@@ -131,7 +131,7 @@ test.describe('Form validation error messages', () => {
     await additionalSupportPage.selectNoSupport()
     await additionalSupportPage.continueToNextPage()
 
-    await mainContactPage.checkOnPage('Who is the main contact for this booking?')
+    await mainContactPage.checkOnPage('Who is the main contact for this visit?')
     await mainContactPage.continueToNextPage()
 
     expect(await mainContactPage.isErrorMessageDisplayed()).toBeTruthy()

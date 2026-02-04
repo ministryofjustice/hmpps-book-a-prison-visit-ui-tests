@@ -52,7 +52,7 @@ test.describe('Book a visit for remand prisoners', () => {
         GlobalData.set('applicationReference', applicationReference)
         await additionalSupportPage.continueToNextPage()
 
-        await mainContactPage.checkOnPage('Who is the main contact for this booking?')
+        await mainContactPage.checkOnPage('Who is the main contact for this visit?')
         await mainContactPage.selectMainContact()
         await mainContactPage.continueToNextPage()
         await contactDetailsPage.enterEmailAdd()
@@ -70,7 +70,7 @@ test.describe('Book a visit for remand prisoners', () => {
 
         await bookingConfirmationPage.waitForTimeout(2000)
         await bookingConfirmationPage.navigateToBookingsPage()
-        await bookingsPage.checkOnPage('Bookings')
+        await bookingsPage.checkOnPage('Visits')
 
         const confirmedVisitStartTime = await bookingsPage.getBookingStartTime()
         const confirmedVisitEndTime = await bookingsPage.getBookingEndTime()

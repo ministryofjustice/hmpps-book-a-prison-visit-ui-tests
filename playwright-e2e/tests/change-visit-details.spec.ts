@@ -48,7 +48,7 @@ test.describe('Create a booking and change the visit details', () => {
     GlobalData.set('applicationReference', applicationReference)
     await additionalSupportPage.continueToNextPage()
 
-    await mainContactPage.checkOnPage('Who is the main contact for this booking?')
+    await mainContactPage.checkOnPage('Who is the main contact for this visit?')
     await mainContactPage.selectMainContact()
     const mainContact = await mainContactPage.getMainContactName()
     await mainContactPage.continueToNextPage()
@@ -72,7 +72,7 @@ test.describe('Create a booking and change the visit details', () => {
     GlobalData.set('applicationReference', applicationReference)
     await additionalSupportPage.continueToNextPage()
 
-    await mainContactPage.checkOnPage('Who is the main contact for this booking?')
+    await mainContactPage.checkOnPage('Who is the main contact for this visit?')
     await mainContactPage.continueToNextPage()
 
     await contactDetailsPage.enterEmailAdd()
@@ -121,7 +121,7 @@ test.describe('Create a booking and change the visit details', () => {
     GlobalData.set('applicationReference', applicationReference)
     await additionalSupportPage.continueToNextPage()
 
-    await mainContactPage.checkOnPage('Who is the main contact for this booking?')
+    await mainContactPage.checkOnPage('Who is the main contact for this visit?')
     await mainContactPage.selectMainContact()
     const mainContact = await mainContactPage.getMainContactName()
     await mainContactPage.continueToNextPage()
@@ -148,7 +148,7 @@ test.describe('Create a booking and change the visit details', () => {
 
     await additionalSupportPage.checkOnPage('Is additional support needed for any of the visitors?')
     await additionalSupportPage.continueToNextPage()
-    await mainContactPage.checkOnPage('Who is the main contact for this booking?')
+    await mainContactPage.checkOnPage('Who is the main contact for this visit?')
     await mainContactPage.continueToNextPage()
 
     await contactDetailsPage.continueToNextPage()
@@ -195,7 +195,7 @@ test.describe('Create a booking and change the visit details', () => {
     GlobalData.set('applicationReference', applicationReference)
     await additionalSupportPage.continueToNextPage()
 
-    await mainContactPage.checkOnPage('Who is the main contact for this booking?')
+    await mainContactPage.checkOnPage('Who is the main contact for this visit?')
     await mainContactPage.selectSomeoneElse(someOneElseAsMainContact)
     await mainContactPage.continueToNextPage()
 
@@ -212,7 +212,7 @@ test.describe('Create a booking and change the visit details', () => {
     await additionalSupportPage.selectSupport(additionalSupportDetails)
     await additionalSupportPage.continueToNextPage()
 
-    await mainContactPage.checkOnPage('Who is the main contact for this booking?')
+    await mainContactPage.checkOnPage('Who is the main contact for this visit?')
     await mainContactPage.continueToNextPage()
 
     await contactDetailsPage.continueToNextPage()
@@ -259,7 +259,7 @@ test.describe('Create a booking and change the visit details', () => {
     GlobalData.set('applicationReference', applicationReference)
     await additionalSupportPage.continueToNextPage()
 
-    await mainContactPage.checkOnPage('Who is the main contact for this booking?')
+    await mainContactPage.checkOnPage('Who is the main contact for this visit?')
     await mainContactPage.selectMainContact()
     await mainContactPage.continueToNextPage()
 
@@ -270,7 +270,7 @@ test.describe('Create a booking and change the visit details', () => {
     await visitDetailsPage.checkOnPage('Check the visit details')
     await visitDetailsPage.changeMainContact()
 
-    await mainContactPage.checkOnPage('Who is the main contact for this booking?')
+    await mainContactPage.checkOnPage('Who is the main contact for this visit?')
     expect(await mainContactPage.isSomeoneElseNameInputboxVisible()).toBeFalsy()
 
     await mainContactPage.selectSomeoneElse(someOneElseAsMainContact)

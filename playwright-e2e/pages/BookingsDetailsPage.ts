@@ -14,7 +14,7 @@ export default class BookingsDetailsPage extends BasePage {
 
   constructor(page: any) {
     super(page)
-    this.visitReferenceNumber = this.page.getByTestId('booking-reference')
+    this.visitReferenceNumber = this.page.getByTestId('visit-reference')
     this.visitDate = this.page.getByTestId('visit-date')
     this.visitStartTime = this.page.getByTestId('visit-start-time')
     this.visitEndTime = this.page.getByTestId('visit-end-time')

@@ -48,7 +48,7 @@ test.describe('Create a booking via public ui', () => {
     GlobalData.set('applicationReference', applicationReference)
     await additionalSupportPage.continueToNextPage()
 
-    await mainContactPage.checkOnPage('Who is the main contact for this booking?')
+    await mainContactPage.checkOnPage('Who is the main contact for this visit?')
     await mainContactPage.selectMainContact()
     const mainContact = await mainContactPage.getMainContactName()
     await mainContactPage.continueToNextPage()
@@ -112,7 +112,7 @@ test.describe('Create a booking via public ui', () => {
     GlobalData.set('applicationReference', applicationReference)
     await additionalSupportPage.continueToNextPage()
 
-    await mainContactPage.checkOnPage('Who is the main contact for this booking?')
+    await mainContactPage.checkOnPage('Who is the main contact for this visit?')
     await mainContactPage.selectMainContact()
     const mainContact = await mainContactPage.getMainContactName()
     await mainContactPage.continueToNextPage()
@@ -177,7 +177,7 @@ test.describe('Create a booking via public ui', () => {
     GlobalData.set('applicationReference', applicationReference)
     await additionalSupportPage.continueToNextPage()
 
-    await mainContactPage.checkOnPage('Who is the main contact for this booking?')
+    await mainContactPage.checkOnPage('Who is the main contact for this visit?')
     await mainContactPage.selectSomeoneElse(someOneElseAsMainContact)
     await mainContactPage.continueToNextPage()
  

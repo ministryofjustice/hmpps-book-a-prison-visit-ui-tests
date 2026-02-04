@@ -21,13 +21,13 @@ test.describe('Book a visit and verify on bookings page', () => {
     await homePage.checkOnPage('Book a visit')
   })
 
-  test('should not display any future visits on bookings page if the booker has no future visits', async ({
+  test('should not display any future visits on visits page if the booker has no future visits', async ({
     bookingsPage,
   }) => {
     await bookingsPage.navigateToBookingsPage()
-    await bookingsPage.checkOnPage('Bookings')
+    await bookingsPage.checkOnPage('Visits')
     expect(await bookingsPage.isNoBookingsMessageDisplayed()).toBeTruthy()
-    expect(await bookingsPage.getNoBookingsMessage()).toBe('You do not have any future bookings.')
+    expect(await bookingsPage.getNoBookingsMessage()).toBe('You do not have any future visits.')
   })
 
   test('should display future visits on bookings page if there are any', async ({
@@ -60,7 +60,7 @@ test.describe('Book a visit and verify on bookings page', () => {
     GlobalData.set('applicationReference', applicationReference)
     await additionalSupportPage.continueToNextPage()
 
-    await mainContactPage.checkOnPage('Who is the main contact for this booking?')
+    await mainContactPage.checkOnPage('Who is the main contact for this visit?')
     await mainContactPage.selectMainContact()
     await mainContactPage.continueToNextPage()
     await contactDetailsPage.enterEmailAdd()
@@ -78,7 +78,7 @@ test.describe('Book a visit and verify on bookings page', () => {
 
     await bookingConfirmationPage.waitForTimeout(2000)
     await bookingConfirmationPage.navigateToBookingsPage()
-    await bookingsPage.checkOnPage('Bookings')
+    await bookingsPage.checkOnPage('Visits')
 
     const confirmedVisitStartTime = await bookingsPage.getBookingStartTime()
     const confirmedVisitEndTime = await bookingsPage.getBookingEndTime()
@@ -88,7 +88,7 @@ test.describe('Book a visit and verify on bookings page', () => {
     expect(await bookingsPage.getBookingReference()).toBe(visitReference)
   })
 
-  test('should take user to booking details page when user clicks on view booking details link', async ({
+  test('should take user to visit details page when user clicks on view visit details link', async ({
     homePage,
     visitorPage,
     visitCalendarPage,
@@ -119,7 +119,7 @@ test.describe('Book a visit and verify on bookings page', () => {
     GlobalData.set('applicationReference', applicationReference)
     await additionalSupportPage.continueToNextPage()
 
-    await mainContactPage.checkOnPage('Who is the main contact for this booking?')
+    await mainContactPage.checkOnPage('Who is the main contact for this visit?')
     await mainContactPage.selectMainContact()
     const mainContact = await mainContactPage.getMainContactName()
     await mainContactPage.continueToNextPage()
@@ -138,11 +138,11 @@ test.describe('Book a visit and verify on bookings page', () => {
     GlobalData.set('visitReference', visitReference)
 
     await bookingConfirmationPage.navigateToBookingsPage()
-    await bookingsPage.checkOnPage('Bookings')
+    await bookingsPage.checkOnPage('Visits')
     await bookingsPage.clickBookingDetailsLink()
-    await bookingDetailsPage.checkOnPage('Visit booking details')
+    await bookingDetailsPage.checkOnPage('Visit details')
 
-    const convirmedVisitReferenceId = await bookingDetailsPage.getVisitReferenceNumber()
+    const confirmedVisitReferenceId = await bookingDetailsPage.getVisitReferenceNumber()
     const confirmedVisitDate = await bookingDetailsPage.getVisitDate()
     const confirmedVisitStartTime = await bookingDetailsPage.getVisitStartTime()
     const confirmedVisitEndTime = await bookingDetailsPage.getVisitEndTime()
@@ -152,7 +152,7 @@ test.describe('Book a visit and verify on bookings page', () => {
     const confirmedVisitors = await bookingDetailsPage.getVisitorsNames()
     const confirmedAdditionalSupport = await bookingDetailsPage.getAdditionalSupportRequest()
 
-    expect(convirmedVisitReferenceId).toBe(visitReference)
+    expect(confirmedVisitReferenceId).toBe(visitReference)
     expect(confirmedVisitDate).toBe(visitDate)
     expect(`${confirmedVisitStartTime} to ${confirmedVisitEndTime}`).toBe(visitTime)
     expect(confirmedPrisonerName).toBe(prisonerName)
