@@ -19,22 +19,24 @@
     "posttest": "npm run generate:report && npm run open:report",
     "test": "npm run test:chrome || npm run posttest",
     "posttest:ci": "rimraf playwright",
-    "test:ci": "cross-env test_env=staging npm run test:chrome"
+    "test:ci": "cross-env test_env=staging npm run test:chrome",
+    "setup": "npm ci && hmpps-npm-script-run-allowlist"
   },
   "engines": {
     "node": "^24",
     "npm": "^11"
   },
   "devDependencies": {
-    "@playwright/test": "^1.56.1",
-    "@types/node": "^24.10.0",
-    "allure-commandline": "^2.29.0",
-    "allure-playwright": "^3.4.2",
+    "@ministryofjustice/hmpps-npm-script-allowlist": "0.0.3",
+    "@playwright/test": "^1.58.2",
+    "@types/node": "^24.10.12",
+    "allure-commandline": "^2.36.0",
+    "allure-playwright": "^3.4.5",
     "cross-env": "^10.1.0",
-    "dotenv": "^17.2.3",
-    "eslint": "^9.39.1",
+    "dotenv": "^17.2.4",
+    "eslint": "^9.39.2",
     "mkdirp": "^3.0.1",
-    "prettier": "^3.3.2",
-    "rimraf": "^6.1.0"
+    "prettier": "^3.8.1",
+    "rimraf": "^6.1.2"
   }
 }
