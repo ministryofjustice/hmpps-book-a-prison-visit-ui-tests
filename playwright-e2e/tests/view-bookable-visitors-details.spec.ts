@@ -21,10 +21,10 @@ test.describe('Verify details of visitors a booker can book for', () => {
     test("List all visitors asssociated with a booker", async ({ homePage, bookableVisitorsPage }) => {
         await homePage.navigateToVisitorsPage()
         const pageHeading = "Visitors"
-        const vistorPageHeading = await bookableVisitorsPage.getPageHeading()
-        const vistorsCount = await bookableVisitorsPage.getVisitorsCount()
-        expect(pageHeading).toBe(vistorPageHeading)
-        expect(vistorsCount).toBe(8)
+        const visitorPageHeading = await bookableVisitorsPage.getPageHeading()
+        const visitorsCount = await bookableVisitorsPage.getVisitorsCount()
+        expect(pageHeading).toBe(visitorPageHeading)
+        expect(visitorsCount).toBe(8)
     })
 
     // Banned visitors(Uhoyneke Tevyon) are not displayed when selecting visitors who can visit
