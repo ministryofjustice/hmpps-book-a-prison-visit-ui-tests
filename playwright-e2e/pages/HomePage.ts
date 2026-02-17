@@ -14,7 +14,7 @@ export default class HomePage extends BasePage {
   constructor(page: Page) {
     super(page)
     this.prisonerName = page.getByTestId('prisoner-name')
-    this.startButton = page.getByTestId('start-booking')
+    this.startButton = page.getByTestId('start')
     this.cancelBookingRadio = page.getByRole('radio', { name: 'Yes, cancel this visit' })
     this.keepBookingRadio = page.getByRole('radio', { name: 'No, keep this visit' })
     this.confirmButton = page.getByTestId('confirm-button')
