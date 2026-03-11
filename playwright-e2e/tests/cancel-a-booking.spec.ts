@@ -11,7 +11,7 @@ test.describe('Create a booking via public ui', () => {
     const prisonerName: string = 'Arkmanain Editha'
 
     test.beforeEach(async ({ loginPage, homePage }) => {
-        await loginPage.navigateTo('/home')
+        await loginPage.navigateTo('/visits')
 
         const name = await homePage.getPrisonerName()
         expect(name).toBe(prisonerName)

@@ -2,11 +2,11 @@ import { expect, test } from '../../fixtures/PageFixtures'
 import { UserType } from '../../support/UserType'
 
 test('test', async ({ loginPage, homePage }) => {
-  await loginPage.navigateTo('/home')
+  await loginPage.navigateTo('/visits')
   await loginPage.checkOnPage('Create your GOV.UK One Login or sign in')
   await loginPage.signInWith(UserType.USER_NAME)
 
-  await homePage.checkOnPage('Book a visit')
+  await homePage.checkOnPage('Visits')
   expect(await homePage.startBookingButtonIsVisible()).toBeTruthy()
   await homePage.setAuthCookiesInStorage('playwright/.auth/auth.json')
 })

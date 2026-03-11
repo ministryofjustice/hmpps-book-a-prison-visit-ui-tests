@@ -10,7 +10,7 @@ const prisonerName: string = 'Sam Cake'
 
 test.beforeEach(async ({ context, loginPage }) => {
   context.clearCookies()
-  await loginPage.navigateTo('/home')
+  await loginPage.navigateTo('/visits')
   await loginPage.checkOnPage('Create your GOV.UK One Login or sign in')
 })
 
@@ -31,7 +31,7 @@ test.describe('Unhappy path validations', () => {
     visitorPage,
   }) => {
     await loginPage.signInWith(UserType.NO_VO_USER_NAME)
-    await homePage.checkOnPage('Book a visit')
+    await homePage.checkOnPage('Visits')
 
     const name = await homePage.getPrisonerName()
     expect(name).toBe(prisonerName)
@@ -43,7 +43,7 @@ test.describe('Unhappy path validations', () => {
 
   test('should be land on the new signout page when user signs out', async ({ homePage, signedOutPage, loginPage }) => {
     await loginPage.signInWith(UserType.NO_VO_USER_NAME)
-    await homePage.checkOnPage('Book a visit')
+    await homePage.checkOnPage('Visits')
     await homePage.signOut()
 
     await signedOutPage.checkOnPage('You have signed out')
@@ -52,7 +52,7 @@ test.describe('Unhappy path validations', () => {
     await loginPage.checkOnPage('Create your GOV.UK One Login or sign in')
     await loginPage.signInWith(UserType.USER_NAME)
 
-    await homePage.checkOnPage('Book a visit')
+    await homePage.checkOnPage('Visits')
     expect(await homePage.startBookingButtonIsVisible()).toBeTruthy()
   })
 })

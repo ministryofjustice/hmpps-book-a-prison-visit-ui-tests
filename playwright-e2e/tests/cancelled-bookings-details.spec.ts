@@ -12,10 +12,10 @@ test.describe('Verify cancelled bookings details', () => {
 
   test.beforeEach(async ({ context, loginPage, homePage }) => {
     context.clearCookies()
-    await loginPage.navigateTo('/home')
+    await loginPage.navigateTo('/visits')
     await loginPage.checkOnPage('Create your GOV.UK One Login or sign in')
     await loginPage.signInWith(UserType.USER_NAME)
-    await homePage.checkOnPage('Book a visit')
+    await homePage.checkOnPage('Visits')
   })
   test("Cancelled bookings should not be displayed when there aren't any", async ({
     bookingsPage, cancelledBookingsPage

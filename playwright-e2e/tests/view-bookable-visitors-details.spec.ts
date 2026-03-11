@@ -12,7 +12,7 @@ test.describe('Verify details of visitors a booker can book for', () => {
 
     test.beforeEach(async ({ context, loginPage }) => {
         context.clearCookies()
-        await loginPage.navigateTo('/home')
+        await loginPage.navigateTo('/visits')
         await loginPage.checkOnPage('Create your GOV.UK One Login or sign in')
         await loginPage.signInWith(UserType.USER_NAME)
     })

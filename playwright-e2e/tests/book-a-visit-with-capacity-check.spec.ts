@@ -28,7 +28,7 @@ test.describe('Create a booking with capacity checks', () => {
   const someOneElseAsMainContact: string = 'Mr Nobody'
 
   test.beforeEach(async ({ loginPage, homePage }) => {
-    await loginPage.navigateTo('/home')
+    await loginPage.navigateTo('/visits')
 
     const name = await homePage.getPrisonerName()
     expect(name).toContain(prisonerName)
@@ -92,7 +92,7 @@ test.describe('Create a booking with capacity checks', () => {
     await newLoginPage.goToSignInPage()
     await newLoginPage.signInWith(UserType.NEW_USER_NAME)
 
-    await newHomePage.checkOnPage('Book a visit')
+    await newHomePage.checkOnPage('Visits')
     await newHomePage.startBooking()
 
     await newVisitorPage.checkOnPage('Who is going on the visit?')
@@ -248,7 +248,7 @@ test.describe('Create a booking with capacity checks', () => {
     await loginPage.goToSignInPage()
 
     await loginPage.signInWith(UserType.ONE_VO_BALANCE_USER_NAME)
-    await homePage.checkOnPage('Book a visit')
+    await homePage.checkOnPage('Visits')
 
     const name = await homePage.getPrisonerName()
     expect(name).toBe(priosnerName)
