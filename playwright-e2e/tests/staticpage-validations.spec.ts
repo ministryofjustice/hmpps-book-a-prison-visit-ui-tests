@@ -19,7 +19,7 @@ test.describe('Static page validations', () => {
 
   test('should take the user to feedback page', async ({ context, loginPage, homePage }) => {
     await loginPage.navigateTo('/')
-    await homePage.checkOnPage('Book a visit')
+    await homePage.checkOnPage('Visits')
 
     const waitForFeedbackPage = context.waitForEvent('page')
     await homePage.navigateToFeedbackPage()
@@ -30,7 +30,7 @@ test.describe('Static page validations', () => {
 
   test('should take the user to accessibility statement page', async ({ loginPage, homePage }) => {
     await loginPage.navigateTo('/')
-    await homePage.checkOnPage('Book a visit')
+    await homePage.checkOnPage('Visits')
 
     await homePage.navigateToAccessibilityStatementPage()
     await homePage.checkOnPage('Accessibility statement for Visit someone in prison')
@@ -40,7 +40,7 @@ test.describe('Static page validations', () => {
 
   test('should take the user to privacy policy page', async ({ loginPage, homePage }) => {
     await loginPage.navigateTo('/')
-    await homePage.checkOnPage('Book a visit')
+    await homePage.checkOnPage('Visits')
 
     await homePage.navigateToPrivacyPolicyPage()
     await homePage.checkOnPage('Privacy notice')
@@ -50,7 +50,7 @@ test.describe('Static page validations', () => {
 
   test('should take the user to terms and conditions page', async ({ loginPage, homePage }) => {
     await loginPage.navigateTo('/')
-    await homePage.checkOnPage('Book a visit')
+    await homePage.checkOnPage('Visits')
 
     await homePage.navigateToTermsAndConditionsPage()
     await homePage.checkOnPage('Terms and conditions')
@@ -60,7 +60,7 @@ test.describe('Static page validations', () => {
 
   test.skip('should open a new form to add a new visitor', async ({ context, loginPage, homePage, visitorPage }) => {
     await loginPage.navigateTo('/')
-    await homePage.checkOnPage('Book a visit')
+    await homePage.checkOnPage('Visits')
     await homePage.startBooking()
 
     const addNewVisitorForm = context.waitForEvent('page')

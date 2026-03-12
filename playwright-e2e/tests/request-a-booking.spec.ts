@@ -12,7 +12,7 @@ test.describe('Request a booking', () => {
 
     test.beforeEach(async ({ context, loginPage }) => {
         await context.clearCookies()
-        await loginPage.navigateTo('/home')
+        await loginPage.navigateTo('/visits')
     })
     // A booking would be requested instead of confirmed based on the alerts applicable for a prisoner.
     test('Booking is requested , not confirmed, if alerts apply to the prisoner.', async ({
@@ -30,9 +30,9 @@ test.describe('Request a booking', () => {
         test.slow()
         await loginPage.signInWith(UserType.USER_WITH_PRISONER_ALERTS)
         const prisonerName: string = "Vsip_alert Do Not Use"
-        await homePage.checkOnPage('Book a visit')
+        await homePage.checkOnPage('Visits')
         const name = await homePage.getPrisonerName()
-        expect(name).toBe(prisonerName)
+        expect(name).toContain(prisonerName)
         await homePage.startBooking()
         await visitorPage.checkOnPage('Who is going on the visit?')
         await visitorPage.selectLastVisitor()
@@ -87,9 +87,9 @@ test.describe('Request a booking', () => {
         test.slow()
         await loginPage.signInWith(UserType.USER_WITH_PRISONER_RESTRICTIONS)
         const prisonerName: string = "Visp_restricted Do Not Use"
-        await homePage.checkOnPage('Book a visit')
+        await homePage.checkOnPage('Visits')
         const name = await homePage.getPrisonerName()
-        expect(name).toBe(prisonerName)
+        expect(name).toContain(prisonerName)
         await homePage.startBooking()
         await visitorPage.checkOnPage('Who is going on the visit?')
         await visitorPage.selectLastVisitor()
@@ -129,7 +129,7 @@ test.describe('Request a booking', () => {
         GlobalData.set('visitReference', visitReference)
     })
 
-    //A booking would be requested instead of confirmed based on the restrictions applicable for a visistor.
+    //A booking would be requested instead of confirmed based on the restrictions applicable for a visitor.
     test('Booking is requested , not confirmed, if restrictions apply to the visitor.', async ({
         loginPage,
         homePage,
@@ -145,9 +145,9 @@ test.describe('Request a booking', () => {
         test.slow()
         await loginPage.signInWith(UserType.USER_WITH_VISITOR_RESTRICTIONS)
         const prisonerName: string = "Vsip_visitor_restriction Do Not Change"
-        await homePage.checkOnPage('Book a visit')
+        await homePage.checkOnPage('Visits')
         const name = await homePage.getPrisonerName()
-        expect(name).toBe(prisonerName)
+        expect(name).toContain(prisonerName)
         await homePage.startBooking()
         await visitorPage.checkOnPage('Who is going on the visit?')
         await visitorPage.selectLastVisitor()

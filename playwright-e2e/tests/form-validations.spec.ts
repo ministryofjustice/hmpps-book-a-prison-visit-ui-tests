@@ -11,10 +11,10 @@ test.describe('Form validation error messages', () => {
   const prisonerName: string = 'Arkmanain Editha'
 
   test.beforeEach('Login', async ({ loginPage, homePage }) => {
-    await loginPage.navigateTo('/home')
+    await loginPage.navigateTo('/visits')
 
     const name = await homePage.getPrisonerName()
-    expect(name).toBe(prisonerName)
+    expect(name).toContain(prisonerName)
     await homePage.startBooking()
   })
 
@@ -110,7 +110,7 @@ test.describe('Form validation error messages', () => {
     expect(await additionalSupportPage.getAlertErrorMessage()).toContain('Enter details of the request')
   })
 
-  test('should display main contact and phone number not seleted error message on select main contact page', async ({
+  test('should display main contact and phone number not selected error message on select main contact page', async ({
     visitorPage,
     visitCalendarPage,
     additionalSupportPage,

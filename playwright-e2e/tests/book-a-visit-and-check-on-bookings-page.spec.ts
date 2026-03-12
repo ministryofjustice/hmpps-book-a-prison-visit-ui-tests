@@ -15,10 +15,10 @@ test.describe('Book a visit and verify on bookings page', () => {
 
   test.beforeEach(async ({ context, loginPage, homePage }) => {
     await context.clearCookies()
-    await loginPage.navigateTo('/home')
+    await loginPage.navigateTo('/visits')
     await loginPage.checkOnPage('Create your GOV.UK One Login or sign in')
     await loginPage.signInWith(UserType.USER_NAME)
-    await homePage.checkOnPage('Book a visit')
+    await homePage.checkOnPage('Visits')
   })
 
   test('should not display any future visits on visits page if the booker has no future visits', async ({
@@ -27,7 +27,7 @@ test.describe('Book a visit and verify on bookings page', () => {
     await bookingsPage.navigateToBookingsPage()
     await bookingsPage.checkOnPage('Visits')
     expect(await bookingsPage.isNoBookingsMessageDisplayed()).toBeTruthy()
-    expect(await bookingsPage.getNoBookingsMessage()).toBe('You do not have any future visits.')
+    expect(await bookingsPage.getNoBookingsMessage()).toBe('There are no future visits or requests.')
   })
 
   test('should display future visits on bookings page if there are any', async ({

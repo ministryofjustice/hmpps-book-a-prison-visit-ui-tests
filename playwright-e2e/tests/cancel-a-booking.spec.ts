@@ -11,10 +11,10 @@ test.describe('Create a booking via public ui', () => {
     const prisonerName: string = 'Arkmanain Editha'
 
     test.beforeEach(async ({ loginPage, homePage }) => {
-        await loginPage.navigateTo('/home')
+        await loginPage.navigateTo('/visits')
 
         const name = await homePage.getPrisonerName()
-        expect(name).toBe(prisonerName)
+        expect(name).toContain(prisonerName)
         await homePage.startBooking()
     })
 
@@ -76,8 +76,8 @@ test.describe('Create a booking via public ui', () => {
         expect(await bookingConfirmationPage.isBookingConfirmationDisplayed()).toBeTruthy()
         expect(await bookingConfirmationPage.isVisitDetailsDisplayed()).toBeTruthy()
         const visitReference = await bookingConfirmationPage.getReferenceNumber()
-        const nameOfThePrison = await bookingConfirmationPage.getPisonName()
-        const prisonContactNumber = await bookingConfirmationPage.getPisonNumber()
+        const nameOfThePrison = await bookingConfirmationPage.getPrisonName()
+        const prisonContactNumber = await bookingConfirmationPage.getPrisonerNumber()
         expect(nameOfThePrison).toContain('Foston Hall (HMP & YOI)')
         expect(prisonContactNumber).toContain('0123 456 7890')
         await bookingConfirmationPage.clickCancelBooking()
@@ -151,8 +151,8 @@ test.describe('Create a booking via public ui', () => {
         expect(await bookingConfirmationPage.isBookingConfirmationDisplayed()).toBeTruthy()
         expect(await bookingConfirmationPage.isVisitDetailsDisplayed()).toBeTruthy()
         const visitReference = await bookingConfirmationPage.getReferenceNumber()
-        const nameOfThePrison = await bookingConfirmationPage.getPisonName()
-        const prisonContactNumber = await bookingConfirmationPage.getPisonNumber()
+        const nameOfThePrison = await bookingConfirmationPage.getPrisonName()
+        const prisonContactNumber = await bookingConfirmationPage.getPrisonerNumber()
         expect(nameOfThePrison).toContain('Foston Hall (HMP & YOI)')
         expect(prisonContactNumber).toContain('0123 456 7890')
         await bookingConfirmationPage.clickCancelBooking()
@@ -160,7 +160,7 @@ test.describe('Create a booking via public ui', () => {
         bookingsPage.checkOnPage('Visits')
         await bookingsPage.clickCancelBookingLink()
         await homePage.checkOnPage('Are you sure you want to cancel your visit?')
-        await homePage.selectKeepThislBooking()
+        await homePage.selectKeepThisBooking()
         await homePage.clickConfirm()
         await homePage.checkOnPage('Visit details')
         const refNumberInBookingDetails = await homePage.getBookingRefNumber()

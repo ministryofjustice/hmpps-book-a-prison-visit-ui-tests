@@ -12,13 +12,13 @@ test.describe('Verify details of visitors a booker can book for', () => {
 
     test.beforeEach(async ({ context, loginPage }) => {
         context.clearCookies()
-        await loginPage.navigateTo('/home')
+        await loginPage.navigateTo('/visits')
         await loginPage.checkOnPage('Create your GOV.UK One Login or sign in')
         await loginPage.signInWith(UserType.USER_NAME)
     })
 
     // Number of bookable visitors for this booker is 5 & one of them (Uhoyneke Tevyon) is banned.
-    test("List all visitors asssociated with a booker", async ({ homePage, bookableVisitorsPage }) => {
+    test("List all visitors associated with a booker", async ({ homePage, bookableVisitorsPage }) => {
         await homePage.navigateToVisitorsPage()
         const pageHeading = "Visitors"
         const visitorPageHeading = await bookableVisitorsPage.getPageHeading()

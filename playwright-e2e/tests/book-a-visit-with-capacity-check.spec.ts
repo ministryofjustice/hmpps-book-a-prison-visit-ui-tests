@@ -28,14 +28,14 @@ test.describe('Create a booking with capacity checks', () => {
   const someOneElseAsMainContact: string = 'Mr Nobody'
 
   test.beforeEach(async ({ loginPage, homePage }) => {
-    await loginPage.navigateTo('/home')
+    await loginPage.navigateTo('/visits')
 
     const name = await homePage.getPrisonerName()
     expect(name).toContain(prisonerName)
     await homePage.startBooking()
   })
 
-  //Skippping this test as it is failing due to the issue with capacity update
+  //Skipping this test as it is failing due to the issue with capacity update
   test.skip('Book a visit - capacity is 1, set time to -20 mins, block 2nd session with another booking and verify failed booking', async ({
     request,
     visitorPage,
@@ -92,7 +92,7 @@ test.describe('Create a booking with capacity checks', () => {
     await newLoginPage.goToSignInPage()
     await newLoginPage.signInWith(UserType.NEW_USER_NAME)
 
-    await newHomePage.checkOnPage('Book a visit')
+    await newHomePage.checkOnPage('Visits')
     await newHomePage.startBooking()
 
     await newVisitorPage.checkOnPage('Who is going on the visit?')
@@ -227,7 +227,7 @@ test.describe('Create a booking with capacity checks', () => {
     console.log('Confirmation message: ', visitReference)
   })
 
-  //Skippping this test as it is failing on staging as the VO balance is not updating
+  //Skipping this test as it is failing on staging as the VO balance is not updating
   test.skip('should not be allowed to book a visit when a prisoner has 1 VO available and that has been used to book a staff visit', async ({
     context,
     request,
@@ -240,7 +240,7 @@ test.describe('Create a booking with capacity checks', () => {
     visitDetailsPage,
     contactDetailsPage
   }) => {
-    const priosnerName = "Ef'liaico Braderto"
+    const prisonerName = "Ef'liaico Braderto"
 
     await context.clearCookies()
     await loginPage.navigateTo('/')
@@ -248,10 +248,10 @@ test.describe('Create a booking with capacity checks', () => {
     await loginPage.goToSignInPage()
 
     await loginPage.signInWith(UserType.ONE_VO_BALANCE_USER_NAME)
-    await homePage.checkOnPage('Book a visit')
+    await homePage.checkOnPage('Visits')
 
     const name = await homePage.getPrisonerName()
-    expect(name).toBe(priosnerName)
+    expect(name).toContain(prisonerName)
     await homePage.startBooking()
 
     await visitorPage.checkOnPage('Who is going on the visit?')

@@ -12,10 +12,10 @@ test.describe('Add prisoner to a booker', () => {
 
     test.beforeEach(async ({ context, loginPage, homePage }) => {
         await context.clearCookies()
-        await loginPage.navigateTo('/home')
+        await loginPage.navigateTo('/visits')
         await loginPage.checkOnPage('Create your GOV.UK One Login or sign in')
         await loginPage.signInWith(UserType.USER_WITH_NO_PRISONERS)
-        expect(await homePage.checkOnPage('Book a visit'))
+        expect(await homePage.checkOnPage('Visits'))
         await homePage.clickOnAddPrisoner()
         await homePage.selectPrisonFromList('DHI')
         await homePage.continueToNextPage()

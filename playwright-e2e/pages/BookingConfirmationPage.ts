@@ -34,11 +34,11 @@ export default class BookingConfirmationPage extends BasePage {
     return await this.visitDetails.isVisible()
   }
 
-  async getPisonName(): Promise<string> {
+  async getPrisonName(): Promise<string> {
     return await this.prisonName.innerText()
   }
 
-  async getPisonNumber(): Promise<string> {
+  async getPrisonerNumber(): Promise<string> {
     return await this.prisonContactNumber.innerText()
   }
 
