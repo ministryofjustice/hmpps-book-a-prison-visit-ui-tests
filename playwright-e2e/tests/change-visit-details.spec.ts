@@ -17,7 +17,7 @@ test.describe('Create a booking and change the visit details', () => {
     await loginPage.navigateTo('/visits')
 
     const name = await homePage.getPrisonerName()
-    expect(name).toBe(prisonerName)
+    expect(name).toContain(prisonerName)
     await homePage.startBooking()
   })
 

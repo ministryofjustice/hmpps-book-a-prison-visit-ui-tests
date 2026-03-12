@@ -27,7 +27,7 @@ test.describe('Book a visit and verify on bookings page', () => {
     await bookingsPage.navigateToBookingsPage()
     await bookingsPage.checkOnPage('Visits')
     expect(await bookingsPage.isNoBookingsMessageDisplayed()).toBeTruthy()
-    expect(await bookingsPage.getNoBookingsMessage()).toBe('You do not have any future visits.')
+    expect(await bookingsPage.getNoBookingsMessage()).toBe('There are no future visits or requests.')
   })
 
   test('should display future visits on bookings page if there are any', async ({

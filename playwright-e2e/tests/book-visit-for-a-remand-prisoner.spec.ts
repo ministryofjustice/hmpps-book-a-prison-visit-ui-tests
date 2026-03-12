@@ -18,7 +18,7 @@ test.describe('Book a visit for remand prisoners', () => {
         await loginPage.signInWith(UserType.REMAND_PRISONER_VISITOR)
         await homePage.checkOnPage('Visits')
         const name = await homePage.getPrisonerName()
-        expect(name).toBe(prisonerName)
+        expect(name).toContain(prisonerName)
 
     })
     test('Should be able to book a visit for remand prisoner', async ({

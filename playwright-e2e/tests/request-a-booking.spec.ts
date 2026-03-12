@@ -32,7 +32,7 @@ test.describe('Request a booking', () => {
         const prisonerName: string = "Vsip_alert Do Not Use"
         await homePage.checkOnPage('Visits')
         const name = await homePage.getPrisonerName()
-        expect(name).toBe(prisonerName)
+        expect(name).toContain(prisonerName)
         await homePage.startBooking()
         await visitorPage.checkOnPage('Who is going on the visit?')
         await visitorPage.selectLastVisitor()
@@ -89,7 +89,7 @@ test.describe('Request a booking', () => {
         const prisonerName: string = "Visp_restricted Do Not Use"
         await homePage.checkOnPage('Visits')
         const name = await homePage.getPrisonerName()
-        expect(name).toBe(prisonerName)
+        expect(name).toContain(prisonerName)
         await homePage.startBooking()
         await visitorPage.checkOnPage('Who is going on the visit?')
         await visitorPage.selectLastVisitor()
@@ -129,7 +129,7 @@ test.describe('Request a booking', () => {
         GlobalData.set('visitReference', visitReference)
     })
 
-    //A booking would be requested instead of confirmed based on the restrictions applicable for a visistor.
+    //A booking would be requested instead of confirmed based on the restrictions applicable for a visitor.
     test('Booking is requested , not confirmed, if restrictions apply to the visitor.', async ({
         loginPage,
         homePage,
@@ -147,7 +147,7 @@ test.describe('Request a booking', () => {
         const prisonerName: string = "Vsip_visitor_restriction Do Not Change"
         await homePage.checkOnPage('Visits')
         const name = await homePage.getPrisonerName()
-        expect(name).toBe(prisonerName)
+        expect(name).toContain(prisonerName)
         await homePage.startBooking()
         await visitorPage.checkOnPage('Who is going on the visit?')
         await visitorPage.selectLastVisitor()

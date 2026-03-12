@@ -34,7 +34,7 @@ test.describe('Unhappy path validations', () => {
     await homePage.checkOnPage('Visits')
 
     const name = await homePage.getPrisonerName()
-    expect(name).toBe(prisonerName)
+    expect(name).toContain(prisonerName)
     await homePage.startBooking()
     await visitorPage.checkOnPage('A visit cannot be booked')
 

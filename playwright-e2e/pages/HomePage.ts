@@ -13,8 +13,8 @@ export default class HomePage extends BasePage {
 
   constructor(page: Page) {
     super(page)
-    this.prisonerName = page.getByTestId('prisoner-name')
-    this.startButton = page.getByTestId('start')
+    this.prisonerName = page.getByTestId('prisoner-name-at-location')
+    this.startButton = page.getByTestId('book-a-visit')
     this.cancelBookingRadio = page.getByRole('radio', { name: 'Yes, cancel this visit' })
     this.keepBookingRadio = page.getByRole('radio', { name: 'No, keep this visit' })
     this.confirmButton = page.getByTestId('confirm-button')
@@ -46,7 +46,7 @@ export default class HomePage extends BasePage {
   async getConfirmationMessage(): Promise<string> {
     return this.confirmationMessage.innerText()
   }
-  async selectKeepThislBooking(): Promise<void> {
+  async selectKeepThisBooking(): Promise<void> {
     await this.keepBookingRadio.click()
   }
 
