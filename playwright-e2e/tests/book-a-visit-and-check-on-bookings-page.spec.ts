@@ -80,11 +80,10 @@ test.describe('Book a visit and verify on bookings page', () => {
     await bookingConfirmationPage.navigateToBookingsPage()
     await bookingsPage.checkOnPage('Visits')
 
-    const confirmedVisitStartTime = await bookingsPage.getBookingStartTime()
-    const confirmedVisitEndTime = await bookingsPage.getBookingEndTime()
+    const confirmedVisitStartEndTime = await bookingsPage.getBookingStartEndTime()
 
     expect(await bookingsPage.getBookingDate()).toBe(visitDate)
-    expect(`${confirmedVisitStartTime} to ${confirmedVisitEndTime}`).toBe(visitTime)
+    expect(confirmedVisitStartEndTime).toBe(visitTime)
     expect(await bookingsPage.getBookingReference()).toBe(visitReference)
   })
 
@@ -144,8 +143,7 @@ test.describe('Book a visit and verify on bookings page', () => {
 
     const confirmedVisitReferenceId = await bookingDetailsPage.getVisitReferenceNumber()
     const confirmedVisitDate = await bookingDetailsPage.getVisitDate()
-    const confirmedVisitStartTime = await bookingDetailsPage.getVisitStartTime()
-    const confirmedVisitEndTime = await bookingDetailsPage.getVisitEndTime()
+    const confirmedVisitStartEndTime = await bookingDetailsPage.getVisitStartEndTime()
     const confirmedPrisonerName = await bookingDetailsPage.getPrisonerName()
     const confirmedMainContact = await bookingDetailsPage.getMainContactName()
     const confirmedMainContactPhoneNumber = await bookingDetailsPage.getMainContactPhoneNumber()
@@ -154,7 +152,7 @@ test.describe('Book a visit and verify on bookings page', () => {
 
     expect(confirmedVisitReferenceId).toBe(visitReference)
     expect(confirmedVisitDate).toBe(visitDate)
-    expect(`${confirmedVisitStartTime} to ${confirmedVisitEndTime}`).toBe(visitTime)
+    expect(confirmedVisitStartEndTime).toBe(visitTime)
     expect(confirmedPrisonerName).toBe(prisonerName)
     expect(confirmedMainContact).toBe(mainContact)
     // expect(confirmedMainContactPhoneNumber).toBe(mainContactPhoneNumber)
