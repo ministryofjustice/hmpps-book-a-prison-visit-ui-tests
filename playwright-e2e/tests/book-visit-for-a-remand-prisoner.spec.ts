@@ -72,11 +72,10 @@ test.describe('Book a visit for remand prisoners', () => {
         await bookingConfirmationPage.navigateToBookingsPage()
         await bookingsPage.checkOnPage('Visits')
 
-        const confirmedVisitStartTime = await bookingsPage.getBookingStartTime()
-        const confirmedVisitEndTime = await bookingsPage.getBookingEndTime()
+        const confirmedVisitStartEndTime = await bookingsPage.getBookingStartEndTime()
 
         expect(await bookingsPage.getBookingDate()).toBe(visitDate)
-        expect(`${confirmedVisitStartTime} to ${confirmedVisitEndTime}`).toBe(visitTime)
+        expect(confirmedVisitStartEndTime).toBe(visitTime)
         expect(await bookingsPage.getBookingReference()).toBe(visitReference)
     })
     test.afterAll('Teardown test data', async ({ request }) => {

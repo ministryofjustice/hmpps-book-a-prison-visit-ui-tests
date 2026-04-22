@@ -4,8 +4,7 @@ import { BasePage } from './BasePage'
 export default class BookingsDetailsPage extends BasePage {
   private readonly visitReferenceNumber: Locator
   private readonly visitDate: Locator
-  private readonly visitStartTime: Locator
-  private readonly visitEndTime: Locator
+  private readonly visitStartEndTime: Locator
   private readonly prisonerName: Locator
   private readonly visitorsNames: Locator
   private readonly additionalSupportRequest: Locator
@@ -16,8 +15,7 @@ export default class BookingsDetailsPage extends BasePage {
     super(page)
     this.visitReferenceNumber = this.page.getByTestId('visit-reference')
     this.visitDate = this.page.getByTestId('visit-date')
-    this.visitStartTime = this.page.getByTestId('visit-start-time')
-    this.visitEndTime = this.page.getByTestId('visit-end-time')
+    this.visitStartEndTime = this.page.getByTestId('visit-start-end-time')
     this.prisonerName = this.page.getByTestId('prisoner-name')
     this.visitorsNames = this.page.locator('[data-test^=visitor-name]')
     this.additionalSupportRequest = this.page.getByTestId('additional-support')
@@ -33,12 +31,8 @@ export default class BookingsDetailsPage extends BasePage {
     return await this.visitDate.innerText()
   }
 
-  async getVisitStartTime(): Promise<string> {
-    return await this.visitStartTime.innerText()
-  }
-
-  async getVisitEndTime(): Promise<string> {
-    return await this.visitEndTime.innerText()
+  async getVisitStartEndTime(): Promise<string> {
+    return await this.visitStartEndTime.innerText()
   }
 
   async getPrisonerName(): Promise<string> {
