@@ -2,3 +2,5 @@ node_modules
 allure-results
 allure-report
 test-results
+!.allowed-scripts.mjs
+!.npmrc
