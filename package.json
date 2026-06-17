@@ -29,14 +29,14 @@
   "devDependencies": {
     "@ministryofjustice/hmpps-npm-script-allowlist": "0.0.6",
     "@playwright/test": "^1.60.0",
-    "@types/node": "^24.12.4",
-    "allure-commandline": "^2.42.0",
+    "@types/node": "^24.13.1",
+    "allure-commandline": "^2.42.1",
     "allure-playwright": "^3.9.0",
     "cross-env": "^10.1.0",
     "dotenv": "^17.4.2",
     "eslint": "^10.4.0",
     "mkdirp": "^3.0.1",
-    "prettier": "^3.8.3",
+    "prettier": "^3.8.4",
     "rimraf": "^6.1.3"
   }
 }
