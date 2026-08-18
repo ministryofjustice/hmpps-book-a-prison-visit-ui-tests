@@ -9,6 +9,7 @@
     "pretest": "npm run clean:reports",
     "setEnv:dev": "test_env=dev npm run ",
     "setEnv:staging": "test_env=staging npm run ",
+    "test:chrome": "playwright test --project=chromium",
     "test:chrome:headed": "playwright test --project=chromium --headed",
     "test:safari:headed": "playwright test --project=webkit --headed",
     "test:iPhone13": "playwright test --project=mobile_iphone13",
