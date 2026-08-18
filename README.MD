@@ -28,27 +28,28 @@ tee .env .env.dev .env.staging < .env.example
 Fill out the created env files ([.env](.env), [.env.dev](.env.dev), and [.env.staging](.env.staging)) with appropriate information.
 
 ## Running the Tests
-**All the below scripts are in package.json**
+**All the below scripts are in [package.json](package.json)**
 
 To run the tests, use one of the following commands:
 
-| Command                        | Description                                                 |
-|--------------------------------|-------------------------------------------------------------|
-| `npm run test:chrome`          | To run the tests on chrome headless                         |
-| `npm run test:chrome:headed`   | To run the tests on chrome in headed mode                   |
-| `npm run test:iPhone13`        | To run the tests on iPhone 13 mobile browser                |
-| `npm run test:iPhone13:headed` | To run the tests on iPhone 13 mobile browser in headed mode |
-| `npm run test:nexus7`          | To run the tests on Nexus 7 mobile browser                  |
-| `npm run test:nexus5:headed`   | To run the tests on Nexus 7 mobile browser in headed mode   |
+| Command                                   | Description                                                 |
+|-------------------------------------------|-------------------------------------------------------------|
+| `npm run setEnv:dev test:chrome`          | To run the tests on chrome headless                         |
+| `npm run setEnv:dev test:chrome:headed`   | To run the tests on chrome in headed mode                   |
+| `npm run setEnv:dev test:iPhone13`        | To run the tests on iPhone 13 mobile browser                |
+| `npm run setEnv:dev test:iPhone13:headed` | To run the tests on iPhone 13 mobile browser in headed mode |
+| `npm run setEnv:dev test:nexus7`          | To run the tests on Nexus 7 mobile browser                  |
+| `npm run setEnv:dev test:nexus5:headed`   | To run the tests on Nexus 7 mobile browser in headed mode   |
 
 ## Running single test
-To run a single test in headed mode use the below command
+To run a single test in headed mode use the below command:
+
 ```
-test_env={environment to run the test:dev or staging} npx playwright test --project={browserName} {testName}.spec.ts --headed 
+test_env={dev|staging} npx playwright test --project={browserName} {testName}.spec.ts --headed 
+```
 
 Supported Browsers: 
-Chromium
-Firefox
-Edge
-Webkit/Safari
-```
+- Chromium
+- Firefox
+- Edge
+- Webkit/Safari
