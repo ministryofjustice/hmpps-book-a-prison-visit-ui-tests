@@ -12,57 +12,34 @@ This repository contains automated E2E UI tests for the `hmpps-book-a-prison-vis
 ### Installation
 
 1. Clone the repository
-2. Navigate to the project directory
-```
-cd hmpps-book-a-prison-visit-ui-tests
-```
+2. Navigate to the project directory - `cd hmpps-book-a-prison-visit-ui-tests`
 3. Install the dependencies:
-```
+
+```bash
 npm ci
-create 3 .env files
-.env, .env.dev & .env.staging
 ```
 
-Update `.env` with below values
-```
-USER_NAME=""
-UNKNOWN_USER_NAME=""
-NO_VO_USER_NAME=""
-ONE_VO_BALANCE_USER_NAME=""
-NEW_USER_NAME=""
-PASSWORD=""
-INTEG_USER_NAME=""
-INTEG_PASSWORD=""
+Create 3 .env files:
 
-# These will be set by the setup script
-BASE_URL='' 
-HMPPS_AUTH_URL=''
-TEST_HELPER_API_URL=''
-TESTING_CLIENT_ID=''
-TESTING_CLIENT_SECRET=''
-
-DEV_USER="dev_user"
-DEV_PASSWORD="dev_password"
+```bash
+tee .env .env.dev .env.staging < .env.example
 ```
 
-Update `.env.dev & .env.staging` with below values
-
-TESTING_CLIENT_ID=`xxxxxxxxxx`
-
-TESTING_CLIENT_SECRET=`xxxxxxxxx`
+Fill out the created env files ([.env](.env), [.env.dev](.env.dev), and [.env.staging](.env.staging)) with appropriate information.
 
 ## Running the Tests
-**All the below scpritps are in package.json**
+**All the below scripts are in package.json**
 
-To run the tests, use the following command:
-```
-npm run test:chrome                 -   To run the tests on chrome headless
-npm run test:chrome:headed          -   To run the tests on chrome in headed mode
-npm run test:iPhone13               -   To run the tests on iPhone 13 mobile browser
-npm run test:iPhone13:headed        -   To run the tests on iPhone 13 mobile browser in headed mode
-npm run test:nexus7                 -   To run the tests on Nexus 7 mobile browser
-npm run test:nexus5:headed          -   To run the tests on Nexus 7 mobile browser in headed mode
-```
+To run the tests, use one of the following commands:
+
+| Command                        | Description                                                 |
+|--------------------------------|-------------------------------------------------------------|
+| `npm run test:chrome`          | To run the tests on chrome headless                         |
+| `npm run test:chrome:headed`   | To run the tests on chrome in headed mode                   |
+| `npm run test:iPhone13`        | To run the tests on iPhone 13 mobile browser                |
+| `npm run test:iPhone13:headed` | To run the tests on iPhone 13 mobile browser in headed mode |
+| `npm run test:nexus7`          | To run the tests on Nexus 7 mobile browser                  |
+| `npm run test:nexus5:headed`   | To run the tests on Nexus 7 mobile browser in headed mode   |
 
 ## Running single test
 To run a single test in headed mode use the below command
