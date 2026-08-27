@@ -153,7 +153,7 @@ test.describe('Book a visit and verify on bookings page', () => {
     expect(confirmedVisitReferenceId).toBe(visitReference)
     expect(confirmedVisitDate).toBe(visitDate)
     expect(confirmedVisitStartEndTime).toBe(visitTime)
-    expect(confirmedPrisonerName).toBe(prisonerName)
+    expect(confirmedPrisonerName).toBe(`${prisonerName} at Foston Hall (HMP & YOI)`)
     expect(confirmedMainContact).toBe(mainContact)
     // expect(confirmedMainContactPhoneNumber).toBe(mainContactPhoneNumber)
     expect(confirmedVisitors.length).toBe(visitors.length)
