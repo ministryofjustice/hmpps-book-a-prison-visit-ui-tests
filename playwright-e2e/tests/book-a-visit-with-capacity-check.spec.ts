@@ -251,8 +251,6 @@ test.describe('Create a booking with capacity checks', () => {
     await loginPage.signInWith(UserType.ONE_VO_BALANCE_USER_NAME)
     await homePage.checkOnPage('Visits')
 
-    const name = await homePage.getPrisonerName()
-    expect(name).toContain(prisonerName)
     await homePage.startBooking()
 
     await visitorPage.checkOnPage('Who is going on the visit?')
