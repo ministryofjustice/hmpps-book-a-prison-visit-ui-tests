@@ -1,6 +1,7 @@
 import { expect, test } from '../fixtures/PageFixtures'
 import GlobalData from '../setup/GlobalData'
 import { deleteApplication, getAccessToken } from '../support/testingHelperClient'
+import { UserType } from '../support/UserType'
 
 test.beforeAll('Get access token and store so it is available as global data', async ({ request }, testInfo) => {
   GlobalData.set('authToken', await getAccessToken({ request }))
@@ -10,12 +11,13 @@ test.beforeAll('Get access token and store so it is available as global data', a
 test.describe('Form validation error messages', () => {
   const prisonerName: string = 'Arkmanain Editha'
 
-  test.beforeEach('Login', async ({ loginPage, homePage }) => {
-    await loginPage.navigateTo('/visits')
-
-    const name = await homePage.getPrisonerName()
-    expect(name).toContain(prisonerName)
-    await homePage.startBooking()
+  test.beforeEach('Login', async ({  context, loginPage, homePage }) => {
+        await context.clearCookies()
+        await loginPage.navigateTo('/visits')
+        await loginPage.checkOnPage('Create your GOV.UK One Login or sign in')
+        await loginPage.signInWith(UserType.USER_NAME)
+        await homePage.checkOnPage('Visits')
+        await homePage.startBooking()
   })
 
   test('should display visitor restrictions error message when you select more than allowed visitors', async ({
