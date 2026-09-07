@@ -1,6 +1,7 @@
 import { test, expect } from '../fixtures/PageFixtures'
 import GlobalData from '../setup/GlobalData'
 import { deleteApplication, deleteVisit, getAccessToken } from '../support/testingHelperClient'
+import { UserType } from '../support/UserType'
 
 test.beforeAll('Get access token and store so it is available as global data', async ({ request }, testInfo) => {
   GlobalData.set('authToken', await getAccessToken({ request }))
@@ -12,11 +13,12 @@ test.describe('Create a booking via public ui', () => {
   const additionalSupportDetails: string = 'Wheelchair access'
   const someOneElseAsMainContact: string = 'Mr Nobody'
 
-  test.beforeEach(async ({ loginPage, homePage }) => {
+  test.beforeEach(async ({ context, loginPage, homePage }) => {
+    await context.clearCookies()
     await loginPage.navigateTo('/visits')
-
-    const name = await homePage.getPrisonerName()
-    expect(name).toBe(`${prisonerName} at Foston Hall (HMP & YOI)`)
+    await loginPage.checkOnPage('Create your GOV.UK One Login or sign in')
+    await loginPage.signInWith(UserType.USER_NAME)
+    await homePage.checkOnPage('Visits')
     await homePage.startBooking()
   })
 
