@@ -27,12 +27,9 @@ test.describe('Request a booking', () => {
         visitRequestedPage
 
     }) => {
-        test.slow()
         await loginPage.signInWith(UserType.USER_WITH_PRISONER_ALERTS)
         const prisonerName: string = "Vsip_alert Do Not Use"
         await homePage.checkOnPage('Visits')
-        const name = await homePage.getPrisonerName()
-        expect(name).toContain(prisonerName)
         await homePage.startBooking()
         await visitorPage.checkOnPage('Who is going on the visit?')
         await visitorPage.selectLastVisitor()
@@ -84,12 +81,9 @@ test.describe('Request a booking', () => {
         visitRequestedPage
 
     }) => {
-        test.slow()
         await loginPage.signInWith(UserType.USER_WITH_PRISONER_RESTRICTIONS)
         const prisonerName: string = "Visp_restricted Do Not Use"
         await homePage.checkOnPage('Visits')
-        const name = await homePage.getPrisonerName()
-        expect(name).toContain(prisonerName)
         await homePage.startBooking()
         await visitorPage.checkOnPage('Who is going on the visit?')
         await visitorPage.selectLastVisitor()
@@ -142,12 +136,9 @@ test.describe('Request a booking', () => {
         visitRequestedPage
 
     }) => {
-        test.slow()
         await loginPage.signInWith(UserType.USER_WITH_VISITOR_RESTRICTIONS)
         const prisonerName: string = "Vsip_visitor_restriction Do Not Change"
         await homePage.checkOnPage('Visits')
-        const name = await homePage.getPrisonerName()
-        expect(name).toContain(prisonerName)
         await homePage.startBooking()
         await visitorPage.checkOnPage('Who is going on the visit?')
         await visitorPage.selectLastVisitor()

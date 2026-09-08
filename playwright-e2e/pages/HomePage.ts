@@ -2,7 +2,6 @@ import { Locator, Page } from '@playwright/test'
 import { BasePage } from './BasePage'
 
 export default class HomePage extends BasePage {
-  private readonly prisonerName: Locator
   private readonly startButton: Locator
   private readonly cancelBookingRadio: Locator
   private readonly keepBookingRadio: Locator
@@ -13,7 +12,6 @@ export default class HomePage extends BasePage {
 
   constructor(page: Page) {
     super(page)
-    this.prisonerName = page.getByTestId('prisoner-name-at-location')
     this.startButton = page.getByTestId('book-a-visit')
     this.cancelBookingRadio = page.getByRole('radio', { name: 'Yes, cancel this visit' })
     this.keepBookingRadio = page.getByRole('radio', { name: 'No, keep this visit' })
@@ -21,10 +19,6 @@ export default class HomePage extends BasePage {
     this.confirmationMessage = page.locator('[id$=main-content]')
     this.bookingRefNUmber = page.getByTestId('visit-reference')
     this.addPrisoner = page.getByTestId('add-prisoner')
-  }
-
-  async getPrisonerName(): Promise<string> {
-    return this.prisonerName.innerText()
   }
 
   async startBooking(): Promise<void> {

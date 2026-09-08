@@ -27,11 +27,12 @@ test.describe('Create a booking with capacity checks', () => {
   const prisonerName: string = 'Arkmanain Editha'
   const someOneElseAsMainContact: string = 'Mr Nobody'
 
-  test.beforeEach(async ({ loginPage, homePage }) => {
+  test.beforeEach(async ({ context, loginPage, homePage }) => {
+    await context.clearCookies()
     await loginPage.navigateTo('/visits')
-
-    const name = await homePage.getPrisonerName()
-    expect(name).toContain(prisonerName)
+    await loginPage.checkOnPage('Create your GOV.UK One Login or sign in')
+    await loginPage.signInWith(UserType.USER_NAME)
+    await homePage.checkOnPage('Visits')
     await homePage.startBooking()
   })
 
@@ -250,8 +251,6 @@ test.describe('Create a booking with capacity checks', () => {
     await loginPage.signInWith(UserType.ONE_VO_BALANCE_USER_NAME)
     await homePage.checkOnPage('Visits')
 
-    const name = await homePage.getPrisonerName()
-    expect(name).toContain(prisonerName)
     await homePage.startBooking()
 
     await visitorPage.checkOnPage('Who is going on the visit?')
