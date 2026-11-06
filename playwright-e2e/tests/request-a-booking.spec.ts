@@ -18,6 +18,7 @@ test.describe('Request a booking', () => {
     test('Booking is requested , not confirmed, if alerts apply to the prisoner.', async ({
         loginPage,
         homePage,
+        selectPrisonerPage,
         visitorPage,
         visitCalendarPage,
         additionalSupportPage,
@@ -31,6 +32,8 @@ test.describe('Request a booking', () => {
         const prisonerName: string = "Vsip_alert Do Not Use"
         await homePage.checkOnPage('Visits')
         await homePage.startBooking()
+        await selectPrisonerPage.checkOnPage('Who are you visiting?')
+        await selectPrisonerPage.continueToNextPage()
         await visitorPage.checkOnPage('Who is going on the visit?')
         await visitorPage.selectLastVisitor()
         await visitorPage.continueToNextPage()
@@ -72,6 +75,7 @@ test.describe('Request a booking', () => {
     test('Booking is requested , not confirmed, if restrictions apply to the prisoner.', async ({
         loginPage,
         homePage,
+        selectPrisonerPage,
         visitorPage,
         visitCalendarPage,
         additionalSupportPage,
@@ -85,6 +89,8 @@ test.describe('Request a booking', () => {
         const prisonerName: string = "Visp_restricted Do Not Use"
         await homePage.checkOnPage('Visits')
         await homePage.startBooking()
+        await selectPrisonerPage.checkOnPage('Who are you visiting?')
+        await selectPrisonerPage.continueToNextPage()
         await visitorPage.checkOnPage('Who is going on the visit?')
         await visitorPage.selectLastVisitor()
         await visitorPage.continueToNextPage()
@@ -127,6 +133,7 @@ test.describe('Request a booking', () => {
     test('Booking is requested , not confirmed, if restrictions apply to the visitor.', async ({
         loginPage,
         homePage,
+        selectPrisonerPage,
         visitorPage,
         visitCalendarPage,
         additionalSupportPage,
@@ -140,6 +147,8 @@ test.describe('Request a booking', () => {
         const prisonerName: string = "Vsip_visitor_restriction Do Not Change"
         await homePage.checkOnPage('Visits')
         await homePage.startBooking()
+        await selectPrisonerPage.checkOnPage('Who are you visiting?')
+        await selectPrisonerPage.continueToNextPage()
         await visitorPage.checkOnPage('Who is going on the visit?')
         await visitorPage.selectLastVisitor()
         await visitorPage.continueToNextPage()

@@ -24,6 +24,7 @@ test.describe('Create a booking and change the visit details', () => {
   })
 
   test('should be able to change visitors for the booking', async ({
+    selectPrisonerPage,
     visitorPage,
     visitCalendarPage,
     additionalSupportPage,
@@ -31,6 +32,8 @@ test.describe('Create a booking and change the visit details', () => {
     visitDetailsPage,
     contactDetailsPage
   }) => {
+    await selectPrisonerPage.checkOnPage('Who are you visiting?')
+    await selectPrisonerPage.continueToNextPage()
     await visitorPage.checkOnPage('Who is going on the visit?')
     await visitorPage.selectLastVisitor()
     const visitors = await visitorPage.getAllTheVisitorsNamesWithAge()
@@ -97,6 +100,7 @@ test.describe('Create a booking and change the visit details', () => {
   })
 
   test('should be able to change date and time for the booking', async ({
+    selectPrisonerPage,
     visitorPage,
     visitCalendarPage,
     additionalSupportPage,
@@ -104,6 +108,8 @@ test.describe('Create a booking and change the visit details', () => {
     visitDetailsPage,
     contactDetailsPage
   }) => {
+    await selectPrisonerPage.checkOnPage('Who are you visiting?')
+    await selectPrisonerPage.continueToNextPage()
     await visitorPage.checkOnPage('Who is going on the visit?')
     await visitorPage.selectVisitors(2)
     const visitors = await visitorPage.getAllTheVisitorsNamesWithAge()
@@ -171,6 +177,7 @@ test.describe('Create a booking and change the visit details', () => {
   })
 
   test('should be able to update additional support requests for the booking', async ({
+    selectPrisonerPage,
     visitorPage,
     visitCalendarPage,
     additionalSupportPage,
@@ -178,6 +185,8 @@ test.describe('Create a booking and change the visit details', () => {
     visitDetailsPage,
     contactDetailsPage
   }) => {
+    await selectPrisonerPage.checkOnPage('Who are you visiting?')
+    await selectPrisonerPage.continueToNextPage()
     await visitorPage.checkOnPage('Who is going on the visit?')
     await visitorPage.selectVisitors(2)
     const visitors = await visitorPage.getAllTheVisitorsNamesWithAge()
@@ -235,6 +244,7 @@ test.describe('Create a booking and change the visit details', () => {
   })
 
   test('should be able to update main contact details for the booking', async ({
+    selectPrisonerPage,
     visitorPage,
     visitCalendarPage,
     additionalSupportPage,
@@ -242,6 +252,8 @@ test.describe('Create a booking and change the visit details', () => {
     visitDetailsPage,
     contactDetailsPage
   }) => {
+    await selectPrisonerPage.checkOnPage('Who are you visiting?')
+    await selectPrisonerPage.continueToNextPage()
     await visitorPage.checkOnPage('Who is going on the visit?')
     await visitorPage.selectVisitors(2)
     const visitors = await visitorPage.getAllTheVisitorsNamesWithAge()

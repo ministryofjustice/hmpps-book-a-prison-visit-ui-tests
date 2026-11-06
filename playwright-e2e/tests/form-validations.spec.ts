@@ -21,8 +21,11 @@ test.describe('Form validation error messages', () => {
   })
 
   test('should display visitor restrictions error message when you select more than allowed visitors', async ({
+    selectPrisonerPage,
     visitorPage,
   }) => {
+    await selectPrisonerPage.checkOnPage('Who are you visiting?')
+    await selectPrisonerPage.continueToNextPage()
     await visitorPage.checkOnPage('Who is going on the visit?')
     await visitorPage.selectVisitors(4)
     await visitorPage.continueToNextPage()
@@ -32,7 +35,9 @@ test.describe('Form validation error messages', () => {
     expect(await visitorPage.getAlertErrorMessage()).toContain('Select no more than 3 visitors')
   })
 
-  test('should display no visitors selected error message', async ({ visitorPage }) => {
+  test('should display no visitors selected error message', async ({ selectPrisonerPage, visitorPage }) => {
+    await selectPrisonerPage.checkOnPage('Who are you visiting?')
+    await selectPrisonerPage.continueToNextPage()
     await visitorPage.checkOnPage('Who is going on the visit?')
     await visitorPage.continueToNextPage()
 
@@ -41,7 +46,9 @@ test.describe('Form validation error messages', () => {
     expect(await visitorPage.getAlertErrorMessage()).toContain('No visitors selected')
   })
 
-  test('should display add a visitor who is 18 years old or older error message', async ({ visitorPage }) => {
+  test('should display add a visitor who is 18 years old or older error message', async ({ selectPrisonerPage, visitorPage }) => {
+    await selectPrisonerPage.checkOnPage('Who are you visiting?')
+    await selectPrisonerPage.continueToNextPage()
     await visitorPage.checkOnPage('Who is going on the visit?')
     await visitorPage.selectVisitorUnder18()
     await visitorPage.continueToNextPage()
@@ -51,7 +58,9 @@ test.describe('Form validation error messages', () => {
     expect(await visitorPage.getAlertErrorMessage()).toContain('Add a visitor who is 18 years old or older')
   })
 
-  test('should display no visit time selected error message', async ({ visitorPage, visitCalendarPage }) => {
+  test('should display no visit time selected error message', async ({ selectPrisonerPage, visitorPage, visitCalendarPage }) => {
+    await selectPrisonerPage.checkOnPage('Who are you visiting?')
+    await selectPrisonerPage.continueToNextPage()
     await visitorPage.checkOnPage('Who is going on the visit?')
     await visitorPage.selectVisitors(2)
     await visitorPage.continueToNextPage()
@@ -64,10 +73,13 @@ test.describe('Form validation error messages', () => {
   })
 
   test('should display no answer selected error message on additional support page', async ({
+    selectPrisonerPage,
     visitorPage,
     visitCalendarPage,
     additionalSupportPage,
   }) => {
+    await selectPrisonerPage.checkOnPage('Who are you visiting?')
+    await selectPrisonerPage.continueToNextPage()
     await visitorPage.checkOnPage('Who is going on the visit?')
     await visitorPage.selectVisitors(2)
     await visitorPage.continueToNextPage()
@@ -88,10 +100,13 @@ test.describe('Form validation error messages', () => {
   })
 
   test('should display enter details of the request error message when provide additional details edit box is left blank', async ({
+    selectPrisonerPage,
     visitorPage,
     visitCalendarPage,
     additionalSupportPage,
   }) => {
+    await selectPrisonerPage.checkOnPage('Who are you visiting?')
+    await selectPrisonerPage.continueToNextPage()
     await visitorPage.checkOnPage('Who is going on the visit?')
     await visitorPage.selectVisitors(2)
     await visitorPage.continueToNextPage()
@@ -113,11 +128,14 @@ test.describe('Form validation error messages', () => {
   })
 
   test('should display main contact and phone number not selected error message on select main contact page', async ({
+    selectPrisonerPage,
     visitorPage,
     visitCalendarPage,
     additionalSupportPage,
     mainContactPage,
   }) => {
+    await selectPrisonerPage.checkOnPage('Who are you visiting?')
+    await selectPrisonerPage.continueToNextPage()
     await visitorPage.checkOnPage('Who is going on the visit?')
     await visitorPage.selectVisitors(2)
     await visitorPage.continueToNextPage()
