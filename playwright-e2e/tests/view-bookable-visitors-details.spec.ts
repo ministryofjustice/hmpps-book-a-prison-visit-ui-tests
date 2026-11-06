@@ -28,8 +28,10 @@ test.describe('Verify details of visitors a booker can book for', () => {
     })
 
     // Banned visitors(Uhoyneke Tevyon) are not displayed when selecting visitors who can visit
-    test("Banned visitors are not displayed when trying to book a visit", async ({ homePage, visitorPage }) => {
+    test("Banned visitors are not displayed when trying to book a visit", async ({ homePage, selectPrisonerPage, visitorPage }) => {
         await homePage.startBooking()
+        await selectPrisonerPage.checkOnPage('Who are you visiting?')
+        await selectPrisonerPage.continueToNextPage()
         await visitorPage.checkOnPage('Who is going on the visit?')
         await visitorPage.selectVisitors(4)
         const visitors = await visitorPage.getAllTheVisitorsNamesWithAge()

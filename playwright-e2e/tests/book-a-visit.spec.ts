@@ -23,6 +23,7 @@ test.describe('Create a booking via public ui', () => {
   })
 
   test('Book a visit - with 1 visitor and no additional support needed', async ({
+    selectPrisonerPage,
     visitorPage,
     visitCalendarPage,
     additionalSupportPage,
@@ -31,6 +32,9 @@ test.describe('Create a booking via public ui', () => {
     bookingConfirmationPage,
     contactDetailsPage
   }) => {
+    await selectPrisonerPage.checkOnPage('Who are you visiting?')
+    await selectPrisonerPage.continueToNextPage()
+
     await visitorPage.checkOnPage('Who is going on the visit?')
     await visitorPage.selectLastVisitor()
     const visitors = await visitorPage.getAllTheVisitorsNamesWithAge()
@@ -86,6 +90,7 @@ test.describe('Create a booking via public ui', () => {
   })
 
   test('Book a visit - with 3 visitors and additional support needed', async ({
+    selectPrisonerPage,
     visitorPage,
     visitCalendarPage,
     additionalSupportPage,
@@ -94,6 +99,9 @@ test.describe('Create a booking via public ui', () => {
     bookingConfirmationPage,
     contactDetailsPage
   }) => {
+    await selectPrisonerPage.checkOnPage('Who are you visiting?')
+    await selectPrisonerPage.continueToNextPage()
+
     await visitorPage.checkOnPage('Who is going on the visit?')
     await visitorPage.selectVisitors(3)
     const visitors = await visitorPage.getAllTheVisitorsNamesWithAge()
@@ -150,6 +158,7 @@ test.describe('Create a booking via public ui', () => {
   })
 
   test('Book a visit - with 2 visitors and someone else as a main contact', async ({
+    selectPrisonerPage,
     visitorPage,
     visitCalendarPage,
     additionalSupportPage,
@@ -158,6 +167,9 @@ test.describe('Create a booking via public ui', () => {
     bookingConfirmationPage,
     contactDetailsPage
   }) => {
+    await selectPrisonerPage.checkOnPage('Who are you visiting?')
+    await selectPrisonerPage.continueToNextPage()
+
     await visitorPage.checkOnPage('Who is going on the visit?')
     await visitorPage.selectVisitors(2)
     const visitors = await visitorPage.getAllTheVisitorsNamesWithAge()

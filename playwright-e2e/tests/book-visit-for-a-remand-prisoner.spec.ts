@@ -21,6 +21,7 @@ test.describe('Book a visit for remand prisoners', () => {
     })
     test('Should be able to book a visit for remand prisoner', async ({
         homePage,
+        selectPrisonerPage,
         visitorPage,
         visitCalendarPage,
         additionalSupportPage,
@@ -32,6 +33,8 @@ test.describe('Book a visit for remand prisoners', () => {
     }) => {
         test.slow()
         await homePage.startBooking()
+        await selectPrisonerPage.checkOnPage('Who are you visiting?')
+        await selectPrisonerPage.continueToNextPage()
         await visitorPage.checkOnPage('Who is going on the visit?')
         await visitorPage.selectLastVisitor()
         await visitorPage.continueToNextPage()

@@ -32,6 +32,7 @@ test.describe('Book a visit and verify on bookings page', () => {
 
   test('should display future visits on bookings page if there are any', async ({
     homePage,
+    selectPrisonerPage,
     visitorPage,
     visitCalendarPage,
     additionalSupportPage,
@@ -42,6 +43,8 @@ test.describe('Book a visit and verify on bookings page', () => {
     contactDetailsPage
   }) => {
     await homePage.startBooking()
+    await selectPrisonerPage.checkOnPage('Who are you visiting?')
+    await selectPrisonerPage.continueToNextPage()
     await visitorPage.checkOnPage('Who is going on the visit?')
     await visitorPage.selectLastVisitor()
     await visitorPage.continueToNextPage()
@@ -89,6 +92,7 @@ test.describe('Book a visit and verify on bookings page', () => {
 
   test('should take user to visit details page when user clicks on view visit details link', async ({
     homePage,
+    selectPrisonerPage,
     visitorPage,
     visitCalendarPage,
     additionalSupportPage,
@@ -100,6 +104,8 @@ test.describe('Book a visit and verify on bookings page', () => {
     contactDetailsPage
   }) => {
     await homePage.startBooking()
+    await selectPrisonerPage.checkOnPage('Who are you visiting?')
+    await selectPrisonerPage.continueToNextPage()
     await visitorPage.checkOnPage('Who is going on the visit?')
     await visitorPage.selectVisitors(3)
     const visitors = await visitorPage.getAllTheVisitorsNames()

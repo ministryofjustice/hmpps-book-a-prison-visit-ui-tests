@@ -3,6 +3,7 @@ import LoginPage from '../pages/LoginPage'
 import AdditionalSupportPage from '../pages/AdditionalSupportPage'
 import HomePage from '../pages/HomePage'
 import MainContactPage from '../pages/MainContactPage'
+import SelectPrisonerPage from '../pages/SelectPrisonerPage'
 import VisitorPage from '../pages/VisitorPage'
 import VisitsCalendarPage from '../pages/VisitsCalendarPage'
 import VisitDetailsPage from '../pages/VisitDetailsPage'
@@ -19,6 +20,7 @@ import VisitRequestedPage from '../pages/VisitRequestedPage'
 type PageFixtures = {
   loginPage: LoginPage
   homePage: HomePage
+  selectPrisonerPage: SelectPrisonerPage
   visitorPage: VisitorPage
   visitCalendarPage: VisitsCalendarPage
   additionalSupportPage: AdditionalSupportPage
@@ -42,6 +44,10 @@ const test = baseTest.extend<PageFixtures>({
 
   homePage: async ({ page }, use) => {
     await use(new HomePage(page))
+  },
+
+  selectPrisonerPage: async ({ page }, use) => {
+    await use(new SelectPrisonerPage(page))
   },
 
   visitorPage: async ({ page }, use) => {

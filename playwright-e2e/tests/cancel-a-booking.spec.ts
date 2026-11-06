@@ -22,6 +22,7 @@ test.describe('Create a booking via public ui', () => {
 
     test('Cancel a visit', async ({
         homePage,
+        selectPrisonerPage,
         visitorPage,
         visitCalendarPage,
         additionalSupportPage,
@@ -31,6 +32,8 @@ test.describe('Create a booking via public ui', () => {
         bookingsPage,
         contactDetailsPage
     }) => {
+        await selectPrisonerPage.checkOnPage('Who are you visiting?')
+        await selectPrisonerPage.continueToNextPage()
         await visitorPage.checkOnPage('Who is going on the visit?')
         await visitorPage.selectLastVisitor()
         const visitors = await visitorPage.getAllTheVisitorsNamesWithAge()
@@ -96,6 +99,7 @@ test.describe('Create a booking via public ui', () => {
 
     test('Select do not cancel a visit', async ({
         homePage,
+        selectPrisonerPage,
         visitorPage,
         visitCalendarPage,
         additionalSupportPage,
@@ -105,6 +109,8 @@ test.describe('Create a booking via public ui', () => {
         bookingsPage,
         contactDetailsPage
     }) => {
+        await selectPrisonerPage.checkOnPage('Who are you visiting?')
+        await selectPrisonerPage.continueToNextPage()
         await visitorPage.checkOnPage('Who is going on the visit?')
         await visitorPage.selectLastVisitor()
         const visitors = await visitorPage.getAllTheVisitorsNamesWithAge()

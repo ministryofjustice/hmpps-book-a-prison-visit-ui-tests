@@ -39,6 +39,7 @@ test.describe('Create a booking with capacity checks', () => {
   //Skipping this test as it is failing due to the issue with capacity update
   test.skip('Book a visit - capacity is 1, set time to -20 mins, block 2nd session with another booking and verify failed booking', async ({
     request,
+    selectPrisonerPage,
     visitorPage,
     visitCalendarPage,
     additionalSupportPage,
@@ -46,6 +47,8 @@ test.describe('Create a booking with capacity checks', () => {
     visitDetailsPage,
     contactDetailsPage
   }) => {
+    await selectPrisonerPage.checkOnPage('Who are you visiting?')
+    await selectPrisonerPage.continueToNextPage()
     await visitorPage.checkOnPage('Who is going on the visit?')
     await visitorPage.selectVisitors(3)
     await visitorPage.continueToNextPage()
@@ -132,6 +135,7 @@ test.describe('Create a booking with capacity checks', () => {
 
   test.skip('Book a visit - set capacity to 0 and verify failed booking', async ({
     request,
+    selectPrisonerPage,
     visitorPage,
     visitCalendarPage,
     additionalSupportPage,
@@ -139,6 +143,8 @@ test.describe('Create a booking with capacity checks', () => {
     visitDetailsPage,
     contactDetailsPage
   }) => {
+    await selectPrisonerPage.checkOnPage('Who are you visiting?')
+    await selectPrisonerPage.continueToNextPage()
     await visitorPage.checkOnPage('Who is going on the visit?')
     await visitorPage.selectVisitors(2)
     await visitorPage.continueToNextPage()
@@ -178,6 +184,7 @@ test.describe('Create a booking with capacity checks', () => {
 
   test('Book a visit - set capacity to 1 and update time to -20 mins then verify booking', async ({
     request,
+    selectPrisonerPage,
     visitorPage,
     visitCalendarPage,
     additionalSupportPage,
@@ -186,6 +193,8 @@ test.describe('Create a booking with capacity checks', () => {
     bookingConfirmationPage,
     contactDetailsPage
   }) => {
+    await selectPrisonerPage.checkOnPage('Who are you visiting?')
+    await selectPrisonerPage.continueToNextPage()
     await visitorPage.checkOnPage('Who is going on the visit?')
     await visitorPage.selectVisitors(3)
     await visitorPage.continueToNextPage()
@@ -234,6 +243,7 @@ test.describe('Create a booking with capacity checks', () => {
     request,
     loginPage,
     homePage,
+    selectPrisonerPage,
     visitorPage,
     visitCalendarPage,
     additionalSupportPage,
@@ -252,6 +262,9 @@ test.describe('Create a booking with capacity checks', () => {
     await homePage.checkOnPage('Visits')
 
     await homePage.startBooking()
+
+    await selectPrisonerPage.checkOnPage('Who are you visiting?')
+    await selectPrisonerPage.continueToNextPage()
 
     await visitorPage.checkOnPage('Who is going on the visit?')
     await visitorPage.selectFirstVisitor()
