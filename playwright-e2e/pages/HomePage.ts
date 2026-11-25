@@ -53,9 +53,13 @@ export default class HomePage extends BasePage {
   }
 
   async autoCompletePrisonName(prisonName: string): Promise<void> {
-    const prisonInput = this.page.locator('#prisonId')
+    // The combobox only exists once accessible-autocomplete has enhanced the <select>
+    const prisonInput = this.page.locator('input#prisonId[role="combobox"]')
     await prisonInput.fill(prisonName)
-    await prisonInput.press('Enter')
+
+    const option = this.page.locator('#prisonId__listbox').getByRole('option', { name: prisonName })
+    await option.waitFor({ state: 'visible' })
+    await option.click()
   }
   // Utility
   async setAuthCookiesInStorage(path: string): Promise<void> {
