@@ -52,10 +52,10 @@ export default class HomePage extends BasePage {
     await this.addPrisoner.click()
   }
 
-  async selectPrisonFromList(prisonName: string): Promise<void> {
-    const prisonRadio = this.page.locator(`input[type="radio"][name="prisonId"][value="${prisonName}"]`)
-    await prisonRadio.waitFor({ state: 'visible' }) // ensure it's in view
-    await prisonRadio.check()
+  async autoCompletePrisonName(prisonName: string): Promise<void> {
+    const prisonInput = this.page.locator('#prisonId')
+    await prisonInput.fill(prisonName)
+    await prisonInput.press('Enter')
   }
   // Utility
   async setAuthCookiesInStorage(path: string): Promise<void> {
