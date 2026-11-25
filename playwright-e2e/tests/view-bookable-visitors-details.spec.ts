@@ -19,8 +19,9 @@ test.describe('Verify details of visitors a booker can book for', () => {
 
     // Number of bookable visitors for this booker is 5 & one of them (Uhoyneke Tevyon) is banned.
     test("List all visitors associated with a booker", async ({ homePage, bookableVisitorsPage }) => {
-        await homePage.navigateToVisitorsPage()
-        const pageHeading = "Visitors"
+        await homePage.navigateToPrisonersPage()
+        const pageHeading = "Arkmanain Editha’s visitors"
+        await homePage.navigateToPrisonerVisitorsPage()
         const visitorPageHeading = await bookableVisitorsPage.getPageHeading()
         const visitorsCount = await bookableVisitorsPage.getVisitorsCount()
         expect(pageHeading).toBe(visitorPageHeading)
@@ -40,6 +41,7 @@ test.describe('Verify details of visitors a booker can book for', () => {
 
     test("Indicate which visitors have been banned", async ({ homePage, visitorPage }) => {
         await homePage.navigateTo('visitors')
+        await homePage.navigateToPrisonerVisitorsPage()
         await visitorPage.verifyVisitorDetails('Uhoyneke Tevyon', '23 October 1973', ' No, banned')
     }
     )

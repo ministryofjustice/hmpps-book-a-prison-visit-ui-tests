@@ -17,7 +17,7 @@ test.describe('Add prisoner to a booker', () => {
         await loginPage.signInWith(UserType.USER_WITH_NO_PRISONERS)
         expect(await homePage.checkOnPage('Visits'))
         await homePage.clickOnAddPrisoner()
-        await homePage.selectPrisonFromList('DHI')
+        await homePage.autoCompletePrisonName('Drake Hall')
         await homePage.continueToNextPage()
     })
 
@@ -46,7 +46,7 @@ test.describe('Add prisoner to a booker', () => {
         await prisonerDetailsPage.enterDob('04', '11', '1979')
         await prisonerDetailsPage.enterPrisonNum('G2484UX')
         await prisonerDetailsPage.clickConfirmAndSend()
-        await prisonerDetailsPage.checkOnPage('Prisoner added')
+        await prisonerDetailsPage.checkOnPage('Prisoner linked')
     })
 
     test.afterAll('Teardown test data', async ({ request }) => {

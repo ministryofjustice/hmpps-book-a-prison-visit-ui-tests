@@ -12,6 +12,7 @@ export abstract class BasePage {
   private readonly alertErrorMessage: Locator
   private readonly homePageLink: Locator
   private readonly bookingsPageLink: Locator
+  private readonly prisonersPageLink: Locator
   private readonly visitorsPageLink: Locator
   private readonly feedbackLink: Locator
   private readonly accessibilityStatementLink: Locator
@@ -31,7 +32,8 @@ export abstract class BasePage {
     this.alertErrorMessage = page.locator('div[role="alert"]')
     this.homePageLink = page.getByRole('link', { name: 'Home' })
     this.bookingsPageLink = page.locator('[class^=govuk-service-navigation] a:has-text("Visits")')
-    this.visitorsPageLink = page.locator('[class^=govuk-service-navigation] a:has-text("Visitors")')
+    this.prisonersPageLink = page.locator('[class^=govuk-service-navigation] a:has-text("Prisoners and visitors")')
+    this.visitorsPageLink = page.getByTestId('prisoner-visitors-link-0')
     this.feedbackLink = page.getByRole('link', { name: 'feedback' })
     this.accessibilityStatementLink = page.getByRole('link', { name: 'Accessibility' })
     this.privacyPolicyLink = page.getByRole('link', { name: 'Privacy' })
@@ -125,7 +127,11 @@ export abstract class BasePage {
     await this.termsAndConditionsLink.click()
   }
 
-  async navigateToVisitorsPage(): Promise<void> {
+  async navigateToPrisonersPage(): Promise<void> {
+    await this.prisonersPageLink.click()
+  }
+
+  async navigateToPrisonerVisitorsPage(): Promise<void> {
     await this.visitorsPageLink.click()
   }
 

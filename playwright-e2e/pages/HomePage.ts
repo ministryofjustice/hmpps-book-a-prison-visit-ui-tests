@@ -52,10 +52,14 @@ export default class HomePage extends BasePage {
     await this.addPrisoner.click()
   }
 
-  async selectPrisonFromList(prisonName: string): Promise<void> {
-    const prisonRadio = this.page.locator(`input[type="radio"][name="prisonId"][value="${prisonName}"]`)
-    await prisonRadio.waitFor({ state: 'visible' }) // ensure it's in view
-    await prisonRadio.check()
+  async autoCompletePrisonName(prisonName: string): Promise<void> {
+    // The combobox only exists once accessible-autocomplete has enhanced the <select>
+    const prisonInput = this.page.locator('input#prisonId[role="combobox"]')
+    await prisonInput.fill(prisonName)
+
+    const option = this.page.locator('#prisonId__listbox').getByRole('option', { name: prisonName })
+    await option.waitFor({ state: 'visible' })
+    await option.click()
   }
   // Utility
   async setAuthCookiesInStorage(path: string): Promise<void> {
